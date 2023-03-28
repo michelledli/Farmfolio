@@ -1,24 +1,48 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<head>
-    <meta charset="utf-8">
+<html>
+<head lang="en">
     <title>Livestock</title>
+    <link rel="stylesheet" type="text/css" href="farmstyle.css">
 </head>
 <body>
-
+<nav>
+    <ul>
+        <li><a class="dash-link" href="dashboard.html">Dashboard</a></li>
+        <li><a class="dash-link" href="news.html">News</a></li>
+        <li><a class="dash-link" href="addgoats.html">Add Goats</a></li> 
+        <li><a class="dash-link" href="familytree.html">Family Tree</a></li> 
+        <li><a class="dash-link" href="login.html">Log out</a></li> 
+    </ul>
+    <input type="text" placeholder="Search..">
+</nav>
 <div>
     <button>Edit</button>
     <h3>Name</h3>
     <img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat">
 </div>
 <table>
-    <p><b>Type:</b><p>
-    <p><b>Tag #:</b><p>
-    <p><b>Gender:</b><p>
-    <p><b>Date of Birth:</b><p>
-    <p><b>Status:</b><p>
-    <p><b>Vaccinations:</b><p>
-    <p><b>Pedigree:</b><p>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Tag #</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Status</th>
+            <th>Vaccinations</th>
+            <th>Pedigree</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td contenteditable="true">Goat</td>
+            <td contenteditable="true">12345</td>
+            <td contenteditable="true">Male</td>
+            <td contenteditable="true">01/01/2020</td>
+            <td contenteditable="true">Active</td>
+            <td contenteditable="true">Shot 1, Shot 2</td>
+            <td contenteditable="true">Mom: Daisy, Dad: Billy</td>
+        </tr>
+    </tbody>
 </table>
 </body>
 </html>

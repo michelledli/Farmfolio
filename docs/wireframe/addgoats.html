@@ -3,25 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="farmstyle.css">
   </head>
   <body>
     <nav>
       <ul>
-        <li><a href="livestock.html">Livestock</a></li>
-        <li><a href="login.html">Log out</a></li>
+        <li><a class="dash-link" href="livestock.html">Livestock</a></li>
+        <li><a class="dash-link" href="login.html">Log out</a></li>
       </ul>
       <input type="text" placeholder="Search.." />
     </nav>
-    <h2>Enter goat details</h2>
+    <div class="login-box">
+        <h2>Enter goat details</h2>
 
     <form>
-      <label>Goat name:</label><br />
-      <input /><br />
-      <label>Age:</label><br />
-      <input /><br />
-      <label>Gender:</label><br />
-      <input /><br />
-      <br /><input type="submit" value="Add goat" />
+      <label class="add-label">Goat name:</label>
+      <input class="add-input" /><br />
+      <label class="add-label">Age:</label>
+      <input class="add-input" /><br />
+      <label class="add-label">Gender:</label>
+      <input class="add-input" /><br />
+      <input class="login-button" type="submit" value="Add goat" />
     </form>
+    </div>
   </body>
 </html>

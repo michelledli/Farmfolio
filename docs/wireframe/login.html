@@ -1,24 +1,30 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 <head>
-  <meta charset="utf-8">
   <title>Login Page</title>
+  <link rel="stylesheet" type="text/css" href="farmstyle.css">
 </head>
 <body>
-  <div>
-    <div>
+  <div class="login-box">
+    <div class="login-header">
       <h1>Farmfolio Login</h1>
     </div>
     <form>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+      <label class="login-label" for="username">Username:</label>
+      <input class="login-input" type="text" id="username" name="username" required>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      
-      <input type="submit" value="Login">
+      <label class="login-label" for="password">Password:</label>
+      <input class="login-input" type="password" id="password" name="password" required>
+
+    <div class="forgot-password">
+      <a class="log-link" href="#">Forgot password?</a>
+    </div>
+
+    <form>
+      <button class="login-button" type="submit" formaction="dashboard.html">Login</button>
+   </form> 
+
     </form>
   </div>
 </body>
 </html>
-

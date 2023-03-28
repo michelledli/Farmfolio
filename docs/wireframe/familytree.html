@@ -3,15 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Family Tree</title>
+    <link rel="stylesheet" type="text/css" href="farmstyle.css">
 </head>
 <body>
+<nav>
+	<ul>
+        <li><a class="dash-link" href="livestock.html">Livestock</a></li>
+        <li><a class="dash-link" href="login.html">Log out</a></li>
+      </ul>
+    <input type="text" placeholder="Search.." />
+</nav>
 <h1>Family Tree</h1>
-<nav><input type="text" placeholder="Search.." /></nav>
-<img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat1">
-<p><b>Goat1</b></p>
-<img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat2">
-<p><b>Goat2</b></p>
-<img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat3">
-<p><b>Goat3</b></p>
+<div class="tree">
+	<ul>
+		<li>
+			<a href="#"><b>Goat1</b>
+                <img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat1">
+            </a>
+			<ul>
+				<li>
+					<a href="#"><b>Goat2</b>
+                        <img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat2">
+                    </a>
+				</li>
+				<li>
+					<a href="#"><b>Goat3</b>
+                        <img src="sawyer_goat_1.jpg" width="200" height="200" alt="Goat3">
+                    </a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
 </body>
 </html>

@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="farmstyle.css">
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="livestock.html">Livestock</a></li>
-            <li><a href="login.html">Log out</a></li>
+            <li><a class="dash-link" href="dashboard.html">Dashboard</a></li> 
+            <li><a class="dash-link" href="livestock.html">Livestock</a></li>
+            <li><a class="dash-link" href="login.html">Log out</a></li>
         </ul>
         <input type="text" placeholder="Search.." />
     </nav>
-    <h2>Create new profile</h2>
+    <div class="login-box">
+        <h2>Create new profile</h2>
 
     <form>
-        <label>Email:</label><br />
-        <input /><br />
-        <label>Password:</label><br />
-        <input /><br />
-        <label>Re-enter Password:</label><br />
-        <input /><br />
-        <br /><input type="submit" value="Register Account" />
+        <label class="add-label">Email:</label>
+        <input class="add-input" /><br />
+        <label class="add-label">Password:</label>
+        <input class="add-input" /><br />
+        <label class="add-label">Re-enter Password:</label>            
+        <input class="add-input" /><br />
+        <input class="login-button" type="submit" value="Register Account" />
     </form>
-
+    </div>
 </body>
 </html>
