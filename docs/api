@@ -1,0 +1,91 @@
+GET
+
+    /
+    /login
+    /profile
+    /user
+    /user/[id]
+    /dashboard
+    /admin
+    /entity
+    /entity/[id]
+    /entity/[id]/feature
+    /entity/[id]/feature/[key]
+    /entity/feature/[key] 
+    /feature
+    /feature/[key]
+    /search?key=[key]&entity=[id]
+
+POST
+
+    /user/[id]
+
+    /entity/[id]
+        {
+            id: 0,
+            features: [
+                {
+                    id: 10,
+                    key: "[key]",
+                    data: "[data]",
+                }
+                ...
+            ]
+        }
+
+    /entity/[id]/feature
+    /entity/[id]/feature/[key]
+    /entity/feature/[key]
+
+    /feature
+    /feature/[id]
+
+    /search?key=[key]&entity=[id]
+
+PUT
+
+    /user/[id]
+
+    /entity/[id]
+    /entity/[id]/feature
+    /entity/[id]/feature/[key]
+    /entity/feature/[key]
+
+    /feature
+    /feature/[id]
+
+    /search?key=[key]&entity=[id]
+
+PATCH
+
+    /user/[id]
+
+    /entity/[id]
+    /entity/[id]/feature
+    /entity/[id]/feature/[key]
+    /entity/feature/[key]
+
+    /feature
+    /feature/[id]
+
+    /search?key=[key]&entity=[id]
+
+DELETE
+
+    /user/[id]
+    
+    /entity/[id]
+    /entity/[id]/feature
+    /entity/[id]/feature/[key]
+    /entity/feature/[key]
+    
+    /feature
+    /feature/[id]
+    
+    /search?key=[key]&entity=[id]
+
+HEAD
+
+
+
+
