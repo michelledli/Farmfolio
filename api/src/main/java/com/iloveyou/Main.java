@@ -11,28 +11,97 @@ public class Main {
 
         Javalin mock = Javalin.create()
             .routes(() -> {
+                path("login", () -> {
+                    get(FrontController::getLogin);
+                });
+
+                path("profile", () -> {
+                    get(FrontController::getProfile);
+                });
+
+                path("user", () -> {
+                    get(FrontController::getUser);
+                    path("[id]", () -> {
+                        get(FrontController::getUserId);
+                        post(FrontController::postUserId);
+                        put(FrontController::postUserId);
+                        patch(FrontController::postUserId);
+                        delete(FrontController::deleteUserId);
+                    });
+                });
+
+                path("dashboard", () -> {
+                    get(FrontController::getDashboard);
+                });
+
+                path("admin", () -> {
+                    get(FrontController::getAdmin);
+                });
+
+
                 path("entity", () -> {
+                    get(FrontController::getEntity);
                     path("{id}", () -> {
-                        get(ctx -> ctx.json(
-                                Mock.entity(ctx.pathParam("id"))));
+                        get(FrontController::getEntityId);
+                        post(FrontController::postEntityId);
+                        put(FrontController::putEntityId);
+                        patch(FrontController::patchEntityId);
+                        delete(FrontController::deleteEntityId);
                         path("feature", () -> {
-                            get(ctx -> ctx.json(
-                                    Mock.entityFeature(ctx.pathParam("id"))));
+                            get(FrontController::getEntityIdFeature);
+                            post(FrontController::postEntityIdFeature);
+                            put(FrontController::putEntityIdFeature);
+                            patch(FrontController::patchEntityIdFeature);
+                            delete(FrontController::deleteEntityIdFeature);
                             path("{key}", () -> {
-                                get(ctx -> ctx.json(
-                                        Mock.entityFeature(ctx.pathParam("id"), ctx.pathParam("key"))));
+                                get(FrontController::getEntityIdFeatureKey);
+                                post(FrontController::postEntityIdFeatureKey);
+                                put(FrontController::putEntityIdFeatureKey);
+                                patch(FrontController::patchEntityIdFeatureKey);
+                                delete(FrontController::deleteEntityIdFeatureKey);
+
+                            });
+                        });
+                    });
+                    path("feature", () -> {
+                        path("{key}", () -> {
+                            get(FrontController::getEntityFeatureKey);
+                            post(FrontController::postEntityFeatureKey);
+                            put(FrontController::putEntityFeatureKey);
+                            patch(FrontController::patchEntityFeatureKey);
+                            delete(FrontController::deleteEntityFeatureKey);
+                        });
+                    });
+                });
+
+                path("feature", () -> {
+                   get(FrontController::getFeature);
+                   post(FrontController::postFeature);
+                   put(FrontController::putFeature);
+                   patch(FrontController::patchFeature);
+                   delete(FrontController::deleteFeature);
+                    path("{key}", () -> {
+                        get(FrontController::getFeatureKey);
+                        post(FrontController::postFeatureKey);
+                        put(FrontController::putFeatureKey);
+                        patch(FrontController::patchFeatureKey);
+                        delete(FrontController::deleteFeatureKey);
+                    });
+                });
+
+                path("search", () -> {
+                    path("{key}", () -> {
+                        path("entity", () -> {
+                            path("{id}", () -> {
+                                get(FrontController::getSearchKeyEntityId);
+                                post(FrontController::postSearchKeyEntityId);
+                                put(FrontController::putSearchKeyEntityId);
+                                patch(FrontController::patchSearchKeyEntityId);
+                                delete(FrontController::deleteSearchKeyEntityId);
                             });
                         });
                     });
                 });
-                path("feature", () -> {
-                    path("{id}", () -> {
-                        get(ctx -> ctx.json(
-                            Mock.feature(ctx.pathParam("id"))
-                        ));
-                    });
-                });
-            })
-            .start(3001);
+            }).start(3001);
     }
 }
