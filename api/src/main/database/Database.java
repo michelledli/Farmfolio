@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -5,7 +9,11 @@ import java.util.Properties;
  * @author Michelle Li
  */
 public class Database {
-    private Jdbi jdbi;
+    static final String JDBC_DRIVER = "org.h2.Driver";
+    static final String DB_URL = "jdbc:h2:mem:farmfolio";
+    private Connection connection = null; 
+    private Statement statement = null; 
+    
     private String createSchema = "CREATE SCHEMA farmfolio";
     private String createEntity = "CREATE TABLE ENTITY" + 
                                 "(ID INT NOT NULL," +
@@ -29,29 +37,59 @@ public class Database {
                                         "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID)" + 
                                         "FOREIGN KEY (FEATURE_ID) REFERENCES FEATURE(ID)" + 
                                         "FOREIGN KEY (FEATURE_TYPE_ID) REFERENCES FEATURE_TYPE(ID))";
-    private string dropTablesSql;
+    private String dropTablesSql;
 
     /**
-     * Constructor which creates the object, wrapping the functionality of java.sql.Driver.connect()
+     * Constructor which creates the Database object, wrapping the functionality of java.sql.Driver.connect()
      * @param connectionUrl
-     * @param properties
      */
-    Database(String connectionUrl, Properties properties) {
-        this.jdbi = Jdbi.create("jdbc:h2:mem:test");
+    Database(String connectionUrl) {
+        try {
+        Class.forName(JDBC_DRIVER);
+        System.out.println("Connecting to database..."); 
+        this.connection = DriverManager.getConnection(connectionUrl);
+        this.statement = connection.createStatement();
+        } catch (Exception e) {
+            System.err.println("Failed to connect to database.\nError: "+e.getMessage());
+        }
+        System.out.println("Connection successful...");
+    }
+
+    /**
+     * Default constructor for the Database object. Creates a database instance using a default in memory database url.
+     */
+    Database() {
+        try {
+            Class.forName(JDBC_DRIVER);
+            System.out.println("Connecting to local database..."); 
+            this.connection = DriverManager.getConnection(DB_URL);
+            this.statement = connection.createStatement();
+            } catch (Exception e) {
+                System.err.println("Failed to connect to local database.\nError: "+e.getMessage());
+            }
+            System.out.println("Connection successful...");
+    }
+
+    /**
+     * Simple method to check if the Database has been connected to.
+     * @return
+     */
+    boolean isConnected() {
+        return (this.connection != null) ? true : false;
     }
 
     /**
      * Perform an arbitrary query upon the given database
      * @param query
      */
-    void performQuery(String query) {
-
+    void performQuery(String query) throws SQLException {
+        this.statement.executeQuery(query);
     }
 
     /**
      * Drop all tables from H2 and create the schema defined below
      */
     void resetDatabase() {
-
+        // TODO
     }
 }
