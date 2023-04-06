@@ -3,12 +3,15 @@ package com.iloveyou;
 import io.javalin.Javalin;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
+import com.iloveyou.domain.persistence.Database;
+
 public class Main {
     public static void main(String[] args) {
-        Javalin app = Javalin.create(/*config*/)
-            .get("/", ctx -> ctx.result("Hello World"))
-            .start(7070);
+    //     Javalin app = Javalin.create(/*config*/)
+    //         .get("/", ctx -> ctx.result("Hello World"))
+    //         .start(7070);
 
+<<<<<<< HEAD
         Javalin mock = Javalin.create()
             .routes(() -> {
                 path("login", () -> {
