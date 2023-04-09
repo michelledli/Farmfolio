@@ -1,8 +1,7 @@
 package com.iloveyou.responder;
 
-public abstract class Responder<T> {
-    // TODO: implement
-    public String response(T t) {
-        return "";
-    }
+import io.javalin.http.Context;
+
+public interface Responder<T> {
+    public void response(Context context, T t);
 }

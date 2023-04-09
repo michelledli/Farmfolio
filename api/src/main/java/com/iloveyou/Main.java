@@ -1,21 +1,40 @@
 package com.iloveyou;
 
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 import static io.javalin.apibuilder.ApiBuilder.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+
+import com.iloveyou.action.SignupAction;
+import com.iloveyou.action.AuthorizeAction;
+import com.iloveyou.action.LoginAction;
+import com.iloveyou.responder.AuthenticationResponder;
+import com.iloveyou.domain.service.UserService;
+import com.iloveyou.domain.persistence.UserDAO;
 
 import com.iloveyou.domain.persistence.Database;
 
 public class Main {
     public static void main(String[] args) {
-    //     Javalin app = Javalin.create(/*config*/)
-    //         .get("/", ctx -> ctx.result("Hello World"))
-    //         .start(7070);
-
-<<<<<<< HEAD
-        Javalin mock = Javalin.create()
+        Javalin app = Javalin.create()
             .routes(() -> {
+                path("authorize", () -> {
+                    before(FrontController::getAuthorize);
+                    path("test", () -> {
+                        get((Context ctx) -> { ctx.result("AUTHORIZED"); });
+                    });
+                });
+
                 path("login", () -> {
                     get(FrontController::getLogin);
+                    post(FrontController::postLogin);
+                });
+
+                path("signup", () -> {
+                    post(FrontController::postSignup);
                 });
 
                 path("profile", () -> {
@@ -78,11 +97,11 @@ public class Main {
                 });
 
                 path("feature", () -> {
-                   get(FrontController::getFeature);
-                   post(FrontController::postFeature);
-                   put(FrontController::putFeature);
-                   patch(FrontController::patchFeature);
-                   delete(FrontController::deleteFeature);
+                    get(FrontController::getFeature);
+                    post(FrontController::postFeature);
+                    put(FrontController::putFeature);
+                    patch(FrontController::patchFeature);
+                    delete(FrontController::deleteFeature);
                     path("{key}", () -> {
                         get(FrontController::getFeatureKey);
                         post(FrontController::postFeatureKey);
@@ -96,15 +115,15 @@ public class Main {
                     path("{key}", () -> {
                         path("entity", () -> {
                             path("{id}", () -> {
-                                get(FrontController::getSearchKeyEntityId);
-                                post(FrontController::postSearchKeyEntityId);
-                                put(FrontController::putSearchKeyEntityId);
-                                patch(FrontController::patchSearchKeyEntityId);
-                                delete(FrontController::deleteSearchKeyEntityId);
+                                get(FrontController::getSearch);
+                                post(FrontController::postSearch);
+                                put(FrontController::putSearch);
+                                patch(FrontController::patchSearch);
+                                delete(FrontController::deleteSearch);
                             });
                         });
                     });
                 });
-            }).start(3001);
+            }).start(7000);
     }
 }
