@@ -1,79 +1,110 @@
 package com.iloveyou;
+
 import io.javalin.http.Context;
 
+import com.iloveyou.action.SignupAction;
+import com.iloveyou.action.AuthorizeAction;
+import com.iloveyou.action.LoginAction;
+import com.iloveyou.responder.AuthenticationResponder;
+import com.iloveyou.domain.service.UserService;
+import com.iloveyou.domain.persistence.UserDAO;
+import com.iloveyou.domain.persistence.Database;
 
 class FrontController {
-    public static void getRoot(Context ctx) {}
 
-    public static void getLogin(Context ctx) {}
-    public static void postLogin(Context ctx) {}
+    Database database;
 
-    public static void getSignup(Context ctx) {}
-    public static void postSignup(Context ctx) {}
+    UserDAO userDao;
+    UserService userService;
 
-    public static void getProfile(Context ctx) {}
+    AuthenticationResponder authenticationResponder;
+    
+    SignupAction signupAction;
+    AuthorizeAction authorizeAction;
+    LoginAction loginAction;
+    
+    public FrontController(Database database) {
+        userDao = new UserDAO();
+        userService = new UserService(userDao);
 
-    public static void getUser(Context ctx) {}
+        authenticationResponder = new AuthenticationResponder();
+        
+        signupAction = new SignupAction(userService, authenticationResponder);
+        authorizeAction = new AuthorizeAction(userService);
+        loginAction = new LoginAction(userService, authenticationResponder);
+    }
 
-    public static void getUserId(Context ctx) {}
-    public static void postUserId(Context ctx) {}
-    public static void putUserId(Context ctx) {}
-    public static void patchUserId(Context ctx) {}
-    public static void deleteUserId(Context ctx) {}
+    public void getRoot(Context ctx) {}
 
-    public static void getDashboard(Context ctx) {}
+    public void getLogin(Context ctx) {}
+    public void postLogin(Context ctx) { loginAction.invoke(ctx); }
 
-    public static void getAdmin(Context ctx) {}
+    public void getSignup(Context ctx) {}
+    public void postSignup(Context ctx) { signupAction.invoke(ctx); }
 
-    public static void getAuthorize(Context ctx) {}
+    public void getProfile(Context ctx) {}
 
-    public static void getEntity(Context ctx) {}
-    public static void postEntity(Context ctx) {}
+    public void getUser(Context ctx) {}
 
-    public static void getEntityId(Context ctx) {}
-    public static void postEntityId(Context ctx) {}
-    public static void putEntityId(Context ctx) {}
-    public static void patchEntityId(Context ctx) {}
-    public static void deleteEntityId(Context ctx) {}
+    public void getUserId(Context ctx) {}
+    public void postUserId(Context ctx) {}
+    public void putUserId(Context ctx) {}
+    public void patchUserId(Context ctx) {}
+    public void deleteUserId(Context ctx) {}
 
-    public static void getEntityIdFeature(Context ctx) {}
-    public static void postEntityIdFeature(Context ctx) {}
-    public static void putEntityIdFeature(Context ctx) {}
-    public static void patchEntityIdFeature(Context ctx) {}
-    public static void deleteEntityIdFeature(Context ctx) {}
+    public void getDashboard(Context ctx) {}
 
-    public static void getEntityIdFeatureKey(Context ctx) {}
-    public static void postEntityIdFeatureKey(Context ctx) {}
-    public static void putEntityIdFeatureKey(Context ctx) {}
-    public static void patchEntityIdFeatureKey(Context ctx) {}
-    public static void deleteEntityIdFeatureKey(Context ctx) {}
+    public void getAdmin(Context ctx) {}
 
-    public static void getEntityFeatureKey(Context ctx) {}
-    public static void postEntityFeatureKey(Context ctx) {}
-    public static void putEntityFeatureKey(Context ctx) {}
-    public static void patchEntityFeatureKey(Context ctx) {}
-    public static void deleteEntityFeatureKey(Context ctx) {}
+    public void getAuthorize(Context ctx) { authorizeAction.invoke(ctx); }
 
-    public static void getFeature(Context ctx) {}
-    public static void postFeature(Context ctx) {}
-    public static void putFeature(Context ctx) {}
-    public static void patchFeature(Context ctx) {}
-    public static void deleteFeature(Context ctx) {}
+    public void getEntity(Context ctx) {}
+    public void postEntity(Context ctx) {}
 
-    public static void postFeatureId(Context ctx) {}
-    public static void putFeatureId(Context ctx) {}
-    public static void patchFeatureId(Context ctx) {}
-    public static void deleteFeatureId(Context ctx) {}
+    public void getEntityId(Context ctx) {}
+    public void postEntityId(Context ctx) {}
+    public void putEntityId(Context ctx) {}
+    public void patchEntityId(Context ctx) {}
+    public void deleteEntityId(Context ctx) {}
 
-    public static void getFeatureKey(Context ctx) {}
-    public static void postFeatureKey(Context ctx) {}
-    public static void putFeatureKey(Context ctx) {}
-    public static void patchFeatureKey(Context ctx) {}
-    public static void deleteFeatureKey(Context ctx) {}
+    public void getEntityIdFeature(Context ctx) {}
+    public void postEntityIdFeature(Context ctx) {}
+    public void putEntityIdFeature(Context ctx) {}
+    public void patchEntityIdFeature(Context ctx) {}
+    public void deleteEntityIdFeature(Context ctx) {}
 
-    public static void getSearch(Context ctx) {}
-    public static void postSearch(Context ctx) {}
-    public static void putSearch(Context ctx) {}
-    public static void patchSearch(Context ctx) {}
-    public static void deleteSearch(Context ctx) {}
+    public void getEntityIdFeatureKey(Context ctx) {}
+    public void postEntityIdFeatureKey(Context ctx) {}
+    public void putEntityIdFeatureKey(Context ctx) {}
+    public void patchEntityIdFeatureKey(Context ctx) {}
+    public void deleteEntityIdFeatureKey(Context ctx) {}
+
+    public void getEntityFeatureKey(Context ctx) {}
+    public void postEntityFeatureKey(Context ctx) {}
+    public void putEntityFeatureKey(Context ctx) {}
+    public void patchEntityFeatureKey(Context ctx) {}
+    public void deleteEntityFeatureKey(Context ctx) {}
+
+    public void getFeature(Context ctx) {}
+    public void postFeature(Context ctx) {}
+    public void putFeature(Context ctx) {}
+    public void patchFeature(Context ctx) {}
+    public void deleteFeature(Context ctx) {}
+
+    public void postFeatureId(Context ctx) {}
+    public void putFeatureId(Context ctx) {}
+    public void patchFeatureId(Context ctx) {}
+    public void deleteFeatureId(Context ctx) {}
+
+    public void getFeatureKey(Context ctx) {}
+    public void postFeatureKey(Context ctx) {}
+    public void putFeatureKey(Context ctx) {}
+    public void patchFeatureKey(Context ctx) {}
+    public void deleteFeatureKey(Context ctx) {}
+
+    public void getSearch(Context ctx) {}
+    public void postSearch(Context ctx) {}
+    public void putSearch(Context ctx) {}
+    public void patchSearch(Context ctx) {}
+    public void deleteSearch(Context ctx) {}
 }

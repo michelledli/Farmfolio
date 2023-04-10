@@ -64,7 +64,7 @@ public class UserService {
     }
 
     
-    public void authorize(String token, UUID id) {
+    public boolean authorize(String token, UUID id) {
         boolean isAuthorized = false;
 
         if (token == null){
@@ -79,12 +79,8 @@ public class UserService {
                                  .getBody()
                                  .getSubject();
             isAuthorized = subject.equalsIgnoreCase(id.toString());
-        } catch (Exception ex){
-            throw new ForbiddenResponse();
-        }
+        } catch (Exception ex) {}
 
-        if (!isAuthorized){
-            throw new ForbiddenResponse();
-        }
+        return isAuthorized;
     }
 }

@@ -64,7 +64,7 @@
     <dependency>
       <groupId>io.javalin</groupId>
       <artifactId>javalin</artifactId>
-      <version>5.2.0</version>
+      <version>5.4.2</version>
     </dependency>
     <dependency>
       <groupId>com.j2html</groupId>
@@ -123,6 +123,16 @@
       <artifactId>jjwt-jackson</artifactId>
       <version>0.11.5</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.jdbi</groupId>
+        <artifactId>jdbi3-core</artifactId>
+        <version>3.38.0-rc1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-sqlobject</artifactId>
+      <version>3.38.0-rc1</version>
     </dependency>
   </dependencies>
 </project>

@@ -6,96 +6,85 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.Batch;
+
 /**
  * @author Niketa K.
  * @author Michelle Li
  */
 public class Database {
+    private Jdbi jdbi;
+
     static final String JDBC_DRIVER = "org.h2.Driver";
-    static final String DB_URL = "jdbc:h2:file:./resources/db";
+    public static final String DB_URL = "jdbc:h2:file:./resources/db";
     private Connection connection = null; 
     private Statement statement = null; 
     
-    public static String CREATE_SCHEMA = "CREATE SCHEMA farmfolio";
+    public static final String CREATE_SCHEMA = "CREATE SCHEMA FARMFOLIO";
     
-    public static String CREATE_ = "CREATE TABLE ENTITY" + 
+    public static final String CREATE_ENTITY = "CREATE TABLE FARMFOLIO.ENTITY " + 
                                 "(ID INT NOT NULL," +
-                                "PRIMARY KEY (`ID`))";
+                                "PRIMARY KEY (ID))";
     
-    public static String createFeature = "CREATE TABLE FEATURE" +  
-                                "(ID INT NOT NULL AUTO_INCREMENT," + 
-                                "FEATURE_KEY VARCHAR(45) NOT NULL," + 
-                                "PRIMARY KEY (ID)," + 
-                                "UNIQUE INDEX FEATURE_KEY_UNIQUE (FEATURE_KEY ASC) VISIBLE," + 
-                                "UNIQUE INDEX FEATURE_LABEL_UNIQUE (FEATURE_LABEL ASC) VISIBLE)";
+    public static final String CREATE_FEATURE = "CREATE TABLE FARMFOLIO.FEATURE " +  
+                                "(ID INT NOT NULL AUTO_INCREMENT, " + 
+                                "FEATURE_KEY VARCHAR(64) NOT NULL, " + 
+                                "FEATURE_LABEL VARCHAR(64) NOT NULL, " +
+                                "PRIMARY KEY (ID));" + 
+                                "CREATE UNIQUE INDEX FEATURE_KEY_UNIQUE ON FARMFOLIO.FEATURE (FEATURE_KEY ASC);" + 
+                                "CREATE UNIQUE INDEX FEATURE_LABEL_UNIQUE ON FARMFOLIO.FEATURE (FEATURE_LABEL ASC);";
 
-    public static String createFeature_Type = "CREATE TABLE FEATURE_TYPE" + 
-                                        "(ID INT NOT NULL AUTO_INCREMENT," + 
-                                        "TYPE VARCHAR(45) NOT NULL," + 
+    public static final String CREATE_FEATURE_TYPE = "CREATE TABLE FARMFOLIO.FEATURE_TYPE " + 
+                                        "(ID INT NOT NULL AUTO_INCREMENT, " + 
+                                        "TYPE VARCHAR(45) NOT NULL, " + 
                                         "PRIMARY KEY (ID))";
 
-    public static String createEntity_Feature = "CREATE TABLE ENTITY_FEATURE" +
-                                        "ENTITY_ID INT NOT NULL," +
-                                        "FEATURE_ID VARCHAR(45) NOT NULL," + 
-                                        "FEATURE_TYPE_ID VARCHAR(45) NOT NULL" + 
-                                        "DATA VARCHAR(45) NOT NULL," + 
-                                        "PRIMARY KEY (ID)" + 
-                                        "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID)" + 
-                                        "FOREIGN KEY (FEATURE_ID) REFERENCES FEATURE(ID)" + 
+    public static final String CREATE_ENTITY_FEATURE = "CREATE TABLE FARMFOLIO.ENTITY_FEATURE " +
+                                        "(ID INT NOT NULL AUTO_INCREMENT, " +
+                                        "ENTITY_ID INT NOT NULL, " +
+                                        "FEATURE_ID VARCHAR(45) NOT NULL, " + 
+                                        "FEATURE_TYPE_ID VARCHAR(45) NOT NULL, " + 
+                                        "DATA VARCHAR(45) NOT NULL, " + 
+                                        "PRIMARY KEY (ID), " + 
+                                        "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID), " + 
+                                        "FOREIGN KEY (FEATURE_ID) REFERENCES FEATURE(ID), " + 
                                         "FOREIGN KEY (FEATURE_TYPE_ID) REFERENCES FEATURE_TYPE(ID))";
-    public static String dropTablesSql = "";
+
+    public static final String dropTablesSql = "DROP SCHEMA FARMFOLIO CASCADE";
+
+    private Database() {}
 
     /**
      * Constructor which creates the Database object, wrapping the functionality of java.sql.Driver.connect()
      * @param connectionUrl
      */
-    public Database(String connectionUrl) {
-        try {
-        Class.forName(JDBC_DRIVER);
-        System.out.println("Connecting to database..."); 
-        this.connection = DriverManager.getConnection(connectionUrl);
-        this.statement = connection.createStatement();
-        } catch (Exception e) {
-            System.err.println("Failed to connect to database.\nError: "+e.getMessage());
-        }
-        System.out.println("Connection successful...");
-    }
-
-    /**
-     * Default constructor for the Database object. Creates a database instance using a default in memory database url.
-     */
-    public Database() {
-        try {
-            Class.forName(JDBC_DRIVER);
-            System.out.println("Connecting to local database..."); 
-            this.connection = DriverManager.getConnection(DB_URL);
-            this.statement = connection.createStatement();
-            } catch (Exception e) {
-                System.err.println("Failed to connect to local database.\nError: "+e.getMessage());
-            }
-            System.out.println("Connection successful...");
-    }
-
-    /**
-     * Simple method to check if the Database has been connected to.
-     * @return
-     */
-    public boolean isConnected() {
-        return (this.connection != null) ? true : false;
+    public Database(String url) {
+        jdbi = Jdbi.create(url);
     }
 
     /**
      * Perform an arbitrary query upon the given database
      * @param query
      */
-    public void performQuery(String query) throws SQLException {
-        this.statement.executeQuery(query);
+    public void performQuery(String statement) {
+        this.jdbi.withHandle((Handle handle) -> { return handle.execute(statement); });
     }
 
     /**
      * Drop all tables from H2 and create the schema defined below
      */
     public void resetDatabase() {
-        // TODO
+        jdbi.withHandle((Handle handle) -> {
+            handle.execute(dropTablesSql);            
+            handle.execute(CREATE_SCHEMA);
+            handle.execute(CREATE_ENTITY);
+            handle.execute(CREATE_FEATURE); 
+            handle.execute(CREATE_FEATURE_TYPE);
+            handle.execute(CREATE_ENTITY_FEATURE);
+
+            return null;
+        });
     }
 }

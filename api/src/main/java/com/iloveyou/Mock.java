@@ -83,23 +83,22 @@ public class Mock {
             .routes(() -> {
                 path("entity", () -> {
                     path("{id}", () -> {
-                        get(ctx -> ctx.json(
-                                Mock.entity(ctx.pathParam("id"))));
+                        get(ctx -> ctx.json(Mock.entity(ctx.pathParam("id"))));
+                        post(ctx -> ctx.json(Mock.entity(ctx.pathParam("id"))));
                         path("feature", () -> {
-                            get(ctx -> ctx.json(
-                                    Mock.entityFeature(ctx.pathParam("id"))));
+                            get(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"))));
+                            post(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"))));
                             path("{key}", () -> {
-                                get(ctx -> ctx.json(
-                                        Mock.entityFeature(ctx.pathParam("id"), ctx.pathParam("key"))));
+                                get(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"), ctx.pathParam("key"))));
+                                post(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"), ctx.pathParam("key"))));
                             });
                         });
                     });
                 });
                 path("feature", () -> {
                     path("{id}", () -> {
-                        get(ctx -> ctx.json(
-                            Mock.feature(ctx.pathParam("id"))
-                        ));
+                        get(ctx -> ctx.json(Mock.feature(ctx.pathParam("id"))));
+                        post(ctx -> ctx.json(Mock.feature(ctx.pathParam("id"))));
                     });
                 });
             })

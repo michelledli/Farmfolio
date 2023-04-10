@@ -3,111 +3,105 @@ package com.iloveyou;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import static io.javalin.apibuilder.ApiBuilder.*;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import java.security.Key;
-
-import com.iloveyou.action.SignupAction;
-import com.iloveyou.action.AuthorizeAction;
-import com.iloveyou.action.LoginAction;
-import com.iloveyou.responder.AuthenticationResponder;
-import com.iloveyou.domain.service.UserService;
-import com.iloveyou.domain.persistence.UserDAO;
-
 import com.iloveyou.domain.persistence.Database;
 
 public class Main {
     public static void main(String[] args) {
+        
+        Database database = new Database(Database.DB_URL);
+        database.resetDatabase();
+
+        FrontController frontController = new FrontController(database);
+
         Javalin app = Javalin.create()
             .routes(() -> {
                 path("authorize", () -> {
-                    before(FrontController::getAuthorize);
+                    before(frontController::getAuthorize);
                     path("test", () -> {
                         get((Context ctx) -> { ctx.result("AUTHORIZED"); });
                     });
                 });
 
                 path("login", () -> {
-                    get(FrontController::getLogin);
-                    post(FrontController::postLogin);
+                    get(frontController::getLogin);
+                    post(frontController::postLogin);
                 });
 
                 path("signup", () -> {
-                    post(FrontController::postSignup);
+                    post(frontController::postSignup);
                 });
 
                 path("profile", () -> {
-                    get(FrontController::getProfile);
+                    get(frontController::getProfile);
                 });
 
                 path("user", () -> {
-                    get(FrontController::getUser);
+                    get(frontController::getUser);
                     path("[id]", () -> {
-                        get(FrontController::getUserId);
-                        post(FrontController::postUserId);
-                        put(FrontController::postUserId);
-                        patch(FrontController::postUserId);
-                        delete(FrontController::deleteUserId);
+                        get(frontController::getUserId);
+                        post(frontController::postUserId);
+                        put(frontController::postUserId);
+                        patch(frontController::postUserId);
+                        delete(frontController::deleteUserId);
                     });
                 });
 
                 path("dashboard", () -> {
-                    get(FrontController::getDashboard);
+                    get(frontController::getDashboard);
                 });
 
                 path("admin", () -> {
-                    get(FrontController::getAdmin);
+                    get(frontController::getAdmin);
                 });
 
 
                 path("entity", () -> {
-                    get(FrontController::getEntity);
+                    get(frontController::getEntity);
                     path("{id}", () -> {
-                        get(FrontController::getEntityId);
-                        post(FrontController::postEntityId);
-                        put(FrontController::putEntityId);
-                        patch(FrontController::patchEntityId);
-                        delete(FrontController::deleteEntityId);
+                        get(frontController::getEntityId);
+                        post(frontController::postEntityId);
+                        put(frontController::putEntityId);
+                        patch(frontController::patchEntityId);
+                        delete(frontController::deleteEntityId);
                         path("feature", () -> {
-                            get(FrontController::getEntityIdFeature);
-                            post(FrontController::postEntityIdFeature);
-                            put(FrontController::putEntityIdFeature);
-                            patch(FrontController::patchEntityIdFeature);
-                            delete(FrontController::deleteEntityIdFeature);
+                            get(frontController::getEntityIdFeature);
+                            post(frontController::postEntityIdFeature);
+                            put(frontController::putEntityIdFeature);
+                            patch(frontController::patchEntityIdFeature);
+                            delete(frontController::deleteEntityIdFeature);
                             path("{key}", () -> {
-                                get(FrontController::getEntityIdFeatureKey);
-                                post(FrontController::postEntityIdFeatureKey);
-                                put(FrontController::putEntityIdFeatureKey);
-                                patch(FrontController::patchEntityIdFeatureKey);
-                                delete(FrontController::deleteEntityIdFeatureKey);
+                                get(frontController::getEntityIdFeatureKey);
+                                post(frontController::postEntityIdFeatureKey);
+                                put(frontController::putEntityIdFeatureKey);
+                                patch(frontController::patchEntityIdFeatureKey);
+                                delete(frontController::deleteEntityIdFeatureKey);
 
                             });
                         });
                     });
                     path("feature", () -> {
                         path("{key}", () -> {
-                            get(FrontController::getEntityFeatureKey);
-                            post(FrontController::postEntityFeatureKey);
-                            put(FrontController::putEntityFeatureKey);
-                            patch(FrontController::patchEntityFeatureKey);
-                            delete(FrontController::deleteEntityFeatureKey);
+                            get(frontController::getEntityFeatureKey);
+                            post(frontController::postEntityFeatureKey);
+                            put(frontController::putEntityFeatureKey);
+                            patch(frontController::patchEntityFeatureKey);
+                            delete(frontController::deleteEntityFeatureKey);
                         });
                     });
                 });
 
                 path("feature", () -> {
-                    get(FrontController::getFeature);
-                    post(FrontController::postFeature);
-                    put(FrontController::putFeature);
-                    patch(FrontController::patchFeature);
-                    delete(FrontController::deleteFeature);
+                    get(frontController::getFeature);
+                    post(frontController::postFeature);
+                    put(frontController::putFeature);
+                    patch(frontController::patchFeature);
+                    delete(frontController::deleteFeature);
                     path("{key}", () -> {
-                        get(FrontController::getFeatureKey);
-                        post(FrontController::postFeatureKey);
-                        put(FrontController::putFeatureKey);
-                        patch(FrontController::patchFeatureKey);
-                        delete(FrontController::deleteFeatureKey);
+                        get(frontController::getFeatureKey);
+                        post(frontController::postFeatureKey);
+                        put(frontController::putFeatureKey);
+                        patch(frontController::patchFeatureKey);
+                        delete(frontController::deleteFeatureKey);
                     });
                 });
 
@@ -115,11 +109,11 @@ public class Main {
                     path("{key}", () -> {
                         path("entity", () -> {
                             path("{id}", () -> {
-                                get(FrontController::getSearch);
-                                post(FrontController::postSearch);
-                                put(FrontController::putSearch);
-                                patch(FrontController::patchSearch);
-                                delete(FrontController::deleteSearch);
+                                get(frontController::getSearch);
+                                post(frontController::postSearch);
+                                put(frontController::putSearch);
+                                patch(frontController::patchSearch);
+                                delete(frontController::deleteSearch);
                             });
                         });
                     });
