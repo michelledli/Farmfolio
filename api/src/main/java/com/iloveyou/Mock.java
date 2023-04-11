@@ -1,53 +1,6 @@
-// GET
-// 
-//     /
-//     /login
-//     /profile
-//     /user
-//     /user/[id]
-//     /dashboard
-//     /admin
-//     /entity
-//     /entity/[id]
-//     /entity/[id]/feature
-//     /entity/[id]/feature/[key]
-//     /entity/feature/[key] 
-//     /feature
-//     /feature/[key]
-//     /search?key=[key]&entity=[id]
-// 
-// POST, PUT, PATCH, DELETE
-// 
-//     /user/[id]
-// 
-//     /entity/[id]
-//     /entity/[id]/feature
-//     /entity/[id]/feature/[key]
-//     /entity/feature/[key]
-// 
-//     /feature
-//     /feature/[id]
-// 
-//     /search?key=[key]&entity=[id]
-// 
-// HEAD
-//
-//
-// entity = {
-//     id: 0,
-//     features: [...]
-// }
-//
-// feature = {
-//     id: 0,
-//     key: "[key]",
-//     data: "[data]",
-//     type: "[type]"
-// }
-
-// TODO: HAL relations
-
 package com.iloveyou;
+
+import io.javalin.Javalin;
 
 public class Mock {
     private static String makeEntity(String id, String... features) {
@@ -123,6 +76,33 @@ public class Mock {
 
     public static String feature(String id) {
         return makeFeature(id, "key", "", "text");
+    }
+
+    public static void main(String[] args) {
+        Javalin mock = Javalin.create()
+            .routes(() -> {
+                path("entity", () -> {
+                    path("{id}", () -> {
+                        get(ctx -> ctx.json(Mock.entity(ctx.pathParam("id"))));
+                        post(ctx -> ctx.json(Mock.entity(ctx.pathParam("id"))));
+                        path("feature", () -> {
+                            get(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"))));
+                            post(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"))));
+                            path("{key}", () -> {
+                                get(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"), ctx.pathParam("key"))));
+                                post(ctx -> ctx.json(Mock.entityFeature(ctx.pathParam("id"), ctx.pathParam("key"))));
+                            });
+                        });
+                    });
+                });
+                path("feature", () -> {
+                    path("{id}", () -> {
+                        get(ctx -> ctx.json(Mock.feature(ctx.pathParam("id"))));
+                        post(ctx -> ctx.json(Mock.feature(ctx.pathParam("id"))));
+                    });
+                });
+            })
+            .start(3001);
     }
 }
 
