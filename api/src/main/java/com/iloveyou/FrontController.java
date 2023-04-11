@@ -11,9 +11,6 @@ import com.iloveyou.domain.persistence.UserDAO;
 import com.iloveyou.domain.persistence.Database;
 
 class FrontController {
-
-    Database database;
-
     UserDAO userDao;
     UserService userService;
 
@@ -24,7 +21,7 @@ class FrontController {
     LoginAction loginAction;
     
     public FrontController(Database database) {
-        userDao = new UserDAO();
+        userDao = new UserDAO(database);
         userService = new UserService(userDao);
 
         authenticationResponder = new AuthenticationResponder();

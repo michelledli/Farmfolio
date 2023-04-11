@@ -7,11 +7,15 @@ import java.util.UUID;
 
 import com.iloveyou.domain.User;
 
+// TODO: Convert to database JDBI calls
 public class UserDAO {
     List<User> list;
 
-    public UserDAO() {
+    Database database;
+
+    public UserDAO(Database database) {
         this.list = new ArrayList<User>();
+        this.database = database;
     }
 
     public void create(User t) {
