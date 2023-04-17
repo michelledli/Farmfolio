@@ -21,14 +21,14 @@ h1{
 }
 
 .App-header {
-  background-color: #778da0;
+  background-color: #f7f7f2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #7c9f9b;
 }
 
 .App-link {
@@ -73,7 +73,7 @@ h1{
 
 /*Navigation Elements*/
 nav {
-  background-color: #a08a77;
+  background-color: #a0c699;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -118,7 +118,7 @@ nav h1 {
 
 /*Footer Elements*/
 footer {
-  background-color: #a08a77;
+  background-color: #a0c699;
   display: flex;
   justify-content: space-between;
   align-items: center;
