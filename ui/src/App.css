@@ -2,8 +2,14 @@
 .App {
   text-align: center;
 }
+h1{
+ text-align: center;
+}
 
 .App-logo {
+  margin: 0 auto;
+  display: block;
+  padding: 10px;
   height: 40vmin;
   pointer-events: none;
 }
@@ -15,7 +21,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #778da0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,7 +35,7 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+/*@keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -37,7 +43,7 @@
     transform: rotate(360deg);
   }
 }
-
+*/
 /*Styles from wireframe*/
 /*Will be updated to look better and match color theme*/
 .dash-link {
@@ -67,7 +73,7 @@
 
 /*Navigation Elements*/
 nav {
-  background-color: #6C4C27;
+  background-color: #a08a77;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -110,7 +116,7 @@ nav h1 {
 
 /*Footer Elements*/
 footer {
-  background-color: #6C4C27;
+  background-color: #a08a77;
   display: flex;
   justify-content: space-between;
   align-items: center;
