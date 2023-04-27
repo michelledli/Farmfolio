@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.Batch;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 /**
  * @author Niketa K.
@@ -17,15 +18,13 @@ import org.jdbi.v3.core.statement.Batch;
 public class Database {
     private Jdbi jdbi;
 
-    static final String JDBC_DRIVER = "org.h2.Driver";
     public static final String DB_URL = "jdbc:h2:file:./resources/db";
-    private Connection connection = null; 
-    private Statement statement = null; 
-    
+
     public static final String CREATE_SCHEMA = "CREATE SCHEMA FARMFOLIO";
     
     public static final String CREATE_ENTITY = "CREATE TABLE FARMFOLIO.ENTITY " + 
                                 "(ID INT NOT NULL," +
+                                "NAME VARCHAR(64)," +
                                 "PRIMARY KEY (ID))";
     
     public static final String CREATE_FEATURE = "CREATE TABLE FARMFOLIO.FEATURE " +  
@@ -52,21 +51,20 @@ public class Database {
                                         "FOREIGN KEY (FEATURE_ID) REFERENCES FEATURE(ID), " + 
                                         "FOREIGN KEY (FEATURE_TYPE_ID) REFERENCES FEATURE_TYPE(ID))";
 
-    public static final String dropTablesSql = "DROP SCHEMA FARMFOLIO CASCADE";
+    public static final String DROP_SCHEMA = "DROP SCHEMA FARMFOLIO CASCADE";
 
     private Database() {}
 
     /**
      * Constructor which creates the Database object, wrapping the functionality of java.sql.Driver.connect()
-     * @param connectionUrl
      */
     public Database(String url) {
         jdbi = Jdbi.create(url);
+        jdbi.installPlugin(new SqlObjectPlugin());
     }
 
     /**
      * Perform an arbitrary query upon the given database
-     * @param query
      */
     public void performQuery(String statement) {
         this.jdbi.withHandle((Handle handle) -> { return handle.execute(statement); });
@@ -77,7 +75,7 @@ public class Database {
      */
     public void resetDatabase() {
         jdbi.withHandle((Handle handle) -> {
-            handle.execute(dropTablesSql);            
+            handle.execute(DROP_SCHEMA);            
             handle.execute(CREATE_SCHEMA);
             handle.execute(CREATE_ENTITY);
             handle.execute(CREATE_FEATURE); 
@@ -86,5 +84,9 @@ public class Database {
 
             return null;
         });
+    }
+
+    public Jdbi getJDBI() {
+        return jdbi;
     }
 }
