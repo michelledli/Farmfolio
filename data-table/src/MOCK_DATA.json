@@ -1,0 +1,6 @@
+[
+{"index": 1, "name": "Bob", "dob": "09/17/2021", "weight": 60},
+{"index": 2, "name": "Rob", "dob": "10/18/2021", "weight": 40},
+{"index": 3, "name": "Denny", "dob": "11/19/2021", "weight": 45},
+{"index": 4, "name": "Timmy", "dob": "12/29/2021", "weight": 55}
+]
