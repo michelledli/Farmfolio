@@ -22,9 +22,7 @@ public interface IFeatureDAO {
     @SqlQuery("SELECT * FROM FARMFOLIO.FEATURE")
     @RegisterBeanMapper(Feature.class)
     List<Feature> readAll();
-    
-    // void update(Entity t);
-    
+
     @SqlUpdate("DELETE FROM FARMFOLIO.FEATURE WHERE id = ?")
     int delete(int id);
 }

@@ -18,7 +18,7 @@ public class Database {
     private Jdbi jdbi;
 
     static final String JDBC_DRIVER = "org.h2.Driver";
-    // IDs are ints rn
+
     public static final String DB_URL = "jdbc:h2:file:./resources/db";
     private Connection connection = null; 
     private Statement statement = null; 
