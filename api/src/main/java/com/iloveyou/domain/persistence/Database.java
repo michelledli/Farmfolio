@@ -19,7 +19,7 @@ public class Database {
     private Jdbi jdbi;
 
     public static final String DB_URL = "jdbc:h2:file:./resources/db";
-
+    
     public static final String CREATE_SCHEMA = "CREATE SCHEMA FARMFOLIO";
     
     public static final String CREATE_ENTITY = "CREATE TABLE FARMFOLIO.ENTITY " + 
@@ -27,29 +27,28 @@ public class Database {
                                 "NAME VARCHAR(64)," +
                                 "PRIMARY KEY (ID))";
     
-    public static final String CREATE_FEATURE = "CREATE TABLE FARMFOLIO.FEATURE " +  
-                                "(ID INT NOT NULL AUTO_INCREMENT, " + 
-                                "FEATURE_KEY VARCHAR(64) NOT NULL, " + 
-                                "FEATURE_LABEL VARCHAR(64) NOT NULL, " +
-                                "PRIMARY KEY (ID));" + 
-                                "CREATE UNIQUE INDEX FEATURE_KEY_UNIQUE ON FARMFOLIO.FEATURE (FEATURE_KEY ASC);" + 
-                                "CREATE UNIQUE INDEX FEATURE_LABEL_UNIQUE ON FARMFOLIO.FEATURE (FEATURE_LABEL ASC);";
-
     public static final String CREATE_FEATURE_TYPE = "CREATE TABLE FARMFOLIO.FEATURE_TYPE " + 
-                                        "(ID INT NOT NULL AUTO_INCREMENT, " + 
-                                        "TYPE VARCHAR(45) NOT NULL, " + 
-                                        "PRIMARY KEY (ID))";
+                                "(ID INT NOT NULL AUTO_INCREMENT, " + 
+                                "TYPE VARCHAR(45) NOT NULL, " + 
+                                "PRIMARY KEY (ID))";
+                        
+    public static final String CREATE_FEATURE_KEY = "CREATE TABLE FARMFOLIO.FEATURE_KEY " +  
+                                "(ID INT NOT NULL AUTO_INCREMENT, " + 
+                                "KEY VARCHAR(64) NOT NULL, " + 
+                                "LABEL VARCHAR(64) NOT NULL, " +
+                                "FEATURE_TYPE_ID INT NOT NULL" +
+                                "PRIMARY KEY (ID))" + 
+                                "CREATE UNIQUE INDEX KEY_UNIQUE ON FARMFOLIO.FEATURE_KEY (KEY ASC);" + 
+                                "CREATE UNIQUE INDEX LABEL_UNIQUE ON FARMFOLIO.FEATURE_KEY (LABEL ASC);";
 
-    public static final String CREATE_ENTITY_FEATURE = "CREATE TABLE FARMFOLIO.ENTITY_FEATURE " +
+    public static final String CREATE_FEATURE = "CREATE TABLE FARMFOLIO.FEATURE " +
                                         "(ID INT NOT NULL AUTO_INCREMENT, " +
                                         "ENTITY_ID INT NOT NULL, " +
-                                        "FEATURE_ID VARCHAR(45) NOT NULL, " + 
-                                        "FEATURE_TYPE_ID VARCHAR(45) NOT NULL, " + 
+                                        "FEATURE_KEY_ID VARCHAR(45) NOT NULL, " + 
                                         "DATA VARCHAR(45) NOT NULL, " + 
-                                        "PRIMARY KEY (ID), " + 
+                                        "PRIMARY KEY (ID))" + 
                                         "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID), " + 
-                                        "FOREIGN KEY (FEATURE_ID) REFERENCES FEATURE(ID), " + 
-                                        "FOREIGN KEY (FEATURE_TYPE_ID) REFERENCES FEATURE_TYPE(ID))";
+                                        "FOREIGN KEY (FEATURE_KEY_ID) REFERENCES FEATURE_KEY(ID)";
 
     public static final String DROP_SCHEMA = "DROP SCHEMA FARMFOLIO CASCADE";
 
@@ -78,10 +77,9 @@ public class Database {
             handle.execute(DROP_SCHEMA);            
             handle.execute(CREATE_SCHEMA);
             handle.execute(CREATE_ENTITY);
-            handle.execute(CREATE_FEATURE); 
             handle.execute(CREATE_FEATURE_TYPE);
-            handle.execute(CREATE_ENTITY_FEATURE);
-
+            handle.execute(CREATE_FEATURE_KEY);
+            handle.execute(CREATE_FEATURE); 
             return null;
         });
     }
