@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.Batch;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 /**
  * @author Niketa K.
@@ -23,6 +24,7 @@ public class Database {
     
     public static final String CREATE_ENTITY = "CREATE TABLE FARMFOLIO.ENTITY " + 
                                 "(ID INT NOT NULL," +
+                                "NAME VARCHAR(64)," +
                                 "PRIMARY KEY (ID))";
     
     public static final String CREATE_FEATURE_TYPE = "CREATE TABLE FARMFOLIO.FEATURE_TYPE " + 
@@ -48,21 +50,20 @@ public class Database {
                                         "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID), " + 
                                         "FOREIGN KEY (FEATURE_KEY_ID) REFERENCES FEATURE_KEY(ID)";
 
-    public static final String dropTablesSql = "DROP SCHEMA FARMFOLIO CASCADE";
+    public static final String DROP_SCHEMA = "DROP SCHEMA FARMFOLIO CASCADE";
 
     private Database() {}
 
     /**
      * Constructor which creates the Database object, wrapping the functionality of java.sql.Driver.connect()
-     * @param connectionUrl
      */
     public Database(String url) {
         jdbi = Jdbi.create(url);
+        jdbi.installPlugin(new SqlObjectPlugin());
     }
 
     /**
      * Perform an arbitrary query upon the given database
-     * @param query
      */
     public void performQuery(String statement) {
         this.jdbi.withHandle((Handle handle) -> { return handle.execute(statement); });
@@ -73,7 +74,7 @@ public class Database {
      */
     public void resetDatabase() {
         jdbi.withHandle((Handle handle) -> {
-            handle.execute(dropTablesSql);            
+            handle.execute(DROP_SCHEMA);            
             handle.execute(CREATE_SCHEMA);
             handle.execute(CREATE_ENTITY);
             handle.execute(CREATE_FEATURE_TYPE);
