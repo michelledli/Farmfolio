@@ -1,14 +1,9 @@
-
-import './App.css'; 
-import EntityProfile from './EntityProfile';
+import Layout from './components/Layout';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <EntityProfile>
-
-      </EntityProfile>
-    </div>
+    <div>Hello</div>
   );
 }
 
