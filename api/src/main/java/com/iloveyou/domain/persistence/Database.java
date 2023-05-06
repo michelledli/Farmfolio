@@ -50,7 +50,23 @@ public class Database {
                                         "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID), " + 
                                         "FOREIGN KEY (FEATURE_KEY_ID) REFERENCES FEATURE_KEY(ID)";
 
-    public static final String DROP_SCHEMA = "DROP SCHEMA FARMFOLIO CASCADE";
+    public static final String CREATE_USER = "CREATE TABLE FARMFOLIO.USER" + 
+                                            "(ID INT NOT NULL AUTO_INCREMENT, " +
+                                            "F_NAME VARCHAR(25) NOT NULL" +
+                                            "L_NAME VARCHAR(25) NOT NULL" +
+                                            "EMAIL VARCHAR(50) NOT NULL" +
+                                            "PERMISSION INT NOT NULL" +
+                                            "PRIMARY KEY (ID)" +
+                                            "FOREIGN KEY(PERMISSION) REFERENCES CREATE_PERMISSION(ID)";
+                                            // TO FIGURE OUT PASSWORD HASHING 
+
+    public static final String CREATE_PERMISSION = "CREATE TABLE FARMFOLIO.PERMISSION" +
+                                            "ID INT NOT NULL AUTO_INCREMENT" +
+                                            "PERMISSION VARCHAR(20) NOT NULL" +
+                                            "PRIMARY KEY (ID)";
+
+    public static final String dropTablesSql = "DROP SCHEMA FARMFOLIO CASCADE";
+
 
     private Database() {}
 
