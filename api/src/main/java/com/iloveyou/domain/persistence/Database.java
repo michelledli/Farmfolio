@@ -30,7 +30,7 @@ public class Database {
     public static final String CREATE_FEATURE_TYPE = "CREATE TABLE FARMFOLIO.FEATURE_TYPE " + 
                                 "(ID INT NOT NULL AUTO_INCREMENT, " + 
                                 "TYPE VARCHAR(45) NOT NULL, " + 
-                                "PRIMARY KEY (ID))";
+                                "PRIMARY KEY (ID));";
                         
     public static final String CREATE_FEATURE_KEY = "CREATE TABLE FARMFOLIO.FEATURE_KEY " +  
                                 "(ID INT NOT NULL AUTO_INCREMENT, " + 
@@ -48,7 +48,7 @@ public class Database {
                                         "DATA VARCHAR(45) NOT NULL, " + 
                                         "PRIMARY KEY (ID))" + 
                                         "FOREIGN KEY (ENTITY_ID) REFERENCES ENTITY(ID), " + 
-                                        "FOREIGN KEY (FEATURE_KEY_ID) REFERENCES FEATURE_KEY(ID)";
+                                        "FOREIGN KEY (FEATURE_KEY_ID) REFERENCES FEATURE_KEY(ID);";
 
     public static final String CREATE_USER = "CREATE TABLE FARMFOLIO.USER" + 
                                             "(ID INT NOT NULL AUTO_INCREMENT, " +
@@ -57,15 +57,15 @@ public class Database {
                                             "EMAIL VARCHAR(50) NOT NULL" +
                                             "PERMISSION INT NOT NULL" +
                                             "PRIMARY KEY (ID)" +
-                                            "FOREIGN KEY(PERMISSION) REFERENCES CREATE_PERMISSION(ID)";
+                                            "FOREIGN KEY(PERMISSION) REFERENCES CREATE_PERMISSION(ID);";
                                             // TO FIGURE OUT PASSWORD HASHING 
 
     public static final String CREATE_PERMISSION = "CREATE TABLE FARMFOLIO.PERMISSION" +
                                             "ID INT NOT NULL AUTO_INCREMENT" +
                                             "PERMISSION VARCHAR(20) NOT NULL" +
-                                            "PRIMARY KEY (ID)";
+                                            "PRIMARY KEY (ID);";
 
-    public static final String dropTablesSql = "DROP SCHEMA FARMFOLIO CASCADE";
+    public static final String DROP_SCHEMA = "DROP SCHEMA FARMFOLIO CASCADE;";
 
 
     private Database() {}

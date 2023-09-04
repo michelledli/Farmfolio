@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         
         Database database = new Database(Database.DB_URL);
-        database.resetDatabase();
+        // database.resetDatabase();
 
         FrontController frontController = new FrontController(database);
 
