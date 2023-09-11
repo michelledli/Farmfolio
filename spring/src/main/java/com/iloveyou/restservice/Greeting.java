@@ -1,3 +1,3 @@
-package com.example.restservice;
+package com.iloveyou.restservice;
 
 public record Greeting(long id, String content) { }
