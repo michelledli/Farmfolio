@@ -1,6 +1,9 @@
-const React = require("react");
-const ReactDOM = require("react-dom");
+import './App.css';
+// import './api.js'
+// import Layout from './components/Layout';
 import axios from "axios";
+const React = require("react");
+// const ReactDOM = require("react-dom");
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +12,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios({ method: "get", url: "/api/exampleEntities" }).then((response) => {
+    axios({ method: "get", url: "/api/exampleEntities", headers: {"Access-Control-Allow-Origin": "*"} }).then((response) => {
       console.log(response);
       this.setState({
         exampleEntities: response.data._embedded.exampleEntities,
@@ -55,4 +58,6 @@ class ExampleEntity extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("react"));
+// ReactDOM.render(<App />, document.getElementById("react"));
+
+export default App;
