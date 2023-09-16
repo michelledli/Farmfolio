@@ -6,7 +6,14 @@ import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AnimalEntity {
 
@@ -17,15 +24,7 @@ public class AnimalEntity {
     private Date birthDate;
     private int weight;
     private String tag;
-
     private String breed;
-
-    public AnimalEntity(String name, Date birthDate, int weight, String tag) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.weight = weight;
-        this.tag = tag;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -45,36 +44,6 @@ public class AnimalEntity {
     public int hashCode() {
         return Objects.hash(id, name, birthDate, weight, tag);
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) { this.birthDate = birthDate; }
-
-    public int getWeight() { return weight; }
-
-    public void setWeight(int weight) { this.weight = weight; }
-
-    public String getTag() { return tag; }
-
-    public void setTag(String tag) { this.tag = tag; }
 
     @Override
     public String toString() {
