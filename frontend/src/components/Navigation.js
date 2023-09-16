@@ -10,19 +10,20 @@ export function Navigation() {
     <>
       <nav>
         <ul>
-          <li>
+          <li class = "dash-link">  
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li class = "dash-link">
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>
+          <li class = "dash-link">
             <Link to="/news">News</Link>
           </li>
-          <li>
+          <li class = "dash-link">
             <Link to="/livestock">Livestock</Link>
           </li>
         </ul>
+        <input type="text" placeholder="Search.." />
       </nav>
 
       <Routes>
