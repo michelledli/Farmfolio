@@ -1,5 +1,6 @@
 package com.iloveyou.entity;
 
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -19,8 +20,6 @@ public class AnimalEntity {
 
     private String breed;
 
-    private AnimalEntity() {}
-
     public AnimalEntity(String name, Date birthDate, int weight, String tag) {
         this.name = name;
         this.birthDate = birthDate;
@@ -39,7 +38,7 @@ public class AnimalEntity {
                 Objects.equals(name, entity.name) &&
                 Objects.equals(birthDate, entity.birthDate) &&
                 Objects.equals(weight, entity.weight) &&
-                Objects.equals(tag, entity.tag) &&;
+                Objects.equals(tag, entity.tag);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class AnimalEntity {
         this.name = name;
     }
 
-    public Long getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
