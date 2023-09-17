@@ -1,12 +1,11 @@
 import './App.css';
-import './Example.js';
 import Example from './Example.js';
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
-
 import { Routes, Route } from "react-router-dom";
+
 // import './api.js'
-// import Layout from './components/Layout';
+import Layout from './components/Layout';
 const React = require("react");
 
 class App extends React.Component {
