@@ -5,7 +5,15 @@ import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data //generates setters and getters upon build
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class UserEntity {
 
@@ -17,16 +25,6 @@ public class UserEntity {
     private String email;
     private String username;
     private String password; // change data type?
-
-    private UserEntity() {}
-
-    public UserEntity(String fname, String lname, String email, String username, String password) {
-        this.fname = fname;
-        this.lname = lname;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,45 +38,13 @@ public class UserEntity {
                 Objects.equals(lname, entity.lname) &&
                 Objects.equals(email, entity.email) &&
                 Objects.equals(username, entity.username) &&
-                Objects.equals(password, entity.password) &&;
+                Objects.equals(password, entity.password);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(fname, lname, email, username, password);
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return Lname;
-    }
-
-    public void setLname(String Lname) {
-        this.lname = lname;
-    }
-
-    public int getEmail() { return email; }
-
-    public void setEmail(int email) { this.email = email; }
-
-    public String getUsername() { return username; }
-
-    public void setUsername(String username) { this.username = username; }
 
     @Override
     public java.lang.String toString() {
