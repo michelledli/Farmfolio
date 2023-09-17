@@ -35,13 +35,13 @@ export const FrontendAPI = {
         return response.data
     },
 
-    getLogin: async function () {
+    /*getLogin: async function () {
         const response = await api.request({
             url: `/login`,
             method: "GET",
         })
         return response.data
-    },
+    },*/
 
     getProfile: async function () {
         const response = await api.request({
@@ -157,6 +157,22 @@ export const FrontendAPI = {
             data: body
         })
         return response.data;
+    },
+
+    postLogin: async function (body) {
+        const response = await api.request({
+            url: `/login`,
+            method: "POST",
+            data: body
+        })
+    },
+
+    postRegister: async function (body) {
+        const repsonse = await api.request({
+            url: `/register`,
+            method: "POST",
+            data: body
+        })
     },
     
     postEntityId: async function (id, body) {
