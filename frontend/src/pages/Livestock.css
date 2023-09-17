@@ -1,0 +1,20 @@
+table {
+    border: 1px solid black;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 80%;
+
+}
+th,td {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.editButton {
+    font-size: 20px;
+    color: #7c9f9b;
+    height: 40px;
+    width: 70px;
+    margin-bottom: 20px;
+    align-self: flex-end;
+    margin-right: 150px;
+}

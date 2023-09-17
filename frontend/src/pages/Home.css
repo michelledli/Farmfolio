@@ -1,0 +1,22 @@
+@keyframes scrollRight {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-23%);
+    }
+}
+.scroll-container {
+    display: flex;
+    overflow: hidden;
+    gap: 20px;
+    animation: scrollRight 10s linear infinite;
+
+}
+.card {
+  text-align: left;
+  margin-left: 15px;
+}
+.about {
+  width: 70%;
+}
