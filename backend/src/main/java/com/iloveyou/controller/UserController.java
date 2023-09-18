@@ -6,12 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iloveyou.repository.StudentRepository;
 import com.iloveyou.repository.UserRepository;
-import com.iloveyou.entity.StudentEntity;
 import com.iloveyou.entity.UserEntity;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UserController {

@@ -15,5 +15,5 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
  * Custom User Repository operations can be added below.
  */
 
- List<UserEntity> findUserById(String Id);
+ UserEntity findUserById(String Id);
 }
