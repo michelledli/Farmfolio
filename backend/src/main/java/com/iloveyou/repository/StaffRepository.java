@@ -12,6 +12,4 @@ public interface StaffRepository extends CrudRepository<StaffEntity, Long> {
 /**
  * Custom User Repository operations can be added below.
  */
-
-  StaffEntity findStaffUserById(String Id);
 }
