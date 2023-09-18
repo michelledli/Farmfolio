@@ -7,13 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Data
+@Data //generates setters and getters upon build
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class AnimalEntity {
 
@@ -48,7 +50,7 @@ public class AnimalEntity {
     @Override
     public String toString() {
         return "AnimalEntity{" +
-                "id=" + id +
+                "id='" + id +
                 ", name='" + name + '\'' +
                 ", birthdate='" + birthDate + '\'' +
                 ", weight='" + weight + '\'' +
