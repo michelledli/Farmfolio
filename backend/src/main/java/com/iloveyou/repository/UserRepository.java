@@ -1,5 +1,7 @@
 package com.iloveyou.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.iloveyou.entity.UserEntity;
@@ -13,4 +15,5 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
  * Custom User Repository operations can be added below.
  */
 
+ List<UserEntity> findUserById(String Id);
 }
