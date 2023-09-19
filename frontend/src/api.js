@@ -3,7 +3,7 @@ import axios from "axios"
 // create an axios client
 const PORT = 8080
 const api = axios.create ({
-    baseURL: "http://localhost:" + PORT
+    headers: {"Content-Type": "application/json"}
 })
 
 // define an error handler for the axios client
@@ -160,6 +160,7 @@ export const FrontendAPI = {
     },
 
     postLogin: async function (body) {
+        console.log("HI");
         const response = await api.request({
             url: `/login`,
             method: "POST",
