@@ -1,9 +1,9 @@
 package com.iloveyou.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import com.iloveyou.entity.AnimalEntity;
+import com.iloveyou.entity.Animal;
 import java.util.List;
 
-public interface AnimalRepository extends CrudRepository<AnimalEntity, Long> { 
-    List<AnimalEntity> findByTag(String tag);
+public interface AnimalRepository extends CrudRepository<Animal, Long> { 
+    List<Animal> findByTag(String tag);
 }

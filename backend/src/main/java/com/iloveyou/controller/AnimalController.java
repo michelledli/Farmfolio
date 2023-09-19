@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iloveyou.entity.AnimalEntity;
-import com.iloveyou.entity.UserEntity;
+import com.iloveyou.entity.Animal;
+import com.iloveyou.entity.Account;
 import com.iloveyou.repository.AnimalRepository;
 import java.util.List; 
 
 
-//@RequestMapping("animal")
+@RequestMapping("animals")
 @RestController
 public class AnimalController {
     @Autowired
     AnimalRepository animalRepository; 
-    @GetMapping("/animal/{tag}")
+    @GetMapping("/tag/{tag}")
     @ResponseBody
     public String getByTag(@PathVariable String tag) { 
-        List<AnimalEntity> animals = animalRepository.findByTag(tag); 
+        List<Animal> animals = animalRepository.findByTag(tag); 
         if(animals.size() == 0) {
             return "No animal found with tag: " + tag;
         }
