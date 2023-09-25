@@ -4,6 +4,8 @@ import { Dashboard } from "../pages/Dashboard";
 import { News } from "../pages/News";
 import { Livestock } from "../pages/Livestock";
 import { FamilyTree } from "../pages/FamilyTree";
+import { Login } from "../pages/Login"
+import { Register } from "../pages/Register"
 
 
 export function Navigation() {
@@ -15,6 +17,7 @@ export function Navigation() {
     navContent = (
       <nav>
         <ul>
+          <li class = "dash-link"><Link to="/home">Home</Link></li>
           <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
           <li class = "dash-link"><Link to="/news">News</Link></li>
           <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
@@ -22,11 +25,22 @@ export function Navigation() {
           <input type="text" placeholder="Search.." />
       </nav>
     );
+  } else if (location.pathname.startsWith('/home')) {
+    navContent = (
+      <nav>
+        <ul>
+          <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
+          <li class = "dash-link"><Link to="/news">News</Link></li>
+          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
+        </ul>
+          <input type="text" placeholder="Search.." />
+    </nav>
+    );
   } else if (location.pathname.startsWith('/livestock')) {
     navContent = (
       <nav>
         <ul>
-          <li class = "dash-link"><Link to="/">Home</Link></li>
+          <li class = "dash-link"><Link to="/home">Home</Link></li>
           <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
           <li class = "dash-link"><Link to="/news">News</Link></li>
           <li class = "dash-link"><Link to="/familytree">Family Tree</Link></li>
@@ -38,9 +52,9 @@ export function Navigation() {
     navContent = (
       <nav>
         <ul>
-          <li class = "dash-link"><Link to="/">Home</Link></li>
+          <li class = "dash-link"><Link to="/home">Home</Link></li>
           <li class = "dash-link"><Link to="/news">News</Link></li>
-          <li class = "dash-link"><Link to="/familytree">Family Tree</Link></li>
+          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
         </ul>
           <input type="text" placeholder="Search.." />
     </nav>
@@ -49,9 +63,9 @@ export function Navigation() {
     navContent = (
       <nav>
         <ul>
-          <li class = "dash-link"><Link to="/">Home</Link></li>
+          <li class = "dash-link"><Link to="/home">Home</Link></li>
           <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
-          <li class = "dash-link"><Link to="/familytree">Family Tree</Link></li>
+          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
         </ul>
           <input type="text" placeholder="Search.." />
     </nav>
@@ -60,7 +74,7 @@ export function Navigation() {
     navContent = (
       <nav>
         <ul>
-          <li class = "dash-link"><Link to="/">Home</Link></li>
+          <li class = "dash-link"><Link to="/home">Home</Link></li>
           <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
           <li class = "dash-link"><Link to="/news">News</Link></li>
           <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
@@ -76,7 +90,9 @@ export function Navigation() {
         {navContent}
       </header>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/news" element={<News />} />
         <Route path="/livestock" element={<Livestock />} />
