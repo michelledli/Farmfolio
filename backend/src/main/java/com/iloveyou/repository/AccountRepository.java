@@ -9,6 +9,9 @@ import com.iloveyou.entity.Account;
 /**
  * User repository interface that includes default CRUD operations.
  */
-public interface AccountRepository extends CrudRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 	List<Account> findByEmailAndPassword(String username, String password);
+
+
+
 }
