@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Animal {
+public class Animal extends Auditable {
 
     @Id
     @GeneratedValue
