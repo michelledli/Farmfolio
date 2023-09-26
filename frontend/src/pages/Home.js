@@ -11,6 +11,8 @@ export function Home() {
 
     return (
       <div className='App-header'>
+                <br></br>
+                <br></br>
         <h1>Home</h1> 
           <h3>About</h3>
           <div className='about'>Explore Sawyer's Farm Goat Catalog at Bret Harte High School:
