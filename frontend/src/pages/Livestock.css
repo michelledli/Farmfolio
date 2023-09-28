@@ -18,3 +18,6 @@ th,td {
     align-self: flex-end;
     margin-right: 150px;
 }
+.moreInfo {
+    margin-bottom: 20px;
+}

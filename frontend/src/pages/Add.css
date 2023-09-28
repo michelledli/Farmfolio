@@ -1,0 +1,55 @@
+.AddContainer {
+    display: flex;             
+    flex-direction: column;   /* Make children align vertically */
+    justify-content: center;   
+    align-items: center;          
+    width: 28%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    background: #7c9f9b;
+    mix-blend-mode: normal;
+    border-radius: 10px;
+    padding: 30px;              
+    position: relative;
+    cursor: pointer;  
+}
+.Add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input {
+    width: 100%;                 
+    margin-bottom: 20px;        
+    display: flex;              
+    flex-direction: column;     /* Stack children vertically */
+    align-items: center;    /* Left-align children */
+    justify-content: center;
+}
+
+.inputField {
+    width: 95%;                /* Take up the full width of .inputWrapper */
+    padding: 13px;             
+    border-radius: 12px;
+    border: 1px solid #8f8787;     
+    font-size: 16px;     
+    text-align: left;
+}
+.submit {
+    bottom: 30px;              /* Increase distance from the bottom */
+    padding: 10px 20px;        /* Increase padding to make the button bigger */
+    background-color: #176a60;    
+    color: white;               
+    border: none;              
+    border-radius: 10px;       
+    cursor: pointer;           
+    font-size: 18px;           /* Increase font size for bigger text */
+    align-items: right;
+}
+
+.label {
+    margin-right: auto;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    text-decoration: underline;
+}
