@@ -1,5 +1,5 @@
 import React from 'react'
-import style from '../pages/Home.css'
+import "../App.css";
 
 const Cards = ({image, name, age, gender}) => {
   return (
