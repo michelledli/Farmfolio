@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Account {
+public class Account extends Auditable {
 
     @Id
     @GeneratedValue
@@ -47,7 +47,7 @@ public class Account {
 
     @Override
     public java.lang.String toString() {
-        return "UserEntity{" +
+        return "AccountEntity{" +
                 "id=" + id +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +

@@ -12,13 +12,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data //generates setters and getters upon build
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Animal {
+public class Animal extends Auditable {
 
     @Id
     @GeneratedValue
@@ -59,5 +58,6 @@ public class Animal {
                 ", weight='" + weight + '\'' +
                 ", tag='" + tag + '\'' +
                 '}';
-    }
+    } 
+
 }
