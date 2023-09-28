@@ -26,7 +26,5 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     + "LOWER(a.tag) LIKE CONCAT('%', LOWER(?1),'%')")
     List<Animal> searchByNameOrTag(String query);
 
-public interface AnimalRepository extends JpaRepository<Animal, Long> { 
     List<Animal> findAll();
-    //Animal findById(Long id);
 }

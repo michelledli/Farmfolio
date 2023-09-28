@@ -3,7 +3,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.iloveyou.entity.Account;
 import java.util.List;
 
@@ -31,6 +30,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
     + "LOWER(a.email) LIKE CONCAT('%', LOWER(?1),'%')")
 	List<Account> searchByEmail(String query);
 
-public interface AccountRepository extends JpaRepository<Account, Long>  {
 	List<Account> findAll();
 }

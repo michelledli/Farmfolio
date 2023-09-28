@@ -24,21 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iloveyou.repository.AccountRepository;
 import com.iloveyou.entity.Account;
-import com.iloveyou.repository.AccountRepository;
 
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
+import java.util.Optional;
 
-@RequestMapping("accounts")
+@RequestMapping("/accounts")
 @RestController
 public class AccountController {
     @Autowired
-    AccountRepository userRepository;
+    AccountRepository accountRepository;
 
     // Get all accounts
     @GetMapping()
     public List<Account> getAllAccounts() {
-        return (List<Account>) userRepository.findAll();
+        return (List<Account>) accountRepository.findAll();
     }
 
     // Partial search of Accounts based on the given field
@@ -50,10 +50,10 @@ public class AccountController {
         // Execute SQL code in the repository depending on what field was given
         if (field.equals("name")) {
             // search by name
-            accounts = userRepository.searchByName(query);
+            accounts = accountRepository.searchByName(query);
         } else if (field.equals("email")) {
             // search by email
-             accounts = userRepository.searchByEmail(query);
+            accounts = accountRepository.searchByEmail(query);
         }
 
         if (accounts.size() == 0) {
@@ -63,50 +63,38 @@ public class AccountController {
         return accounts.toString();
     }
 
-    
     // Partial search of Accounts by name OR email
     @GetMapping("/search")
     @ResponseBody
     public String getAccountByNameOrEmail(@RequestParam String query) {
-        List<Account> accounts = userRepository.searchByNameOrEmail(query);
+        List<Account> accounts = accountRepository.searchByNameOrEmail(query);
 
         if (accounts.size() == 0) {
             return "No accounts found with a name or email matching: " + query;
         }
 
         return accounts.toString();
-@RequestMapping("/accounts")
-@RestController 
-@Controller
-public class AccountController {
-
-    @Autowired
-    AccountRepository accountRepository;
-
-    @GetMapping("/all")
-    public List<Account> getAllAccounts(){
-        return accountRepository.findAll();
     }
 
     @GetMapping("/{id}")
     Optional<Account> getAccount(@PathVariable long id) {
         return accountRepository.findById(id);
-    } 
+    }
 
     @PostMapping("/add")
-    public Account createAccount(@RequestBody Account account){
-        return accountRepository.save(account); 
+    public Account createAccount(@RequestBody Account account) {
+        return accountRepository.save(account);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteAccount(@PathVariable("id") Long id){
+    public void deleteAccount(@PathVariable("id") Long id) {
         accountRepository.deleteById(id);
-    } 
+    }
 
-    @PutMapping("/update/{id}") 
-    public ResponseEntity<Object> updateAccount(@RequestBody Account account, @PathVariable Long id){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> updateAccount(@RequestBody Account account, @PathVariable Long id) {
         Optional<Account> accountOptional = accountRepository.findById(account.getId());
-        if(!accountOptional.isPresent())
+        if (!accountOptional.isPresent())
             return ResponseEntity.notFound().build();
         account.setId(id);
         accountRepository.save(account);

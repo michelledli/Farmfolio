@@ -25,30 +25,19 @@ import com.iloveyou.entity.Animal;
 import com.iloveyou.repository.AnimalRepository;
 
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
 
 import com.iloveyou.entity.Animal;
 import com.iloveyou.repository.AnimalRepository;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional; 
+import java.util.Optional;
 
- 
 @RequestMapping("/animals")
-@RestController 
+@RestController
 public class AnimalController {
     @Autowired
-    AnimalRepository animalRepository; 
-
-    @PostMapping()
-    public Animal createAnimal(@RequestBody Animal animal) {
-        return animalRepository.save(animal); 
-    }
-
-    @GetMapping()
-    public List<Animal> getAllAnimals() {
-        return animalRepository.findAll();
-    }
+    AnimalRepository animalRepository;
 
     // Partial search of Animals based on the given field
     @GetMapping("/search/{field}")
@@ -84,33 +73,26 @@ public class AnimalController {
 
         return animals.toString();
     }
-}
-
-
-    @GetMapping("/all")
-    public List<Animal> getAllAnimals(){
-        return animalRepository.findAll();
-    }
 
     @GetMapping("/{id}")
     Optional<Animal> getAnimal(@PathVariable long id) {
         return animalRepository.findById(id);
-    } 
+    }
 
     @PostMapping("/add")
-    public Animal createAnimal(@RequestBody Animal animal){
-        return animalRepository.save(animal); 
+    public Animal createAnimal(@RequestBody Animal animal) {
+        return animalRepository.save(animal);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteAnimal(@PathVariable("id") Long id){
+    public void deleteAnimal(@PathVariable("id") Long id) {
         animalRepository.deleteById(id);
-    } 
+    }
 
-    @PutMapping("/update/{id}") 
-    public ResponseEntity<Object> updateAnimal(@RequestBody Animal animal, @PathVariable Long id){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> updateAnimal(@RequestBody Animal animal, @PathVariable Long id) {
         Optional<Animal> animalOptional = animalRepository.findById(animal.getId());
-        if(!animalOptional.isPresent())
+        if (!animalOptional.isPresent())
             return ResponseEntity.notFound().build();
         animal.setId(id);
         animalRepository.save(animal);
