@@ -14,13 +14,12 @@ const React = require("react");
 
 class App extends React.Component {
 	render() {
-		return(
-		// <Routes>
-		// 	<Route path="/" element={<Login />} />
-		// 	<Route path="/register" element={<Register />} />
-		// </Routes>
-			<Livestock />
-		)
+		return (
+		<Routes>
+			<Route path="/" element={<Login />} />
+			<Route path="/register" element={<Register />} />
+		</Routes>
+		);
 	}
 }
 

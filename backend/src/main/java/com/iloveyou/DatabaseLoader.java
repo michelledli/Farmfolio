@@ -1,36 +1,41 @@
 package com.iloveyou;
 
-import org.apache.catalina.User;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.iloveyou.entity.ExampleEntity;
-import com.iloveyou.entity.UserEntity;
-import com.iloveyou.repository.ExampleEntityRepository;
-import com.iloveyou.repository.UserRepository;
+import com.iloveyou.entity.Animal;
+import com.iloveyou.entity.Account;
+import com.iloveyou.repository.AnimalRepository;
+import com.iloveyou.repository.AccountRepository;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private final UserRepository userRepository;
-	private final ExampleEntityRepository exampleEntityRepository;
+	private final AccountRepository accountRepository; 
+	private final AnimalRepository animalRepository;
 
 	@Autowired
-	public DatabaseLoader(UserRepository userRepository, ExampleEntityRepository exampleEntityRepository) {
-		this.userRepository = userRepository;
-		this.exampleEntityRepository = exampleEntityRepository;
+	public DatabaseLoader(AccountRepository accountRepository, AnimalRepository animalRepository) {
+		this.accountRepository = accountRepository;
+		this.animalRepository = animalRepository;
+		
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
-		UserEntity userEntity =
-			UserEntity.builder().fname("Fred").lname("Martin").email("f.martin@gmail" +
-					".com").username("f.martin").password("password123").build();
+		Account userEntity =
+			Account.builder().fname("fname").lname("lname").email("email").password("password").build();
 
-		this.userRepository.save(userEntity);
+		this.accountRepository.save(userEntity);
 
-		ExampleEntity exampleEntity = new ExampleEntity("Example", 999L);
-		this.exampleEntityRepository.save(exampleEntity);
-	}
+		Animal animalEntity = 
+			Animal.builder().name("name").dob(new Date()).weight(1).tag("tag").breed("breed").build(); 
+		
+		System.out.println(animalEntity.toString());
+
+		this.animalRepository.save(animalEntity);
+	}  
 }

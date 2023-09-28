@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class UserEntity {
+public class Account extends Auditable {
 
     @Id
     @GeneratedValue
@@ -23,37 +23,35 @@ public class UserEntity {
     private String fname;
     private String lname;
     private String email;
-    private String username;
-    private String password; // change data type?
+    private String password;
+    private boolean isAdmin;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserEntity entity = (UserEntity) o;
+        Account entity = (Account) o;
 
         return Objects.equals(id, entity.id) &&
                 Objects.equals(fname, entity.fname) &&
                 Objects.equals(lname, entity.lname) &&
                 Objects.equals(email, entity.email) &&
-                Objects.equals(username, entity.username) &&
                 Objects.equals(password, entity.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fname, lname, email, username, password);
+        return Objects.hash(fname, lname, email, password);
     }
 
     @Override
     public java.lang.String toString() {
-        return "UserEntity{" +
+        return "AccountEntity{" +
                 "id=" + id +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
