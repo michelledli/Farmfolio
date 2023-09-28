@@ -2,10 +2,14 @@ import { FrontendAPI } from "../api";
 import Cookies from "universal-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import sawyer_goat_1 from './sawyer_goat_1.jpg';
+import Cards from '../components/Cards';
 const cookies = new Cookies();
 const api = FrontendAPI;
 
 export function Login() {
+  const Images = [sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1,]
+  const SCROLL_SPEED = 0.3;
   const navigate = useNavigate();
   const [data, setData] = useState({
     username: "",
@@ -40,41 +44,54 @@ export function Login() {
   };
 
   return (
-    // hi Javi
     <div>
-      <form onSubmit={sendLogin}>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <div className="input-container">
-          <label>Username </label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={username}
-            onChange={onChange}
-            required
-          />
+    <div className="splitScreen">
+      <div className="topPane">
+        <h1>Farmfolio</h1> 
+        <h3>About</h3>
+        <div>Explore Sawyer's Farm Goat Catalog at Bret Harte High School:
+          Located at Bret Harte High School, Sawyer's Farm is a unique endeavor cared for by both 
+          students and faculty. Our catalog offers a range of high-quality goats and supplies, 
+          and we take pride in practicing responsible farming. Whether you're a student learning 
+          about agriculture or a faculty member with a passion for goats, Sawyer's Farm is here 
+          to support your goat-keeping journey. Join our school community in fostering a love for 
+          sustainable farming with Sawyer's Farm.
         </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={onChange}
-            required
-          />
+
+      </div>
+      <div className="bottomPane">
+        <div className="login">
+          <h1>WELCOME</h1>
+        <form onSubmit={sendLogin}>
+          <div>
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              id="username"
+              value={username}
+              onChange={onChange}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={onChange}
+              required
+            />
+          </div>
+          <div className="btn-container">
+            <button className="btn" type="submit" onSubmit={sendLogin}>LOGIN</button>
+          </div>
+        </form>
         </div>
-        <div className="button-container">
-          <button type="submit" onSubmit={sendLogin}>Login</button>
-        </div>
-        <br></br>
-      </form>
+      </div>
+    </div>
     </div>
   );
 }
