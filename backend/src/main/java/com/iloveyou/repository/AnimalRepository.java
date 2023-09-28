@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.iloveyou.entity.Animal;
 import java.util.List;
-import java.util.Optional; 
+import java.util.Optional;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> { 
 
@@ -31,7 +35,7 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     //sort by tag
     Pageable sortedByTag =
             PageRequest.of(0, 20, Sort.by("tag"));
-    Pageable sortedByTag =
+    Pageable sortedByTagDesc =
             PageRequest.of(0, 20, Sort.by("tag").descending());
     //sort by weight
     Pageable sortedByWeight=
