@@ -1,4 +1,4 @@
-package com.iloveyou;
+package com.iloveyou.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
