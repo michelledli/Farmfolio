@@ -8,29 +8,35 @@ const api = FrontendAPI;
 export function Login() {
   const navigate = useNavigate();
   const [data, setData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
-  const { username, password } = data;
+
+  const { email, password } = data;
 
   // hey Javi
   // send user login credentials to the API to be verified
-  const sendLogin = (e) => {
+  const sendLogin = async (e) => {
     // prevent page refresh on click
     e.preventDefault();
 
     // axios request
-    const response = api.postLogin(data);
+    const response = await api.postLogin(data);
 
-    console.log(response.request);
+    console.log(response);
 
     if (response.status === 200) {
       // user was verified, API should return user's token
       // save the token inside of a cookie
-      cookies.set("access_token", response.data.token, { path: "/" });
+      cookies.set("access_token", response.data.token, {
+        path: "/",
+        sameSite: "strict",
+      });
+
+      console.log("HERE");
 
       // send the user to the homepage
-      navigate("/");
+      window.location = "/";
     }
   };
 
@@ -44,12 +50,12 @@ export function Login() {
     <div>
       <form onSubmit={sendLogin}>
         <div className="input-container">
-          <label>Username </label>
+          <label>Email </label>
           <input
             type="text"
-            name="username"
-            id="username"
-            value={username}
+            name="email"
+            id="email"
+            value={email}
             onChange={onChange}
             required
           />
@@ -66,7 +72,9 @@ export function Login() {
           />
         </div>
         <div className="button-container">
-          <button type="submit" onSubmit={sendLogin}>Login</button>
+          <button type="submit" onSubmit={sendLogin}>
+            Login
+          </button>
         </div>
       </form>
     </div>

@@ -1,7 +1,10 @@
 package com.iloveyou.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,6 +25,7 @@ public class Account extends Auditable {
     private Long id;
     private String fname;
     private String lname;
+    @Column(unique=true)
     private String email;
     private String password;
     private boolean isAdmin;
@@ -38,6 +42,17 @@ public class Account extends Auditable {
                 Objects.equals(lname, entity.lname) &&
                 Objects.equals(email, entity.email) &&
                 Objects.equals(password, entity.password);
+    }
+
+    public List<String> getRoles() {
+        List<String> roles = new ArrayList<>();
+        roles.add("user");
+
+        if(isAdmin) {
+            roles.add("admin");
+        }
+
+        return roles;
     }
 
     @Override
