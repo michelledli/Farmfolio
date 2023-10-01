@@ -4,8 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import com.iloveyou.entity.Account;
-import java.util.List;
-
 
 /**
  * User repository interface that includes default CRUD operations.
