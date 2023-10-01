@@ -72,10 +72,10 @@ export function Login() {
           <div>
             <input
               type="text"
-              placeholder="Username"
-              name="username"
-              id="username"
-              value={username}
+              placeholder="Email"
+              name="email"
+              id="email"
+              value={email}
               onChange={onChange}
               required
             />
