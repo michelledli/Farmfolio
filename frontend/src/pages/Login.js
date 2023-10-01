@@ -12,29 +12,35 @@ export function Login() {
   const SCROLL_SPEED = 0.3;
   const navigate = useNavigate();
   const [data, setData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
-  const { username, password } = data;
+
+  const { email, password } = data;
 
   // hey Javi
   // send user login credentials to the API to be verified
-  const sendLogin = (e) => {
+  const sendLogin = async (e) => {
     // prevent page refresh on click
     e.preventDefault();
 
     // axios request
-    const response = api.postLogin(data);
+    const response = await api.postLogin(data);
 
-    console.log(response.request);
+    console.log(response);
 
     if (response.status === 200) {
       // user was verified, API should return user's token
       // save the token inside of a cookie
-      cookies.set("access_token", response.data.token, { path: "/" });
+      cookies.set("access_token", response.data.token, {
+        path: "/",
+        sameSite: "strict",
+      });
+
+      console.log("HERE");
 
       // send the user to the homepage
-      navigate("/");
+      window.location = "/";
     }
   };
 

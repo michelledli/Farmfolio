@@ -2,3 +2,6 @@ spring/target
 .idea
 node_modules
 .vscode
+.DS_Store
+./iloveyou
+/backend/src/main/resources/public
