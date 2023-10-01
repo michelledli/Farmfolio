@@ -28,7 +28,7 @@ h1{
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #7c9f9b;
+  color: rgb(124, 159, 155);
 }
 
 .App-link {
@@ -118,16 +118,157 @@ nav h1 {
 
 /*Footer Elements*/
 footer {
-  background-color: #a0c699;
+  background-color: rgb(160, 198, 153);
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;
 }
 
 footer p {
   color: #FFFFFF;
   text-align: center;
   margin: 0 auto;
+}
+
+/* News/Forum */
+#post-form {
+  margin-bottom: 20px;
+}
+
+.post {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.post:hover {
+  background-color: #f0f0f0;
+}
+
+/* Home Side */
+@keyframes scrollRight {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-23%);
+  }
+}
+.scroll-container {
+  display: flex;
+  overflow: hidden;
+  gap: 20px;
+  animation: scrollRight 10s linear infinite;
+
+}
+.card {
+text-align: left;
+margin-left: 15px;
+}
+
+/* Main Page */
+.splitScreen {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.topPane {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #7c9f9b;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+.bottomPane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+  .splitScreen {
+    flex-direction: column;
+  }
+  .botttomPane {
+    align-items: center;
+  }
+}
+
+/* Login Side */
+/*
+.login {
+  width: 350px;
+  height: 500px;
+  color: #FFFFFF;
+  background: linear-gradient(to top,rgb(124, 159, 155)50%,rgb(124, 159, 155)50%);
+  border-radius: 10px;
+  padding: 40px 25px;
+}
+*/
+
+.login {
+  width: 80%;
+  height: auto;
+  max-width: 300px;
+  padding: 40px 20px;
+  border-radius: 10px;
+  color: #FFFFFF;
+  background: linear-gradient(to top,rgb(124, 159, 155)50%,rgb(124, 159, 155)50%);
+  text-align: center; 
+}
+
+
+.login input {
+  width: 100%;
+  height: 35px;
+  padding-top: 10px;
+  margin-bottom: 15px;
+  background: transparent;
+  border-bottom: 1px solid #FFFFFF;
+  border-top: none;border-left: none;border-right: none;
+  color:#FFFFFF;
+  font-size: 15px;
+  letter-spacing: 1px;
+  outline: none;
+}
+
+.login input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: #FFFFFF;
+}
+
+
+.btn-container {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px;
+}
+
+.btn {
+  font-size: 18px;
+  padding:10px 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+.btn:hover {
+  color: #FFFFFF;
+  font-weight: bold;
 }
