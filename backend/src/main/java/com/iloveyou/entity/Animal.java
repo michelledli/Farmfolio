@@ -1,7 +1,6 @@
 package com.iloveyou.entity;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
