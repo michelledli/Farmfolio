@@ -6,6 +6,7 @@ import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,9 @@ public class Animal extends Auditable {
     private String tag;
     private String breed;
     private String notes;
+
+    @ManyToOne
+    private AnimalParent animalParent;
 
     @Override
     public boolean equals(Object o) {
