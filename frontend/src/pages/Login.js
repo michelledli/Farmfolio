@@ -17,6 +17,7 @@ export function Login() {
   });
 
   const { email, password } = data;
+  const [errorMessage, setErrorMessage] = useState("");
 
   // hey Javi
   // send user login credentials to the API to be verified
@@ -25,11 +26,16 @@ export function Login() {
     e.preventDefault();
 
     // axios request
-    const response = await api.postLogin(data);
+    const response = await api.postLogin(data).catch(function (error) {
+      if (error.response.status === 401) {
+        console.log("Invalid login.");
+        setErrorMessage("Invalid login information.");
+      }
 
-    console.log(response);
+      console.log(error.response.status + ": " + error.response.statusText);
+    });
 
-    if (response.status === 200) {
+    if (response?.status === 200) {
       // user was verified, API should return user's token
       // save the token inside of a cookie
       cookies.set("access_token", response.data.token, {
@@ -40,8 +46,9 @@ export function Login() {
       console.log("HERE");
 
       // send the user to the homepage
-      window.location = "/";
+      window.location = "/livestock";
     }
+
   };
 
   // hello Javi
@@ -49,6 +56,10 @@ export function Login() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+
+  // const setError401 = () => {
+  //   setErrorMessage("Invalid login information.");
+  // }
   return (
     <div>
     <div className="splitScreen">
@@ -93,6 +104,7 @@ export function Login() {
           </div>
           <div className="btn-container">
             <button className="btn" type="submit" onSubmit={sendLogin}>LOGIN</button>
+            {errorMessage ? errorMessage : null}
           </div>
         </form>
         </div>
