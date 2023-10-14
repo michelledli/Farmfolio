@@ -1,13 +1,31 @@
 import React from "react";
 import "./Add.css";
+import axios from 'axios'
 
-const AddUser = () => {
+const sendAddAnimal = (values) => {
+  console.log(values)
+  axios.post("api/animals/add", { 
+    id: values.ID, 
+    name: values.name,
+    dob: values.birthDate,
+    weight: values.weight,
+    tag: values.tag,
+    breed: values.breed,
+  })
+  .then(response => {
+    console.log(response)
+  }).catch(function (error) {
+    console.log(error)
+  });
+};
+
+const AddAnimal = () => {
   return (
     <div className="App-Header">
       <div className="Add">
         <div className="AddContainer">
           <h1>Add Animal</h1>
-          <form style={{ width: "100%" }}>
+          <form style={{ width: "100%" }} onSubmit={sendAddAnimal}>
             <div className="input">
               <label className="label">ID</label>
               <input type="text" name="ID" className="inputField" />
@@ -42,4 +60,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddAnimal;
