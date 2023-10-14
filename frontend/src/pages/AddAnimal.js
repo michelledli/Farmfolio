@@ -19,6 +19,7 @@ const sendAddAnimal = (values) => {
   });
 };
 
+
 const AddAnimal = () => {
   return (
     <div className="App-Header">
