@@ -11,24 +11,24 @@ import org.springframework.context.annotation.Bean;
 @EnableJpaRepositories
 public class Main {
 
-	@Value("${jwt.secret}")
-	private String secret;
+	// @Value("${jwt.secret}")
+	// private String secret;
 
-	private static void addUrlPatterns(FilterRegistrationBean registrationBean) {
-        registrationBean.addUrlPatterns("/api/animals");
-		registrationBean.addUrlPatterns("/api/account");
-		registrationBean.addUrlPatterns("/api/role/*");
-	}
+	// private static void addUrlPatterns(FilterRegistrationBean registrationBean) {
+    //     registrationBean.addUrlPatterns("/api/animals");
+	// 	registrationBean.addUrlPatterns("/api/account");
+	// 	registrationBean.addUrlPatterns("/api/role/*");
+	// }
 
-	@Bean
-    public FilterRegistrationBean<AuthenticationFilter> registerAuthenticationFilter() {
-        final FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new AuthenticationFilter(secret));
-		addUrlPatterns(registrationBean);
-		registrationBean.setOrder(1);
+	// @Bean
+    // public FilterRegistrationBean<AuthenticationFilter> registerAuthenticationFilter() {
+    //     final FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
+    //     registrationBean.setFilter(new AuthenticationFilter(secret));
+	// 	addUrlPatterns(registrationBean);
+	// 	registrationBean.setOrder(1);
 
-        return registrationBean;
-    }
+    //     return registrationBean;
+    // }
 
 	// @Bean
     // public FilterRegistrationBean<AuthorizationFilter> registerAuthorizationFilter() {
