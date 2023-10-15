@@ -29,8 +29,15 @@ public class Animal extends Auditable {
     private String breed;
     private String notes;
 
-    @ManyToMany
-    private List<AnimalParent> parents = new ArrayList<>();
+
+    //parents
+    @ManyToOne
+    @JoinColumn(name = "father_id")
+    private Animal father;
+
+    @ManyToOne
+    @JoinColumn(name = "mother_id")
+    private Animal mother;
 
     @Override
     public boolean equals(Object o) {
