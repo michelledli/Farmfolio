@@ -71,15 +71,6 @@ public class AnimalController {
         return animalRepository.save(animal);
     }
 
-    //Given the id of a child, add a father
-    @PutMapping("/father/{childId}")
-    public Animal addAnimalFather(@RequestBody Animal animalFather,
-                                                  @PathVariable Long childId) {
-        Optional<Animal> animalChild = animalRepository.findById(childId);
-        animalChild.get().setFather(animalFather);
-        return animalRepository.save(animalChild.get());
-    }
-
     @DeleteMapping("/delete/{id}")
     public void deleteAnimal(@PathVariable("id") Long id) {
         animalRepository.deleteById(id);
