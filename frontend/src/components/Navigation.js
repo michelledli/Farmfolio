@@ -4,11 +4,13 @@ import { Home } from "../pages/Home";
 import { Dashboard } from "../pages/Dashboard";
 import News from "../pages/News";
 import { Livestock } from "../pages/Livestock";
-import { FamilyTree } from "../pages/FamilyTree";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import CreatePost from "../pages/CreatePost";
 import PostPage from "./PostPage";
+import { Linkpage } from "../pages/Linkpage";
+import AddAnimal from "../pages/AddAnimal";
+import AddUser from "../pages/AddUser";
 
 
 export function Navigation() {
@@ -53,7 +55,6 @@ export function Navigation() {
           <li class = "dash-link"><Link to="/home">Home</Link></li>
           <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
           <li class = "dash-link"><Link to="/news">News</Link></li>
-          <li class = "dash-link"><Link to="/familytree">Family Tree</Link></li>
         </ul>
           <input type="text" placeholder="Search.." />
     </nav>
@@ -106,10 +107,12 @@ export function Navigation() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/news" element={<News />} />
         <Route path="/livestock" element={<Livestock />} />
-        <Route path="/familytree" element={<FamilyTree />} />
         <Route path="/news" element={<News posts={posts} />} />
         <Route path="/post/:title" element={<PostPage />} />
         <Route path="/create" element= {<CreatePost onPostCreate={handlePostCreate} />} />
+        <Route path="/linkpage" element={<Linkpage />} />
+        <Route path="/user-add" element={<AddUser />} />
+        <Route path="/animal-add" element={<AddAnimal />} />
       </Routes>
     </>
   );

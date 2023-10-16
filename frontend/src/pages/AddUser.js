@@ -1,5 +1,4 @@
 import React from "react";
-import "./Add.css";
 
 const AddUser = () => {
   return (
