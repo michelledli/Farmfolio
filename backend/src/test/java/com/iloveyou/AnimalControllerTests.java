@@ -69,25 +69,25 @@ public class AnimalControllerTests {
     @Test
     public void animalsearchTest() throws Exception {
         MvcResult result = this.mvc.perform(get("/animals/search").param("query", "test")).andReturn();
-        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals was not fulfilled. Status Code: " + result.getResponse().getStatus());
+        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals/search was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 
     @Test
     public void getById() throws Exception {
         MvcResult result = this.mvc.perform(get("/animals/23")).andReturn();
-        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals was not fulfilled. Status Code: " + result.getResponse().getStatus());
+        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals/{id} was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 
     @Test
     public void deleteById() throws Exception {
         MvcResult result = this.mvc.perform(delete("/animals/delete/23")).andReturn();
-        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals was not fulfilled. Status Code: " + result.getResponse().getStatus());
+        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals/delete/{id} was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 
     @Test
     @Disabled // post /animals/update/{id} causes a 405 error "indicates that the server knows the request method, but the target resource doesn't support this method"
     public void updateById() throws Exception {
         MvcResult result = this.mvc.perform(post("/animals/update/23")).andReturn();
-        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals was not fulfilled. Status Code: " + result.getResponse().getStatus());
+        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals/update/{id} was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 }
