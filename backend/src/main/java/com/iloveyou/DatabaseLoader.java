@@ -26,7 +26,6 @@ public class DatabaseLoader implements CommandLineRunner {
 	public DatabaseLoader(AccountRepository accountRepository, AnimalRepository animalRepository, PostRepository postRepository) {
 		this.accountRepository = accountRepository;
 		this.animalRepository = animalRepository;
-		this.postRepository = postRepository;
 	}
 
 	@Override
@@ -39,7 +38,13 @@ public class DatabaseLoader implements CommandLineRunner {
 		Account u3 =
 			Account.builder().fname("Kat").lname("Shai").email("kshai916@hotmail.com").password("password").build();
 
-		List<Account> accounts = Arrays.asList(u1, u2, u3);
+		Account userEntity =
+			Account.builder().fname("fname").lname("lname").email("user").password("a").isAdmin(false).build();
+
+		Account adminEntity =
+			Account.builder().fname("fname").lname("lname").email("admin").password("a").isAdmin(true).build();
+
+		List<Account> accounts = Arrays.asList(u1, u2, u3, adminEntity, userEntity);
 		this.accountRepository.saveAll(accounts);
 
 

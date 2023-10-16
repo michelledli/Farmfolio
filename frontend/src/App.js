@@ -13,14 +13,12 @@ import { Livestock } from './pages/Livestock';
 const React = require("react");
 
 class App extends React.Component {
-	render() {
-		return (
-		<Routes>
-			<Route path="/login" element={<Login />} />
-			<Route path="/register" element={<Register />} />
-		</Routes>
-		);
-	}
+    render() {
+        return (
+            <Layout>
+            </Layout>
+        );
+    }
 }
 
 export default App;
