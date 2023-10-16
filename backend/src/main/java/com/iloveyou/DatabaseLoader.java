@@ -26,6 +26,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	public DatabaseLoader(AccountRepository accountRepository, AnimalRepository animalRepository, PostRepository postRepository) {
 		this.accountRepository = accountRepository;
 		this.animalRepository = animalRepository;
+		this.postRepository = postRepository;
 	}
 
 	@Override
