@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 
 import com.iloveyou.entity.Animal;
 import com.iloveyou.entity.Account;
+import com.iloveyou.entity.Post;
 import com.iloveyou.repository.AnimalRepository;
+import com.iloveyou.repository.PostRepository;
 import com.iloveyou.repository.AccountRepository;
 
 @Component
@@ -18,12 +20,13 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	private final AccountRepository accountRepository; 
 	private final AnimalRepository animalRepository;
+	private final PostRepository postRepository;
 
 	@Autowired
-	public DatabaseLoader(AccountRepository accountRepository, AnimalRepository animalRepository) {
+	public DatabaseLoader(AccountRepository accountRepository, AnimalRepository animalRepository, PostRepository postRepository) {
 		this.accountRepository = accountRepository;
 		this.animalRepository = animalRepository;
-		
+		this.postRepository = postRepository;
 	}
 
 	@Override
@@ -54,5 +57,16 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		List<Animal> animals = Arrays.asList(a1, a2, a3, a4, a5);
 		this.animalRepository.saveAll(animals);
+
+		// hard coded posts made for test
+		Post p1 =
+			Post.builder().accountId((long) 191).title("This is test Post #1").build();
+		Post p2 =
+			Post.builder().accountId((long) 191).title("This is test Post #2").build();
+		Post p3 =
+			Post.builder().accountId((long) 191).title("This is test Announcement #1").announcement(true).build();
+
+		List<Post> posts = Arrays.asList(p1, p2, p3);
+		this.postRepository.saveAll(posts);
 	}  
 }

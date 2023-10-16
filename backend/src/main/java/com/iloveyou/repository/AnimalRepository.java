@@ -14,15 +14,15 @@ import org.springframework.data.domain.Sort;
 
 public interface AnimalRepository extends JpaRepository<Animal, Long> { 
 
-	// Search for an Animal by name 
-	@Query("SELECT a FROM Animal a WHERE "
+    // Search for an Animal by name 
+    @Query("SELECT a FROM Animal a WHERE "
     + "LOWER(a.name) LIKE CONCAT('%', LOWER(?1),'%')")
-	List<Animal> searchByName(String query);
+    List<Animal> searchByName(String query);
 
-	// Search for an Animal by tag 
-	@Query("SELECT a FROM Animal a WHERE "
+    // Search for an Animal by tag 
+    @Query("SELECT a FROM Animal a WHERE "
     + "LOWER(a.tag) LIKE CONCAT('%', LOWER(?1),'%')")
-	List<Animal> searchByTag(String query);
+    List<Animal> searchByTag(String query);
 
     // Search for an Animal by name or Tag
     @Query("SELECT a FROM Animal a WHERE "
