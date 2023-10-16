@@ -35,15 +35,6 @@ h1{
   color: #61dafb;
 }
 
-/*@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-*/
 /*Styles from wireframe*/
 /*Will be updated to look better and match color theme*/
 .dash-link {
@@ -301,7 +292,7 @@ th,td {
 /* Add User/Animal */
 .AddContainer {
   display: flex;             
-  flex-direction: column;   /* Make children align vertically */
+  flex-direction: column;   
   justify-content: center;   
   align-items: center;          
   width: 28%;
@@ -323,13 +314,13 @@ th,td {
   width: 100%;                 
   margin-bottom: 20px;        
   display: flex;              
-  flex-direction: column;     /* Stack children vertically */
-  align-items: center;    /* Left-align children */
+  flex-direction: column;     
+  align-items: center;    
   justify-content: center;
 }
 
 .inputField {
-  width: 95%;                /* Take up the full width of .inputWrapper */
+  width: 95%;                
   padding: 13px;             
   border-radius: 12px;
   border: 1px solid #8f8787;     
@@ -337,14 +328,14 @@ th,td {
   text-align: left;
 }
 .submit {
-  bottom: 30px;              /* Increase distance from the bottom */
-  padding: 10px 20px;        /* Increase padding to make the button bigger */
+  bottom: 30px;              
+  padding: 10px 20px;        
   background-color: #176a60;    
   color: white;               
   border: none;              
   border-radius: 10px;       
   cursor: pointer;           
-  font-size: 18px;           /* Increase font size for bigger text */
+  font-size: 18px;           
   align-items: right;
 }
 

@@ -1,4 +1,3 @@
-import "./Livestock.css";
 import { useState } from "react";
 
 export function Livestock() {
