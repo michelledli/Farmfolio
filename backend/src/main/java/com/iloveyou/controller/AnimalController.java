@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.iloveyou.entity.Animal;
+import com.iloveyou.entity.Post;
 import com.iloveyou.repository.AnimalRepository;
 
 import java.util.ArrayList;
@@ -20,9 +21,14 @@ import java.util.List;
 
 import java.util.Optional;
 
+
+
 @RequestMapping("/animals")
 @RestController
 public class AnimalController {
+
+    boolean DEBUG = true;
+
     @Autowired
     AnimalRepository animalRepository;
 
@@ -54,6 +60,10 @@ public class AnimalController {
     public String getAnimalByNameOrTag(@RequestParam String query) {
         List<Animal> animals = animalRepository.searchByNameOrTag(query);
 
+        if (DEBUG) {
+            System.out.println(query);
+        }
+
         if (animals.size() == 0) {
             return "No animals found with a name or tag matching: " + query;
         }
@@ -61,8 +71,13 @@ public class AnimalController {
         return animals.toString();
     }
 
+    @GetMapping()
+    List<Animal> getAllPosts() {
+        return animalRepository.findAll();
+    }
+
     @GetMapping("/{id}")
-    Optional<Animal> getAnimal(@PathVariable long id) {
+    Optional<Animal> getAnimalById(@PathVariable long id) {
         return animalRepository.findById(id);
     }
 
