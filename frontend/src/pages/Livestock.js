@@ -1,7 +1,5 @@
-import "./Livestock.css";
 import { useEffect, useState } from "react";
 import axios from 'axios'
-import { useState } from "react";
 
 export function Livestock() {
   const [expand, setExpand] = useState({});

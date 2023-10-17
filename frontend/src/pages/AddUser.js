@@ -1,5 +1,4 @@
 import React from "react";
-import "./Add.css";
 import axios from 'axios'
 
 
