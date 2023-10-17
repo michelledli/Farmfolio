@@ -1,4 +1,21 @@
 import React from "react";
+import "./Add.css";
+import axios from 'axios'
+
+
+const sendAddUser = (values) => {
+  axios.post("api/accounts/add", { 
+    fname: values.firstName, 
+    lname: values.lastName,
+    email: values.email,
+    password: values.password,
+  })
+  .then(response => {
+    console.log(response)
+  }).catch(function (error) {
+    console.log(error)
+  });
+};
 
 const AddUser = () => {
   return (
@@ -6,7 +23,7 @@ const AddUser = () => {
       <div className="Add">
         <div className="AddContainer">
           <h1>Add User</h1>
-          <form style={{ width: "100%" }}>
+          <form style={{ width: "100%" }} onSubmit={sendAddUser}>
             <div className="input">
               <label className="label">First Name</label>
               <input type="text" name="firstName" className="inputField" />
@@ -18,10 +35,6 @@ const AddUser = () => {
             <div className="input">
               <label className="label">Email</label>
               <input type="text" name="email" className="inputField" />
-            </div>
-            <div className="input">
-              <label className="label">Username</label>
-              <input type="text" name="username" className="inputField" />
             </div>
             <div className="input">
               <label className="label">Password</label>
