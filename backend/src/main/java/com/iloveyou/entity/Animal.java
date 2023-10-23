@@ -1,11 +1,11 @@
 package com.iloveyou.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +28,16 @@ public class Animal extends Auditable {
     private String tag;
     private String breed;
     private String notes;
+
+
+    //parents
+    @ManyToOne
+    @JoinColumn(name = "father_id")
+    private Animal father;
+
+    @ManyToOne
+    @JoinColumn(name = "mother_id")
+    private Animal mother;
 
     @Override
     public boolean equals(Object o) {
