@@ -1,6 +1,8 @@
 package com.iloveyou.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.iloveyou.entity.Animal;
 import com.iloveyou.repository.AnimalRepository;
+import com.iloveyou.service.AnimalService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,9 @@ import java.util.Optional;
 public class AnimalController {
     @Autowired
     AnimalRepository animalRepository;
+
+    @Autowired
+    AnimalService animalService;
 
     // Partial search of Animals based on the given field
     @GetMapping("/search/{field}")
@@ -61,9 +67,16 @@ public class AnimalController {
         return animals.toString();
     }
 
+//    @GetMapping("/{id}")
+//    Optional<Animal> getAnimal(@PathVariable long id) {
+//        return animalRepository.findById(id);
+//    }
+
     @GetMapping("/{id}")
-    Optional<Animal> getAnimal(@PathVariable long id) {
-        return animalRepository.findById(id);
+    public ResponseEntity<Animal> getAnimalById(@PathVariable("id") Long id) {
+        Animal entity = animalService.getAnimalById(id);
+
+        return new ResponseEntity<Animal>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -85,4 +98,16 @@ public class AnimalController {
         animalRepository.save(animal);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping
+    public ResponseEntity<List<Animal>> getAllAnimals(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "tag") String sortBy)
+    {
+        List<Animal> list = animalService.getAllAnimals(pageNo, pageSize, sortBy);
+
+        return new ResponseEntity<List<Animal>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
+
 }
