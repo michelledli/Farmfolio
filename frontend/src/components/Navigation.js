@@ -28,13 +28,8 @@ export function Navigation() {
     navContent = (
       <nav>
         <ul>
-          <li class = "dash-link"><Link to="/home">Home</Link></li>
-          <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
-          <li class = "dash-link"><Link to="/news">News</Link></li>
-          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
-          <li class = "dash-link"><Link to="/create">Create Post</Link></li>
+          <h1>Farmfolio</h1>
         </ul>
-          <input type="text" placeholder="Search.." />
       </nav>
     );
   } else if (location.pathname.startsWith('/home')) {
