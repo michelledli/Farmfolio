@@ -4,12 +4,12 @@ import axios from 'axios'
 const sendAddAnimal = (values) => {
   console.log(values)
   axios.post("api/animals/add", { 
-    id: values.ID, 
-    name: values.name,
-    dob: values.birthDate,
-    weight: values.weight,
-    tag: values.tag,
-    breed: values.breed,
+    id: values.target.ID, 
+    name: values.target.name,
+    dob: values.target.birthDate,
+    weight: values.target.weight,
+    tag: values.target.tag,
+    breed: values.target.breed,
   })
   .then(response => {
     console.log(response)
