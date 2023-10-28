@@ -34,12 +34,15 @@ public class AnimalService {
     }
 
     public Animal getAnimalByTag(String tag) {
-        Optional<Animal> animal = repository.findByTag(tag);
+//        Optional<Animal> animal = repository.findByTag(tag);
+//
+//        if (animal.isPresent()) {
+//            return animal.get();
+//        } else {
+//            // need to handle
+//        }
 
-        if (animal.isPresent()) {
-            return animal.get();
-        } else {
-            // need to handle
-        }
+        Animal animal = repository.findByTag(tag);
+        return animal;
     }
 }

@@ -67,14 +67,14 @@ public class AnimalController {
         return animals.toString();
     }
 
-//    @GetMapping("/{id}")
-//    Optional<Animal> getAnimal(@PathVariable long id) {
-//        return animalRepository.findById(id);
-//    }
-
     @GetMapping("/{id}")
-    public ResponseEntity<Animal> getAnimalById(@PathVariable("id") Long id) {
-        Animal entity = animalService.getAnimalById(id);
+    Optional<Animal> getAnimal(@PathVariable long id) {
+        return animalRepository.findById(id);
+    }
+
+    @GetMapping("/{tag}")
+    public ResponseEntity<Animal> getAnimalByTag(@PathVariable("tag") String tag) {
+        Animal entity = animalService.getAnimalByTag(tag);
 
         return new ResponseEntity<Animal>(entity, new HttpHeaders(), HttpStatus.OK);
     }
