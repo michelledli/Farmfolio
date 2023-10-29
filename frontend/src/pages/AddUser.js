@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 const sendAddUser = (values) => {
-  axios.post("api/accounts/add", { 
+  axios.post("api/accounts", { 
     fname: values.firstName, 
     lname: values.lastName,
     email: values.email,

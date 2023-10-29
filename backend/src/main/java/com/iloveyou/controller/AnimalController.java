@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.iloveyou.entity.Animal;
-import com.iloveyou.entity.Post;
 import com.iloveyou.repository.AnimalRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Optional;
 
 
@@ -81,23 +80,41 @@ public class AnimalController {
         return animalRepository.findById(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping()
     public Animal createAnimal(@RequestBody Animal animal) {
         return animalRepository.save(animal);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAnimal(@PathVariable("id") Long id) {
         animalRepository.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateAnimal(@RequestBody Animal animal, @PathVariable Long id) {
-        Optional<Animal> animalOptional = animalRepository.findById(animal.getId());
-        if (!animalOptional.isPresent())
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateAccount(@RequestBody Animal animal, @PathVariable("id") Long id) {
+        // find the target animal using the path variable id
+        Optional<Animal> targetAnimal = animalRepository.findById(id);
+
+        // check if the animal is empty or not
+        if (!targetAnimal.isPresent())
+            // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        animal.setId(id);
-        animalRepository.save(animal);
-        return ResponseEntity.noContent().build();
+        
+        // the target animal exists, update the comment
+        // first create an Animal type object
+        Animal temp = targetAnimal.get();
+
+        // update all fields, some potentially being unchanged
+        temp.setName(animal.getName());
+        temp.setSex(animal.getSex());
+        temp.setDob(animal.getDob());
+        temp.setWeight(animal.getWeight());
+        temp.setTag(animal.getTag());
+        temp.setBreed(animal.getBreed());
+        temp.setNotes(animal.getNotes());
+
+        animalRepository.save(temp);
+        // return success 
+        return ResponseEntity.ok().build();
     }
 }

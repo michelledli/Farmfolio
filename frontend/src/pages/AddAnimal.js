@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const sendAddAnimal = (values) => {
   console.log(values)
-  axios.post("api/animals/add", { 
+  axios.post("api/animals", { 
     id: values.ID, 
     name: values.name,
     dob: values.birthDate,

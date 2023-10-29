@@ -1,8 +1,6 @@
 package com.iloveyou.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.*;
@@ -66,6 +64,8 @@ public class Animal extends Auditable {
                 ", birthdate='" + dob + '\'' +
                 ", weight='" + weight + '\'' +
                 ", tag='" + tag + '\'' +
+                ", breed='" + breed + '\'' +
+                ", notes='" + notes + '\'' +
                 '}';
     } 
 

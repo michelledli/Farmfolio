@@ -73,23 +73,37 @@ public class AccountController {
         return accountRepository.findById(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping()
     public Account createAccount(@RequestBody Account account) {
         return accountRepository.save(account);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable("id") Long id) {
         accountRepository.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateAccount(@RequestBody Account account, @PathVariable Long id) {
-        Optional<Account> accountOptional = accountRepository.findById(account.getId());
-        if (!accountOptional.isPresent())
+        // find the target account using the path variable id
+        Optional<Account> targetAccount = accountRepository.findById(id);
+
+        // check if the account is empty or not
+        if (!targetAccount.isPresent())
+            // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        account.setId(id);
-        accountRepository.save(account);
-        return ResponseEntity.noContent().build();
+        
+        // the target account exists, update the account
+        // first create an Account type object
+        Account temp = targetAccount.get();
+
+        // update all fields, some potentially being unchanged
+        temp.setFname(account.getFname());
+        temp.setLname(account.getLname());
+        temp.setEmail(account.getEmail());
+
+        accountRepository.save(temp);
+        // return success 
+        return ResponseEntity.ok().build();
     }
 }
