@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.iloveyou.entity.Animal;
 import com.iloveyou.entity.Post;
 import com.iloveyou.repository.AnimalRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Optional;
 
 

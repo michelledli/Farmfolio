@@ -48,8 +48,6 @@ public class DatabaseLoader implements CommandLineRunner {
 		List<Account> accounts = Arrays.asList(u1, u2, u3, adminEntity, userEntity);
 		this.accountRepository.saveAll(accounts);
 
-
-		// hard coded animals made for testing
 		Animal a1 = 
 			Animal.builder().name("Penny").dob(new Date()).weight(80).tag("x").breed("a").build();
 		Animal a2 = 

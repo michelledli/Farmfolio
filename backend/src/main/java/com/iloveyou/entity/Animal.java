@@ -28,6 +28,7 @@ public class Animal extends Auditable {
     private String tag;
     private String breed;
     private String notes;
+    private String imageUri;
 
 
     //parents

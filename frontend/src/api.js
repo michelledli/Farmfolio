@@ -182,7 +182,7 @@ export const FrontendAPI = {
 
   postRegister: async function (body) {
     const repsonse = await api.request({
-      url: `/register`,
+      url: `/api/register`,
       method: "POST",
       data: body,
     });

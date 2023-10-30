@@ -27,8 +27,6 @@ export function Login() {
     // axios request
     const response = await api.postLogin(data);
 
-    console.log(response);
-
     if (response.status === 200) {
       // user was verified, API should return user's token
       // save the token inside of a cookie
@@ -36,8 +34,6 @@ export function Login() {
         path: "/",
         sameSite: "strict",
       });
-
-      console.log("HERE");
 
       // send the user to the homepage
       window.location = "/";
