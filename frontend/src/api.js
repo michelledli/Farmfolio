@@ -93,6 +93,7 @@ export const FrontendAPI = {
     });
     return response.data;
   },
+  
 
   getEntity: async function () {
     const response = await api.request({
@@ -147,6 +148,14 @@ export const FrontendAPI = {
       url: `/feature/${key}`,
       method: "GET",
     });
+    return response.data;
+  },
+
+  getPosts: async function () {
+    const response = await api.request({
+      url: `/posts`,
+      method: "GET",
+    })
     return response.data;
   },
 

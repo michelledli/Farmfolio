@@ -1,37 +1,31 @@
-import "./Livestock.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 export function Livestock() {
   const [expand, setExpand] = useState({});
+  const [goats, setGoats] = useState([])
+  
+  function getAge(dob) {
+    var today = new Date();
+    var birthDate = new Date(dob);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
 
-  const goats = [
-    {
-      id: 1,
-      name: "Bobby",
-      birthDate: Date("2023-01-01"),
-      weight: 15,
-      tag: "green",
-      breed: "regular",
-      sex: "male",
-      age: 1,
-      immunizations: "none",
-      mother: "unknown",
-      father: "unknown",
-    },
-    {
-      id: 2,
-      name: "Chris",
-      birthDate: Date("2023-01-02"),
-      weight: 18,
-      tag: "red",
-      breed: "regular",
-      sex: "female",
-      age: 1,
-      immunizations: "rabies",
-      mother: "Chad",
-      father: "Lisa",
-    },
-  ];
+  useEffect(() => {
+    axios.get("api/animals")
+    .then(response => {
+      console.log(response.data)
+      setGoats(response.data)
+    }).catch(function (error) {
+      console.log(error)
+    });
+  },[] );
+  
   return (
     <div className="App-header">
       <h1>Livestock</h1>
@@ -73,7 +67,7 @@ export function Livestock() {
           {goats.map((goat) => (
             <tr key={goat.id} onClick={() => setExpand(goat)}>
               <td>{goat.name}</td>
-              <td>{goat.age}</td>
+              <td>{getAge(goat.dob)}</td>
               <td>{goat.sex}</td>
             </tr>
           ))}
