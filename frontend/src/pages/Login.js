@@ -43,8 +43,6 @@ export function Login() {
         sameSite: "strict",
       });
 
-      console.log("HERE");
-
       // send the user to the homepage
       window.location = "/livestock";
     }
@@ -56,27 +54,8 @@ export function Login() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-
-  // const setError401 = () => {
-  //   setErrorMessage("Invalid login information.");
-  // }
   return (
-    <div>
-    <div className="splitScreen">
-      <div className="topPane">
-        <h1>Farmfolio</h1> 
-        <h3>About</h3>
-        <div>Explore Sawyer's Farm Goat Catalog at Bret Harte High School:
-          Located at Bret Harte High School, Sawyer's Farm is a unique endeavor cared for by both 
-          students and faculty. Our catalog offers a range of high-quality goats and supplies, 
-          and we take pride in practicing responsible farming. Whether you're a student learning 
-          about agriculture or a faculty member with a passion for goats, Sawyer's Farm is here 
-          to support your goat-keeping journey. Join our school community in fostering a love for 
-          sustainable farming with Sawyer's Farm.
-        </div>
-
-      </div>
-      <div className="bottomPane">
+    <div className="">
         <div className="login">
           <h1>WELCOME</h1>
         <form onSubmit={sendLogin}>
@@ -109,8 +88,6 @@ export function Login() {
         </form>
         </div>
       </div>
-    </div>
-    </div>
   );
 }
 export default Login;

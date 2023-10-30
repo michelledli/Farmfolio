@@ -28,7 +28,8 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     + "LOWER(a.tag) LIKE CONCAT('%', LOWER(?1),'%')")
     List<Animal> searchByNameOrTag(String query);
 
-    List<Animal> findByTag(String tag);
+    // List<Animal> findByTag(String tag);
+    Animal findByTag(String tag);
 
     int numDisplayed = 20;
     //sort by tag

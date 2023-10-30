@@ -26,12 +26,6 @@ export function Navigation() {
   if (location.pathname === '/') {
     navContent = (
       <nav>
-
-      </nav>
-    );
-  }  else {
-    navContent = (
-      <nav>
         <ul>
             <li className="dash-link"><Link to="/home">About</Link></li>
             <li className="dash-link"><Link to="/news">News</Link></li>

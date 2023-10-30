@@ -4,35 +4,7 @@ import axios from 'axios'
 export function Livestock() {
   const [expand, setExpand] = useState({});
   const [goats, setGoats] = useState([])
-  // const goats = [
-  //   {
-  //     id: 1,
-  //     name: "Bobby",
-  //     birthDate: Date("2023-01-01"),
-  //     weight: 15,
-  //     tag: "green",
-  //     breed: "regular",
-  //     sex: "male",
-  //     age: 1,
-  //     immunizations: "none",
-  //     mother: "unknown",
-  //     father: "unknown",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Chris",
-  //     birthDate: Date("2023-01-02"),
-  //     weight: 18,
-  //     tag: "red",
-  //     breed: "regular",
-  //     sex: "female",
-  //     age: 1,
-  //     immunizations: "rabies",
-  //     mother: "Chad",
-  //     father: "Lisa",
-  //   },
-  // ];
-
+  
   function getAge(dob) {
     var today = new Date();
     var birthDate = new Date(dob);
@@ -47,8 +19,8 @@ export function Livestock() {
   useEffect(() => {
     axios.get("api/animals")
     .then(response => {
-      console.log(response.data._embedded.animals)
-      setGoats(response.data._embedded.animals)
+      console.log(response.data)
+      setGoats(response.data)
     }).catch(function (error) {
       console.log(error)
     });
