@@ -21,69 +21,16 @@ export function Navigation() {
     setPosts([...posts, newPost]);
   };
 
-
   let navContent;
 
   if (location.pathname === '/') {
     navContent = (
       <nav>
         <ul>
-          <h1>Farmfolio</h1>
-        </ul>
-      </nav>
-    );
-  } else if (location.pathname.startsWith('/home')) {
-    navContent = (
-      <nav>
-        <ul>
-          <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
-          <li class = "dash-link"><Link to="/news">News</Link></li>
-          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
-        </ul>
-          <input type="text" placeholder="Search.." />
-    </nav>
-    );
-  } else if (location.pathname.startsWith('/livestock')) {
-    navContent = (
-      <nav>
-        <ul>
-          <li class = "dash-link"><Link to="/home">Home</Link></li>
-          <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
-          <li class = "dash-link"><Link to="/news">News</Link></li>
-        </ul>
-          <input type="text" placeholder="Search.." />
-    </nav>
-    );
-  } else if (location.pathname.startsWith('/dashboard')) {
-    navContent = (
-      <nav>
-        <ul>
-          <li class = "dash-link"><Link to="/home">Home</Link></li>
-          <li class = "dash-link"><Link to="/news">News</Link></li>
-          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
-        </ul>
-          <input type="text" placeholder="Search.." />
-    </nav>
-    );
-  } else if (location.pathname.startsWith('/news')) {
-    navContent = (
-      <nav>
-        <ul>
-          <li class = "dash-link"><Link to="/home">Home</Link></li>
-          <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
-          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
-        </ul>
-          <input type="text" placeholder="Search.." />
-    </nav>
-    );
-  } else {
-    navContent = (
-      <nav>
-        <ul>
-          <li class = "dash-link"><Link to="/home">Home</Link></li>
-          <li class = "dash-link"><Link to="/dashboard">Dashboard</Link></li>
-          <li class = "dash-link"><Link to="/news">News</Link></li>
-          <li class = "dash-link"><Link to="/livestock">Livestock</Link></li>
+            <li className="dash-link"><Link to="/home">About</Link></li>
+            <li className="dash-link"><Link to="/news">News</Link></li>
+            <li className="dash-link"><Link to="/livestock">Livestock</Link></li>
+            <li className="dash-link"><Link to="/create">Create Post</Link></li>
         </ul>
           <input type="text" placeholder="Search.." />
       </nav>
@@ -99,7 +46,6 @@ export function Navigation() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/news" element={<News />} />
         <Route path="/livestock" element={<Livestock />} />
         <Route path="/news" element={<News posts={posts} />} />
