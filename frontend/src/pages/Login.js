@@ -43,8 +43,6 @@ export function Login() {
         sameSite: "strict",
       });
 
-      console.log("HERE");
-
       // send the user to the homepage
       window.location = "/livestock";
     }
@@ -56,10 +54,6 @@ export function Login() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-
-  // const setError401 = () => {
-  //   setErrorMessage("Invalid login information.");
-  // }
   return (
     <div className="">
         <div className="login">
