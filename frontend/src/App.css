@@ -248,6 +248,8 @@ margin-left: 15px;
   display: flex;
   justify-content: center; 
   margin-top: 20px;
+  color: #FFCCCB;
+  font-size: 25px;
 }
 
 .btn {
