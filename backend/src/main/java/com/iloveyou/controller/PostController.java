@@ -1,6 +1,7 @@
 package com.iloveyou.controller;
 
 import com.iloveyou.repository.AccountRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -55,8 +56,8 @@ public class PostController {
     }*/
     @PostMapping("/create/{accountId}")
     public Post createPost(@RequestBody Post post, @PathVariable Long accountId) {
-        Optional<Account> account = accountRepository.findById(accountId);
-        post.setAuthor(account.get());
+        Account account = accountRepository.findById(accountId).get();
+        post.setAuthor(account);
         post.setCreatedAt(new Date());
         return postRepository.save(post);
     }

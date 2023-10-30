@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class Account extends Auditable {
     private boolean isAdmin;
 
     @OneToMany(mappedBy = "author")
+    @JsonIgnore
     private List<Post> forumPosts = new ArrayList<>();
 
     @Override
