@@ -3,9 +3,7 @@ package com.iloveyou.entity;
 import java.util.Date;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Builder.Default;
@@ -21,13 +19,15 @@ public class Post extends Auditable {
 
     @Id
     @GeneratedValue
-    private Long id;            
-    private Long accountId;    // the id of the account that made the post
+    private Long id;
     private String title;      // the title text of the post
     private Date createdAt;    // the date and time the post was made
     @Default
     private boolean announcement = false; // whether or not the Post is an Announcement
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account author;
 
     @Override
     public boolean equals(Object o) {
@@ -37,7 +37,6 @@ public class Post extends Auditable {
         Post entity = (Post) o;
 
         return Objects.equals(id, entity.id) &&
-                Objects.equals(accountId, entity.accountId) &&
                 Objects.equals(createdAt, entity.createdAt) &&
                 Objects.equals(announcement, entity.announcement) &&
                 Objects.equals(title, entity.title);
@@ -45,14 +44,13 @@ public class Post extends Auditable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountId, createdAt, title, announcement);
+        return Objects.hash(id, createdAt, title, announcement);
     }
  
     @Override
     public String toString() {
         return "PostEntity{" +
                 "id='" + id +
-                ", user_id='" + accountId + '\'' +
                 ", created_at='" + createdAt + '\'' +
                 ", title='" + title + '\'' +
                 ", title='" + announcement + '\'' +

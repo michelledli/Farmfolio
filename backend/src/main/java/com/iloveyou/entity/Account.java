@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +26,9 @@ public class Account extends Auditable {
     private String email;
     private String password;
     private boolean isAdmin;
+
+    @OneToMany(mappedBy = "author")
+    private List<Post> forumPosts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
