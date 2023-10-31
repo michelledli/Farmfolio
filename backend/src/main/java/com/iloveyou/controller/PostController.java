@@ -1,7 +1,6 @@
 package com.iloveyou.controller;
 
 import com.iloveyou.repository.AccountRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

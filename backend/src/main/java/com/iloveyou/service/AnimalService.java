@@ -2,7 +2,6 @@ package com.iloveyou.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.iloveyou.entity.Animal;
 import com.iloveyou.repository.AnimalRepository;
-import com.iloveyou.controller.AnimalController;
-
 
 @Service
 public class AnimalService {
