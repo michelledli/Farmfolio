@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PostList = ({posts}) => {
+const Announcements = ({posts}) => {
     console.log("Posts in PostList:", posts);
   return (
     <div className="App-header">
-      <h2>Posts</h2>
+      <h2>Announcements</h2>
       <ul>
         {posts.map((post, index) => (
           <>
-          {post.announcement == false &&
+          {post.announcement == true &&
           <li key={index}>
             {post.title}
           </li>
@@ -21,4 +21,4 @@ const PostList = ({posts}) => {
   );
 };
 
-export default PostList;
+export default Announcements;

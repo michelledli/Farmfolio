@@ -1,38 +1,53 @@
 import React from "react";
-import axios from 'axios'
+import axios from 'axios';
 
 const sendAddAnimal = (values) => {
-  console.log(values)
-  axios.post("api/animals", { 
-    id: values.ID, 
-    name: values.name,
-    dob: values.birthDate,
-    weight: values.weight,
-    tag: values.tag,
-    breed: values.breed,
+  // Remove the comment marks and fix the Axios request
+  axios.post("api/animals/add", { 
+    id: values.target.ID, 
+    name: values.target.name,
+    dob: values.target.birthDate,
+    weight: values.target.weight,
+    tag: values.target.tag,
+    breed: values.target.breed,
   })
   .then(response => {
-    console.log(response)
-  }).catch(function (error) {
-    console.log(error)
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
   });
 };
 
-
 const AddAnimal = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const form = e.target;
+    const formData = new FormData(form);
+    const values = {};
+
+    // Convert form data to a plain object
+    formData.forEach((value, key) => {
+      values[key] = value;
+    });
+
+    // Send the data
+    sendAddAnimal(values);
+  };
+
   return (
     <div className="App-Header">
       <div className="Add">
         <div className="AddContainer">
           <h1>Add Animal</h1>
-          <form style={{ width: "100%" }} onSubmit={sendAddAnimal}>
+          <form style={{ width: "100%" }} onSubmit={handleSubmit}>
             <div className="input">
               <label className="label">ID</label>
               <input type="text" name="ID" className="inputField" />
             </div>
             <div className="input">
-              <label className="label">Name</label>
-              <input type="text" name="name" className="inputField" />
+            <label className="label">Name</label>
+            <input type="text" name="name" className="inputField" />
             </div>
             <div className="input">
               <label className="label">Birthdate</label>

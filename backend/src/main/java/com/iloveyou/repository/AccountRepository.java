@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.iloveyou.entity.Account;
 
 /**
@@ -29,9 +31,7 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 			+ "LOWER(a.email) LIKE CONCAT('%', LOWER(?1),'%')")
 	List<Account> searchByEmail(String query);
 
-	List<Account> findAll();
-
-	Account findByEmail(String email);
+	Optional<Account> findByEmail(String email);
 	Account findByEmailAndPassword(String email, String password);
 	boolean existsByEmailAndPassword(String email, String password);
 	boolean existsByEmail(String email);

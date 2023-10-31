@@ -69,11 +69,11 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		// hard coded posts made for test
 		Post p1 =
-			Post.builder().accountId((long) 191).title("This is test Post #1").build();
+			Post.builder().title("This is test Post #1").author(u1).build();
 		Post p2 =
-			Post.builder().accountId((long) 191).title("This is test Post #2").build();
+			Post.builder().title("This is test Post #2").author(u2).build();
 		Post p3 =
-			Post.builder().accountId((long) 191).title("This is test Announcement #1").announcement(true).build();
+			Post.builder().title("This is test Announcement #1").author(u3).announcement(true).build();
 
 		List<Post> posts = Arrays.asList(p1, p2, p3);
 		this.postRepository.saveAll(posts);
