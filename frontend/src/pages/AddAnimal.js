@@ -4,12 +4,12 @@ import axios from 'axios';
 const sendAddAnimal = (values) => {
   // Remove the comment marks and fix the Axios request
   axios.post("api/animals/add", { 
-    id: values.target.ID, 
-    name: values.target.name,
-    dob: values.target.birthDate,
-    weight: values.target.weight,
-    tag: values.target.tag,
-    breed: values.target.breed,
+    id: values.ID, 
+    name: values.name,
+    dob: values.birthDate,
+    weight: values.weight,
+    tag: values.tag,
+    breed: values.breed,
   })
   .then(response => {
     console.log(response);

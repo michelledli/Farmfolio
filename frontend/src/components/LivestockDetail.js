@@ -25,7 +25,7 @@ function LivestockDetail() {
 
   const handleSave = () => {
     // Make an Axios request to update the data on the backend
-    axios.put(`/update/${id}`, editedData)
+    axios.put(`/api/animals/${id}`, editedData)
       .then(response => {
         console.log('Data updated:', response.data);
         setIsEditing(false);

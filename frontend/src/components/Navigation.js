@@ -11,6 +11,7 @@ import PostPage from "./PostPage";
 import { Linkpage } from "../pages/Linkpage";
 import AddAnimal from "../pages/AddAnimal";
 import AddUser from "../pages/AddUser";
+import LivestockDetail from "./LivestockDetail.js";
 
 
 export function Navigation() {
@@ -54,6 +55,7 @@ export function Navigation() {
         <Route path="/linkpage" element={<Linkpage />} />
         <Route path="/user-add" element={<AddUser />} />
         <Route path="/animal-add" element={<AddAnimal />} />
+        <Route path="/livestock/:id" element={<LivestockDetail />} />
       </Routes>
     </>
   );

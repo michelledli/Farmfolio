@@ -17,10 +17,6 @@ class App extends React.Component {
     render() {
         return (
             <Layout>
-                <Routes>
-                    <Route path="/" element={<Livestock />} />
-                    <Route path="/livestock/:id" element={<LivestockDetail />} />
-                </Routes>
             </Layout>
         );
     }

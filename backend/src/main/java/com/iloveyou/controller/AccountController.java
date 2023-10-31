@@ -3,6 +3,7 @@ package com.iloveyou.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,7 @@ public class AccountController {
     AccountRepository accountRepository;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Long id) {
+    public ResponseEntity<?> getAccount(@PathVariable Long id) {
         Account a = accountRepository.findById(id).orElse(null);
 
         if (a == null)
@@ -74,12 +75,7 @@ public class AccountController {
         return accounts.toString();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Account> getAccount(@PathVariable long id) {
-        return accountRepository.findById(id);
-    }
-
-    @PostMapping()
+    @PostMapping("/")
     public Account createAccount(@RequestBody Account account) {
         return accountRepository.save(account);
     }

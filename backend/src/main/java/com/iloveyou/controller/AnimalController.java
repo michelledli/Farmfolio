@@ -81,7 +81,7 @@ public class AnimalController {
         return animalRepository.findById(id);
     }
 
-    @GetMapping("/{tag}")
+    @GetMapping("/tag/{tag}")
     public ResponseEntity<Animal> getAnimalByTag(@PathVariable("tag") String tag) {
         Animal entity = animalService.getAnimalByTag(tag);
 
