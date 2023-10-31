@@ -279,13 +279,17 @@ th,td {
   padding: 5px;
 }
 .editButton {
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
   font-size: 20px;
   color: #7c9f9b;
   height: 40px;
   width: 70px;
   margin-bottom: 20px;
   align-self: flex-end;
-  margin-right: 150px;
+  margin-left: auto;
 }
 .moreInfo {
   margin-bottom: 20px;
