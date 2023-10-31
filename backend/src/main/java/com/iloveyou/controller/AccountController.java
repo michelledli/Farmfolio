@@ -3,13 +3,12 @@ package com.iloveyou.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,16 +26,23 @@ public class AccountController {
     @Autowired
     AccountRepository accountRepository;
 
-    // Get all accounts
-    @GetMapping()
-    public List<Account> getAllAccounts() {
-        return (List<Account>) accountRepository.findAll();
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        Account a = accountRepository.findById(id).orElse(null);
+
+        if (a == null)
+            return new ResponseEntity<>(
+                "A user with the requested id was not found", 
+                HttpStatus.BAD_REQUEST);
+
+        a.setPassword(null);
+
+        return new ResponseEntity<>(a, HttpStatus.OK);
     }
 
     // Partial search of Accounts based on the given field
     @GetMapping("/search/{field}")
-    @ResponseBody
-    public String getAccountBySearch(@PathVariable String field, @RequestParam String query) {
+    public ResponseEntity<?> getAccountBySearch(@PathVariable String field, @RequestParam String query) {
         List<Account> accounts = new ArrayList<Account>();
 
         // Execute SQL code in the repository depending on what field was given
@@ -49,10 +55,10 @@ public class AccountController {
         }
 
         if (accounts.size() == 0) {
-            return "No accounts found matching search: " + query;
+            return ResponseEntity.notFound().build() ;
         }
 
-        return accounts.toString();
+        return ResponseEntity.ok(accounts);
     }
 
     // Partial search of Accounts by name OR email
@@ -68,22 +74,12 @@ public class AccountController {
         return accounts.toString();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Account> getAccount(@PathVariable long id) {
-        return accountRepository.findById(id);
-    }
-
-    @PostMapping("/add")
-    public Account createAccount(@RequestBody Account account) {
-        return accountRepository.save(account);
-    }
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable("id") Long id) {
         accountRepository.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateAccount(@RequestBody Account account, @PathVariable Long id) {
         Optional<Account> accountOptional = accountRepository.findById(account.getId());
         if (!accountOptional.isPresent())

@@ -20,7 +20,6 @@ public class ImageService {
 	private ImageRepository imageRepository;
 
 	private static byte[] compressImage(byte[] data) {
-
 		Deflater deflater = new Deflater();
 		deflater.setLevel(Deflater.BEST_COMPRESSION);
 		deflater.setInput(data);

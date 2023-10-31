@@ -93,6 +93,7 @@ export const FrontendAPI = {
     });
     return response.data;
   },
+  
 
   getEntity: async function () {
     const response = await api.request({
@@ -150,6 +151,14 @@ export const FrontendAPI = {
     return response.data;
   },
 
+  getPosts: async function () {
+    const response = await api.request({
+      url: `/posts`,
+      method: "GET",
+    })
+    return response.data;
+  },
+
   getSearch: async function (id, key) {
     const response = await api.request({
       url: `/search?key=${key}&entity=${id}`,
@@ -182,7 +191,7 @@ export const FrontendAPI = {
 
   postRegister: async function (body) {
     const repsonse = await api.request({
-      url: `/register`,
+      url: `/api/register`,
       method: "POST",
       data: body,
     });

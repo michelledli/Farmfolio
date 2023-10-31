@@ -25,11 +25,9 @@ export function Livestock() {
 useEffect(() => {
   axios.get("api/animals")
     .then(response => {
-      console.log(response.data); 
-      setGoats(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
+      setGoats(response.data)
+    }).catch(function (error) {
+      console.log(error)
     });
 }, []);
 

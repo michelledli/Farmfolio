@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -8,15 +9,31 @@ const CreatePost = () => {
   const [posts, setPosts] = useState([]);
 
   const handlePostCreate = (newPost) => {
-    console.log("New Post:", newPost);
-    setPosts([...posts, newPost]);
+    axios
+      .post("api/posts", {
+        createdBy: "Harry Potter",
+        createdDate: "2023-10-26T01:29:41.916+00:00",
+        modifiedBy: "Harry Potter",
+        modifiedDate: "2023-10-26T01:29:41.916+00:00",
+        accountId: 191,
+        createdAt: null,
+        announcement: false,
+        title: newPost.title,
+        body: newPost.body,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
     navigate("/news");
   };
 
-
   const handleCreatePost = () => {
     if (title.trim() !== "" && body.trim() !== "") {
+      console.log(title, body);
       const newPost = { title, body };
       handlePostCreate(newPost);
     }

@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,8 +30,13 @@ public class Account extends Auditable {
     private String lname;
     @Column(unique=true)
     private String email;
+    @JsonIgnore
     private String password;
     private boolean isAdmin;
+
+    @OneToMany(mappedBy = "author")
+    @JsonIgnore
+    private List<Post> forumPosts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -44,16 +52,16 @@ public class Account extends Auditable {
                 Objects.equals(password, entity.password);
     }
 
-    public List<String> getRoles() {
-        List<String> roles = new ArrayList<>();
-        roles.add("user");
+    // public List<String> getRoles() {
+    //     List<String> roles = new ArrayList<>();
+    //     roles.add("user");
 
-        if(isAdmin) {
-            roles.add("admin");
-        }
+    //     if(isAdmin) {
+    //         roles.add("admin");
+    //     }
 
-        return roles;
-    }
+    //     return roles;
+    // }
 
     @Override
     public int hashCode() {

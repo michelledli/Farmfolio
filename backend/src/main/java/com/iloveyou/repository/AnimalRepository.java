@@ -28,34 +28,36 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
     + "LOWER(a.tag) LIKE CONCAT('%', LOWER(?1),'%')")
     List<Animal> searchByNameOrTag(String query);
 
-    List<Animal> findByTag(String tag);
+    // List<Animal> findByTag(String tag);
+    Animal findByTag(String tag);
 
+    int numDisplayed = 20;
     //sort by tag
     Pageable sortedByTag =
-            PageRequest.of(0, 20, Sort.by("tag"));
+            PageRequest.of(0, numDisplayed, Sort.by("tag"));
     Pageable sortedByTagDesc =
-            PageRequest.of(0, 20, Sort.by("tag").descending());
+            PageRequest.of(0, numDisplayed, Sort.by("tag").descending());
     //sort by weight
     Pageable sortedByWeight=
-            PageRequest.of(0, 20, Sort.by("weight"));
+            PageRequest.of(0, numDisplayed, Sort.by("weight"));
     Pageable sortedByWeightDesc =
-            PageRequest.of(0, 20, Sort.by("weight").descending());
+            PageRequest.of(0, numDisplayed, Sort.by("weight").descending());
     //sort by name
     Pageable sortedByName =
-            PageRequest.of(0, 20, Sort.by("name"));
+            PageRequest.of(0, numDisplayed, Sort.by("name"));
     Pageable sortedByNameDesc =
-            PageRequest.of(0, 20, Sort.by("name").descending());
+            PageRequest.of(0, numDisplayed, Sort.by("name").descending());
     Pageable sortedByNameWeightDesc =
-            PageRequest.of(0, 20, Sort.by("name").and(Sort.by("weight")).descending());
+            PageRequest.of(0, numDisplayed, Sort.by("name").and(Sort.by("weight")).descending());
     //sort by dob
     Pageable sortedByDob =
-            PageRequest.of(0, 20, Sort.by("dob"));
+            PageRequest.of(0, numDisplayed, Sort.by("dob"));
     Pageable sortedByDobDesc =
-            PageRequest.of(0,20, Sort.by("dob").descending());
+            PageRequest.of(0,numDisplayed, Sort.by("dob").descending());
     //sort by breed
     Pageable sortedByBreed =
-            PageRequest.of(0, 20, Sort.by("breed"));
+            PageRequest.of(0, numDisplayed, Sort.by("breed"));
     Pageable sortedByBreedAndDob =
-            PageRequest.of(0, 20, Sort.by("breed").and(Sort.by("dob")));
+            PageRequest.of(0, numDisplayed, Sort.by("breed").and(Sort.by("dob")));
     List<Animal> findAll();
 }
