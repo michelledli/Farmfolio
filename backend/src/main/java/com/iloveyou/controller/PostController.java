@@ -59,13 +59,13 @@ public class PostController {
     }
 
     // DELETE /api/posts/:id
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deletePost(@PathVariable("id") Long id) {
         postRepository.deleteById(id);
     }
 
     // PUT /api/posts/:id
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updatePost(@RequestBody Post post, @PathVariable Long id) {
         // find the target post using the path variable id
         Optional<Post> targetPost = postRepository.findById(id);
@@ -81,7 +81,7 @@ public class PostController {
         temp.setTitle(post.getTitle());
         
         postRepository.save(post);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     // GET /api/posts/announcements
