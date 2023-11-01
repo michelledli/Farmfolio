@@ -88,7 +88,7 @@ public class AnimalController {
         return new ResponseEntity<Animal>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping()
     public Animal createAnimal(@RequestBody Animal animal) {
         return animalRepository.save(animal);
     }
