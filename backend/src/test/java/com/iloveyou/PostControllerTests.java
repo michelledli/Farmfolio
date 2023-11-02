@@ -75,7 +75,7 @@ public class PostControllerTests {
 
     @Test
     public void deletePostTest() throws Exception {
-        MvcResult result = this.mvc.perform(delete("/posts/delete/23")).andReturn();
+        MvcResult result = this.mvc.perform(delete("/posts/23")).andReturn();
         Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /posts/delete/{id} was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 

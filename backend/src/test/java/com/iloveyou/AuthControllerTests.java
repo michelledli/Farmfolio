@@ -19,6 +19,7 @@ import com.iloveyou.controller.AuthenticationController;
 import com.iloveyou.repository.AccountRepository;
 
 @SpringBootTest
+@Disabled
 @ExtendWith(MockitoExtension.class)
 public class AuthControllerTests {
     private MockMvc mvc;

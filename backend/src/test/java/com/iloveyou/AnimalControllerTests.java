@@ -75,7 +75,7 @@ public class AnimalControllerTests {
 
     @Test
     public void deleteById() throws Exception {
-        MvcResult result = this.mvc.perform(delete("/animals/delete/23")).andReturn();
+        MvcResult result = this.mvc.perform(delete("/animals/23")).andReturn();
         Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals/delete/{id} was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 
