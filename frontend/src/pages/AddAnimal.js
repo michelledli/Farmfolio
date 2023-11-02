@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const sendAddAnimal = (values) => {
   // Remove the comment marks and fix the Axios request
-  axios.post("api/animals/add", { 
+  axios.post("api/animals", { 
     id: values.ID, 
     name: values.name,
     dob: values.birthDate,
