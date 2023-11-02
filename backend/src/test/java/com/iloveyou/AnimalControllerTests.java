@@ -50,20 +50,15 @@ public class AnimalControllerTests {
     @Test
     public void CreateAnimalTest() throws Exception {
         MvcResult result = this.mvc.perform(
-            post("/animals/add")
+            post("/animals")
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .accept(MediaType.APPLICATION_JSON_VALUE)
             .content(
-                "{\"id\":23," +
-                "\"fname\":\"Test\"," +
-                "\"lname\":\"Test2\"," +
-                "\"email\":\"Test@gmail.com\"," +
-                "\"password\":\"Test222\"," +
-                "\"admin\":false}"
+                "{\"id\":23}"
             )
         ).andReturn();
 
-        Assert.isTrue(result.getResponse().getStatus() == 200, "POST request /add was not fulfilled. Status Code: " + result.getResponse().getStatus());
+        Assert.isTrue(result.getResponse().getStatus() == 200, "POST request /animals was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 
     @Test
