@@ -30,6 +30,12 @@ public class CommentController {
         return commentRepository.findAll();
     }
 
+    // GET /api/comments/users/:id 
+    @GetMapping("/posts/{id}")
+    List<Comment> getCommentByPostId(@PathVariable long id) {
+        return commentRepository.findByPostId(id);
+    }
+
     // GET /api/comments/:id
     @GetMapping("/{id}")
     Optional<Comment> getCommentById(@PathVariable long id) {
