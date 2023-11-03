@@ -21,6 +21,7 @@ public class Post extends Auditable {
     @GeneratedValue
     private Long id;
     private String title;      // the title text of the post
+    private String body;
     private Date createdAt;    // the date and time the post was made
     @Default
     private boolean announcement = false; // whether or not the Post is an Announcement
@@ -39,12 +40,13 @@ public class Post extends Auditable {
         return Objects.equals(id, entity.id) &&
                 Objects.equals(createdAt, entity.createdAt) &&
                 Objects.equals(announcement, entity.announcement) &&
-                Objects.equals(title, entity.title);
+                Objects.equals(title, entity.title) &&
+                Objects.equals(body, entity.body);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, title, announcement);
+        return Objects.hash(id, createdAt, title, body, announcement);
     }
  
     @Override
@@ -53,6 +55,7 @@ public class Post extends Auditable {
                 "id='" + id +
                 ", created_at='" + createdAt + '\'' +
                 ", title='" + title + '\'' +
+                ", title='" + body + '\'' +
                 ", title='" + announcement + '\'' +
                 '}';
     }

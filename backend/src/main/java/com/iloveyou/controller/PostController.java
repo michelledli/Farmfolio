@@ -44,12 +44,12 @@ public class PostController {
     }
 
     /* POST /api/posts
-        body: {
-            accountId:
+        {
+            body:
             title:
         }
     }*/
-    @PostMapping("/create/{accountId}")
+    @PostMapping("/{accountId}")
     public Post createPost(@RequestBody Post post, @PathVariable Long accountId) {
         Account account = accountRepository.findById(accountId).get();
         post.setAuthor(account);
@@ -78,6 +78,7 @@ public class PostController {
         // first create a Post type object
         Post temp = targetPost.get();
         temp.setTitle(post.getTitle());
+        temp.setBody(post.getBody());
         
         postRepository.save(post);
         return ResponseEntity.ok().build();
