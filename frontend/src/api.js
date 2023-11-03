@@ -54,6 +54,13 @@ export const FrontendAPI = {
         return response.data
     },*/
 
+  getAnimal: async function() {
+    const response = await api.request({
+      url: `/api/animals`,
+      method: "GET",
+    });
+    return response.data;
+  },
   getProfile: async function () {
     const response = await api.request({
       url: `/profile`,
