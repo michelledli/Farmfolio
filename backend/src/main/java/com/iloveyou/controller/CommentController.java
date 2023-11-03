@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -30,9 +31,9 @@ public class CommentController {
         return commentRepository.findAll();
     }
 
-    // GET /api/comments/users/:id 
-    @GetMapping("/posts/{id}")
-    List<Comment> getCommentByPostId(@PathVariable long id) {
+    // GET /api/comments/posts/:id 
+    @GetMapping("/posts")
+    List<Comment> getCommentByPostId(@RequestParam long id) {
         return commentRepository.findByPostId(id);
     }
 
