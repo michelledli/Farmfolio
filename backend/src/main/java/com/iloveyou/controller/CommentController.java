@@ -1,5 +1,9 @@
 package com.iloveyou.controller;
 
+import com.iloveyou.entity.Account;
+import com.iloveyou.entity.Post;
+import com.iloveyou.repository.AccountRepository;
+import com.iloveyou.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,12 @@ public class CommentController {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    PostRepository postRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
     // GET /api/comments
     @GetMapping()
     List<Comment> getAllComments() {
@@ -36,15 +46,22 @@ public class CommentController {
         return commentRepository.findById(id);
     }
 
-    /* POST /api/comments
+    /* POST /api/comments/userId/postId
         body: {
-            postId:
-            accountId:
             body:
         }
     }*/
-    @PostMapping()
-    public Comment createComment(@RequestBody Comment comment) {
+    @PostMapping("/{userId}/{postId}")
+    public Comment createComment(@RequestBody Comment comment,
+                                 @PathVariable long userId,
+                                 @PathVariable long postId) {
+        Account user = accountRepository.findById(userId).get();
+        Post post  = postRepository.findById(postId).get();
+
+        comment.setAuthor(user);
+        comment.setPost(post);
+        post.getComments().add(comment);
+
         comment.setCreatedAt(new Date());
         return commentRepository.save(comment);
     }
