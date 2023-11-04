@@ -10,7 +10,7 @@ const CreatePost = () => {
 
   const handlePostCreate = (newPost) => {
     axios
-      .post("api/posts", {
+      .post("api/posts/1", {
         createdBy: "Harry Potter",
         createdDate: "2023-10-26T01:29:41.916+00:00",
         modifiedBy: "Harry Potter",
@@ -27,8 +27,8 @@ const CreatePost = () => {
       .catch(function (error) {
         console.log(error);
       });
-
-    navigate("/news");
+      navigate("/news");
+      window.location.reload();
   };
 
   const handleCreatePost = () => {
