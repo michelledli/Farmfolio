@@ -53,6 +53,14 @@ export const FrontendAPI = {
         })
         return response.data
     },*/
+  
+  getAnimalById: async function (id) {
+    const response = await api.request({
+      url: `/api/animals/${id}`,
+      method: "GET",
+    });
+    return response.data;
+  },
 
   getAnimal: async function () {
     const response = await api.request({
@@ -264,6 +272,15 @@ export const FrontendAPI = {
   // @@@@@@@@@@@@
   // PUT methods
   // @@@@@@@@@@@@
+
+  updateAnimalById: async function (id, body) {
+    const response = await api.request({
+      url: `/api/animals/${id}`,
+      method: "PUT",
+      data: body,
+    });
+  },
+
   putUserId: async function (id, body) {
     const response = await api.request({
       url: `/users/${id}`,

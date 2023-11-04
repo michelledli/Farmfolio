@@ -5,7 +5,6 @@ const api = FrontendAPI;
 
 export function Livestock() {
   const Navigate = useNavigate(); 
-  const [expand, setExpand] = useState({});
   const [goats, setGoats] = useState([])
   const [search, setSearch] = useState(''); 
   const [sortAttribute, setSortAttribute] = useState(null); 
@@ -17,83 +16,77 @@ export function Livestock() {
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+      age--;
     }
     return age;
-}
-
-useEffect(() => {
-  api.getAnimal()
-    .then((data) => {
-      setGoats(data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}, []);
-
-const handleSearch = () => {
-  const filteredGoats = goats.filter((goat) => {
-    const searchString = search.toLowerCase();
-    return (
-      goat.name?.toLowerCase().includes(searchString) || 
-      goat.breed?.toLowerCase().includes(searchString) ||
-      goat.tag?.toLowerCase().includes(searchString) ||
-      (goat.age?.toString() || "").includes(searchString) || 
-      (goat.weight?.toString() || "").includes(searchString) 
-
-    );
-  });
-  setGoats(filteredGoats);
-};
-
-const clearSearch = () => {
-  setSearch(''); 
-  api.getAnimal()
-    .then(data => {
-      setGoats(data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-};
-
-const handleSort = (attribute) => {
-  if (attribute === sortAttribute) {
-    
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-  } else {
-    setSortAttribute(attribute);
-    setSortOrder("asc"); 
   }
-}; 
 
-const sortedGoats = [...goats];
-if (sortAttribute) {
-  sortedGoats.sort((a, b) => {
-    const valueA = a[sortAttribute];
-    const valueB = b[sortAttribute];
-    if (typeof valueA === "string" && typeof valueB === "string") {
-      if (sortOrder === "asc") {
-        return valueA.localeCompare(valueB);
-      } else {
-        return valueB.localeCompare(valueA);
-      }
+  const fetchData = () => {
+    api.getAnimal().then((data) => {
+        setGoats(data);
+      })
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSearch = () => {
+    const filteredGoats = goats.filter((goat) => {
+      const searchString = search.toLowerCase();
+      return (
+        goat.name?.toLowerCase().includes(searchString) ||
+        goat.breed?.toLowerCase().includes(searchString) ||
+        goat.tag?.toLowerCase().includes(searchString) ||
+        (goat.age?.toString() || "").includes(searchString) ||
+        (goat.weight?.toString() || "").includes(searchString)
+      );
+    });
+    setGoats(filteredGoats);
+  };
+
+  const clearSearch = () => {
+    setSearch("");
+    fetchData();
+  };
+
+  const handleSort = (attribute) => {
+    if (attribute === sortAttribute) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
-      if (sortOrder === "asc") {
-        return valueA < valueB ? -1 : 1;
-      } else {
-        return valueA > valueB ? -1 : 1;
-      }
+      setSortAttribute(attribute);
+      setSortOrder("asc");
     }
-  });
-}
+  };
+
+  const sortedGoats = [...goats];
+  if (sortAttribute) {
+    sortedGoats.sort((a, b) => {
+      const valueA = a[sortAttribute];
+      const valueB = b[sortAttribute];
+      if (typeof valueA === "string" && typeof valueB === "string") {
+        if (sortOrder === "asc") {
+          return valueA.localeCompare(valueB);
+        } else {
+          return valueB.localeCompare(valueA);
+        }
+      } else {
+        if (sortOrder === "asc") {
+          return valueA < valueB ? -1 : 1;
+        } else {
+          return valueA > valueB ? -1 : 1;
+        }
+      }
+    });
+  }
 
   return (
     <div className="App-header">
       <h1>Livestock</h1>
-      <h2>Catalog</h2> 
-        <button onClick={()=>Navigate("/animal-add")}className="editButton">Add Animal</button>
+      <h2>Catalog</h2>
+      <button onClick={() => Navigate("/animal-add")} className="editButton">
+        Add Animal
+      </button>
       <input
         type="text"
         placeholder="Search..."
@@ -102,38 +95,28 @@ if (sortAttribute) {
       />
       <button onClick={handleSearch}>Search</button>
       <button onClick={clearSearch}>Clear</button>
-      <table className="catalog"> 
+      <table className="catalog">
         <thead>
           <tr>
             <th onClick={() => handleSort("name")}>
-              Name {sortAttribute === "name" && (
-                <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-              )}
+              Name {sortAttribute === "name" && <span>{sortOrder === "asc" ? "▲" : "▼"}</span>}
             </th>
             <th onClick={() => handleSort("age")}>
-              Age {sortAttribute === "age" && (
-                <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-              )}
+              Age {sortAttribute === "age" && <span>{sortOrder === "asc" ? "▲" : "▼"}</span>}
             </th>
             <th onClick={() => handleSort("weight")}>
-              Weight {sortAttribute === "weight" && (
-                <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-              )}
+              Weight {sortAttribute === "weight" && <span>{sortOrder === "asc" ? "▲" : "▼"}</span>}
             </th>
             <th onClick={() => handleSort("tag")}>
-              Tag {sortAttribute === "tag" && (
-                <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-              )}
+              Tag {sortAttribute === "tag" && <span>{sortOrder === "asc" ? "▲" : "▼"}</span>}
             </th>
             <th onClick={() => handleSort("breed")}>
-              Breed {sortAttribute === "breed" && (
-                <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-              )}
+              Breed {sortAttribute === "breed" && <span>{sortOrder === "asc" ? "▲" : "▼"}</span>}
             </th>
           </tr>
         </thead>
         <tbody>
-        {sortedGoats.map((goat) => (
+          {sortedGoats.map((goat) => (
             <tr key={goat.id}>
               <td>
                 <Link to={`/livestock/${goat.id}`}>{goat.name}</Link>

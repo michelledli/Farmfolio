@@ -1,133 +1,154 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { FrontendAPI } from "../api";
+const api = FrontendAPI;
 
-function LivestockDetail() {
+const LivestockDetail = () => {
   const { id } = useParams();
-  const [livestock, setLivestock] = useState(null);
+  const [animal, setAnimal] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
+  const [isDobEditing, setIsDobEditing] = useState(false); // Track editing state for Date of Birth
 
   useEffect(() => {
-    axios.get(`/api/animals/${id}`)
-      .then(response => {
-        setLivestock(response.data);
-        setEditedData(response.data);
-      })
-      .catch(error => {
-        console.error('API Request Error:', error);
-      });
+    fetchData();
   }, [id]);
+
+  const fetchData = async () => {
+    const data = await api.getAnimalById(id);
+    setAnimal(data);
+    setEditedData(data);
+  };
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    // Make an Axios request to update the data on the backend
-    axios.put(`/api/animals/${id}`, editedData)
-      .then(response => {
-        console.log('Data updated:', response.data);
-        setIsEditing(false);
-      })
-      .catch(error => {
-        console.error('API Request Error:', error);
-      });
+  const handleCancel = () => {
+    setIsEditing(false);
+    setEditedData(animal);
+  };
+
+  const handleEditDob = () => {
+    setIsDobEditing(true);
+  };
+
+  const handleCancelDob = () => {
+    setIsDobEditing(false);
+    setEditedData((prevData) => ({
+      ...prevData,
+      dob: animal.dob,
+    }));
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedData({ ...editedData, [name]: value });
+    setEditedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  if (!livestock) {
-    return <div>Loading...</div>;
-  }
+  const handleSave = async () => {
+    await api.updateAnimalById(id, editedData);
+    fetchData();
+    setIsEditing(false);
+    setIsDobEditing(false);
+  };
 
   return (
-    <div>
+    <div className="App-header">
       <h1>Livestock Detail</h1>
-      <div>
+      {animal ? (
         <div>
-          <span>Name: </span>
-          <input
-            type="text"
-            name="name"
-            value={editedData.name}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
+          {isEditing ? (
+            <div>
+              <span>Name: </span>
+              <input
+                type="text"
+                name="name"
+                value={editedData.name}
+                onChange={handleInputChange}
+              />
+            </div>
+          ) : (
+            <div>
+              <span>Name: {animal.name}</span>
+            </div>
+          )}
+          <div>
+            <span>Date of Birth: </span>
+            {isEditing ? (
+              isDobEditing ? (
+                <input
+                  type="date"
+                  name="dob"
+                  value={editedData.dob}
+                  onChange={handleInputChange}
+                />
+              ) : (
+                <span onClick={handleEditDob}>{editedData.dob}</span>
+              )
+            ) : (
+              <span>{animal.dob}</span>
+            )}
+            {isDobEditing && (
+              <button onClick={handleCancelDob}>Cancel</button>
+            )}
+          </div>
+          <div>
+            <span>Weight: </span>
+            {isEditing ? (
+              <input
+                type="number"
+                name="weight"
+                value={editedData.weight}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <span>{animal.weight}</span>
+            )}
+          </div>
+          <div>
+            <span>Tag: </span>
+            {isEditing ? (
+              <input
+                type="text"
+                name="tag"
+                value={editedData.tag}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <span>{animal.tag}</span>
+            )}
+          </div>
+          <div>
+            <span>Breed: </span>
+            {isEditing ? (
+              <input
+                type="text"
+                name="breed"
+                value={editedData.breed}
+                onChange={handleInputChange}
+              />
+            ) : (
+              <span>{animal.breed}</span>
+            )}
+          </div>
+          {isEditing ? (
+            <div>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
+          ) : (
+            <button onClick={handleEdit}>Edit</button>
+          )}
         </div>
-        <div>
-          <span>Sex: </span>
-          <input
-            type="text"
-            name="sex"
-            value={editedData.sex}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
-        </div>
-        <div>
-          <span>Date of Birth: </span>
-          <input
-            type="text"
-            name="dob"
-            value={editedData.dob}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
-        </div>
-        <div>
-          <span>Weight: </span>
-          <input
-            type="text"
-            name="weight"
-            value={editedData.weight}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
-        </div>
-        <div>
-          <span>Tag: </span>
-          <input
-            type="text"
-            name="tag"
-            value={editedData.tag}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
-        </div>
-        <div>
-          <span>Breed: </span>
-          <input
-            type="text"
-            name="breed"
-            value={editedData.breed}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
-        </div>
-        <div>
-          <span>Notes: </span>
-          <input
-            type="text"
-            name="notes"
-            value={editedData.notes}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-          />
-        </div>
-      </div>
-      <div>
-        {isEditing ? (
-          <button onClick={handleSave}>Save</button>
-        ) : (
-          <button onClick={handleEdit}>Edit</button>
-        )}
-      </div>
+      ) : (
+        <p>...</p>
+      )}
     </div>
   );
-}
+};
 
 export default LivestockDetail;
