@@ -13,14 +13,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iloveyou.entity.Account;
 
 import java.util.List;
 
 import com.iloveyou.entity.Post;
 import com.iloveyou.repository.PostRepository;
+
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("/posts")
 @RestController
@@ -48,13 +56,52 @@ public class PostController {
             body:
             title:
         }
-    }*/
+    }
     @PostMapping("/{accountId}")
     public Post createPost(@RequestBody Post post, @PathVariable Long accountId) {
+ 
         Account account = accountRepository.findById(accountId).get();
         post.setAuthor(account);
-        post.setCreatedAt(new Date());
+ 
+        // Get the current date and time
+        Date currentDate = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+        String formattedDate = simpleDateFormat.format(currentDate);
+        post.setCreatedAt(formattedDate );
+        
         return postRepository.save(post);
+    }
+    */
+
+    /* POST /api/posts
+    {
+        body:
+        title:
+    }*/
+    @PostMapping()
+    public ResponseEntity<?> createPost(HttpServletRequest request) {
+        Claims claims = (Claims) request.getAttribute("claims");
+        Long accountId = Long.valueOf(claims.getId());
+        Account account = accountRepository.findById(accountId).get();
+
+        try {
+            var body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            ObjectMapper mapper = new ObjectMapper();
+            Post post = mapper.readValue(body, Post.class);
+
+            post.setAuthor(account);
+
+            // Get the current date and time
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+            String formattedDate = simpleDateFormat.format(currentDate);
+            post.setCreatedAt(formattedDate );
+
+            return ResponseEntity.ok(postRepository.save(post));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(400).build();
+        }
     }
 
     // DELETE /api/posts/:id

@@ -1,24 +1,31 @@
 import Comment from './Comment';
 import React, { useState } from 'react';
+import { FrontendAPI } from "../api.js";
 
 const Post = ({post, replies, onPress}) => {
-    const [PostReply, setPostReply] = useState(false);
+  const [PostReply, setPostReply] = useState(false);
 
-    const onClick = () => {
-        onPress();
-        setPostReply(!PostReply);
-      };
+  const onClick = () => {
+      onPress();
+      setPostReply(!PostReply);
+    };
+
+   // delete a post
+  const deletePost = (id) => {
+    FrontendAPI.deletePost(id);
+  };
 
   return (
     <div className="PostContainer">
       <div className="PostTitle">
         {post.title}
+        <button onClick={() => deletePost(post.id)}>Delete</button>
       </div>
       <div className="PostBody">
         {post.body}
       </div>
       <div className="DateTime">
-        {post.createdBy} {post.createdDate}{" "}
+        {post.name} {post.createdAt}{" "}
         {!PostReply && (
           <button onClick={() => setPostReply(true)} className="ReplyButton">
             Reply
