@@ -1,7 +1,7 @@
+import { FrontendAPI } from "../api";
 import { useEffect, useState } from "react";
-import axios from 'axios'
 import { useNavigate, Link, Route, Switch, useParams, useRouteMatch} from "react-router-dom";
-
+const api = FrontendAPI;
 
 export function Livestock() {
   const Navigate = useNavigate(); 
@@ -23,11 +23,12 @@ export function Livestock() {
 }
 
 useEffect(() => {
-  axios.get("api/animals")
-    .then(response => {
-      setGoats(response.data)
-    }).catch(function (error) {
-      console.log(error)
+  api.getAnimal()
+    .then((data) => {
+      setGoats(data);
+    })
+    .catch((error) => {
+      console.error(error);
     });
 }, []);
 
@@ -48,9 +49,9 @@ const handleSearch = () => {
 
 const clearSearch = () => {
   setSearch(''); 
-  axios.get("api/animals")
-    .then(response => {
-      setGoats(response.data);
+  api.getAnimal()
+    .then(data => {
+      setGoats(data);
     })
     .catch(function (error) {
       console.error(error);
