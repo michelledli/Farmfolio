@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Post from "./Post";
 
 const Announcements = ({posts}) => {
     console.log("Posts in PostList:", posts);
@@ -8,13 +8,7 @@ const Announcements = ({posts}) => {
       <h2>Announcements</h2>
       <ul>
         {posts.map((post, index) => (
-          <>
-          {post.announcement == true &&
-          <li key={index}>
-            {post.title}
-          </li>
-        }
-          </>
+          post.announcement && <Post post={post}/>
         ))}
       </ul>
     </div>

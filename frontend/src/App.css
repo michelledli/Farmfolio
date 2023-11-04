@@ -295,6 +295,7 @@ th,td {
   margin-bottom: 20px;
 }
 
+
 /* Add User/Animal */
 .AddContainer {
   display: flex;             
@@ -333,6 +334,84 @@ th,td {
   font-size: 16px;     
   text-align: left;
 }
+
+.CommentContainer {
+  flex: 1;
+  border-radius: 5px;
+  background-color: #DDE6ED;
+  margin-top: 5px;
+  padding: 5px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 2;
+}
+
+.DateTime {
+  font-size: 10px;
+  font-weight: 300;
+  display: flex;
+  margin-right: auto;
+  align-items: center;
+}
+
+.PostContainer {
+  background-color: #a0c699;
+  width: 550px;
+  flex-direction: column;
+  flex-shrink: 1;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 10px;
+  border-radius: 10px;
+  align-items: flex-start;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  font-family: 'verdana';
+}
+
+.PostTitle {
+  display: flex;
+  color: black;
+  font-size: 25px;
+  font-weight: 500;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.ReplyButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 5px;
+  background-color: #176a60;
+  color: white;
+  border: none;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+  height: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.ReplyBox {
+  flex: 1;
+  border-radius: 5px;
+  background-color: #DDE6ED;
+  margin-right: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 2px solid #0000;
+  resize: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
 .submit {
   bottom: 30px;              
   padding: 10px 20px;        
