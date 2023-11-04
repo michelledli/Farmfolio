@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import sawyer_goat_1 from './sawyer_goat_1.jpg';
-import Cards from '../components/Cards';
+import { Link } from "react-router-dom";
 const cookies = new Cookies();
 const api = FrontendAPI;
 
@@ -52,10 +52,10 @@ export function Login() {
   };
 
   return (
-    <div className="">
+    <div className="center" id="login">
         <div className="login">
           <h1>WELCOME</h1>
-        <form onSubmit={sendLogin}>
+          <form onSubmit={sendLogin}>
           <div>
             <input
               type="text"
@@ -77,6 +77,9 @@ export function Login() {
               onChange={onChange}
               required
             />
+          </div>
+          <div className="forgot">
+            <Link to="/forgot">Forgot Password</Link>
           </div>
           <div className="btn-container">
             <button className="btn" type="submit" onSubmit={sendLogin}>LOGIN</button>

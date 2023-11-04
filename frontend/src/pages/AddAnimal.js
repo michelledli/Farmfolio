@@ -1,8 +1,11 @@
 import React from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 const sendAddAnimal = (values) => {
   // Remove the comment marks and fix the Axios request
+
   axios.post("api/animals", { 
     id: values.ID, 
     name: values.name,
@@ -20,6 +23,7 @@ const sendAddAnimal = (values) => {
 };
 
 const AddAnimal = () => {
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     const form = e.target;
@@ -33,41 +37,40 @@ const AddAnimal = () => {
 
     // Send the data
     sendAddAnimal(values);
+    navigate("/livestock")
   };
 
   return (
-    <div className="App-Header">
-      <div className="Add">
+    <div>
+      <div className="center" id="animal">
         <div className="AddContainer">
-          <h1>Add Animal</h1>
+          <h1>ADD ANIMAL</h1>
           <form style={{ width: "100%" }} onSubmit={handleSubmit}>
             <div className="input">
-              <label className="label">ID</label>
-              <input type="text" name="ID" className="inputField" />
+              <label>Name</label>
+              <input type="text" name="name" className="inputField" />
             </div>
             <div className="input">
-            <label className="label">Name</label>
-            <input type="text" name="name" className="inputField" />
-            </div>
-            <div className="input">
-              <label className="label">Birthdate</label>
+              <label>Birthdate</label>
               <input type="date" name="birthDate" className="inputField" />
             </div>
             <div className="input">
-              <label className="label">Weight</label>
+              <label>Weight (lbs)</label>
               <input type="number" name="weight" className="inputField" />
             </div>
             <div className="input">
-              <label className="label">Tag</label>
+              <label>Tag</label>
               <input type="text" name="tag" className="inputField" />
             </div>
             <div className="input">
-              <label className="label">Breed</label>
+              <label>Breed</label>
               <input type="text" name="breed" className="inputField" />
             </div>
-            <button type="submit" className="submit">
-              Submit
-            </button>
+            <div>
+              <label>Notes</label>
+              <textarea rows="5" cols="35"></textarea>
+            </div>
+          <button type="submit" className="submit">Submit</button>
           </form>
         </div>
       </div>
