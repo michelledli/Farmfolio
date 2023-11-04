@@ -19,7 +19,7 @@ const Comment = ({reply}) => {
       <div className='CommentTime'>
         <div className='DateTime'>{reply.CreatedAt}</div>
       </div>
-      <button onClick={() => deleteComment(reply.id)}>Delete</button>
+      <button className="deleteButton" onClick={() => deleteComment(reply.id)}>Delete</button>
     </div>
   )
 }

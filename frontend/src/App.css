@@ -349,6 +349,15 @@ th,td {
   z-index: 2;
 }
 
+.deleteButton {
+  margin-right: 4px;
+  background-color: #D80032;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  font-family: 'verdana';
+}
+
 .DateTime {
   font-size: 10px;
   font-weight: 300;

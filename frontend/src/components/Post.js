@@ -19,7 +19,7 @@ const Post = ({post, replies, onPress}) => {
     <div className="PostContainer">
       <div className="PostTitle">
         {post.title}
-        <button onClick={() => deletePost(post.id)}>Delete</button>
+        <button className="deleteButton" onClick={() => deletePost(post.id)}>Delete</button>
       </div>
       <div className="PostBody">
         {post.body}
