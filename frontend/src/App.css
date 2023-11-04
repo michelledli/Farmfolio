@@ -21,7 +21,7 @@ h1{
 }
 
 .App-header {
-  background-color: #f7f7f2;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,23 @@ h1{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(124, 159, 155);
+  text-align: justify;
+  padding: 20px;
 }
+
+.App-header h1 {
+  border: 3px solid;
+  padding-left: 600px;
+  padding-right: 600px;
+  background: antiquewhite;
+}
+
+.about {
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: center;
+}
+
 
 .App-link {
   color: #61dafb;
@@ -153,7 +169,7 @@ footer p {
   overflow: hidden;
   gap: 20px;
   animation: scrollRight 10s linear infinite;
-
+  padding: 30px;
 }
 .card {
 text-align: left;
