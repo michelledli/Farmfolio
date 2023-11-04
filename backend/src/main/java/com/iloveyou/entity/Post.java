@@ -1,6 +1,4 @@
 package com.iloveyou.entity;
-
-import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.*;
@@ -22,7 +20,7 @@ public class Post extends Auditable {
     private Long id;
     private String title;      // the title text of the post
     private String body;
-    private Date createdAt;    // the date and time the post was made
+    private String createdAt;    // the date and time the post was made
     @Default
     private boolean announcement = false; // whether or not the Post is an Announcement
 
@@ -58,5 +56,9 @@ public class Post extends Auditable {
                 ", title='" + body + '\'' +
                 ", title='" + announcement + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return author.getFname() + " " + author.getLname();
     }
 }

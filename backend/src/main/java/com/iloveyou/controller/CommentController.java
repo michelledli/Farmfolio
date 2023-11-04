@@ -14,16 +14,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iloveyou.entity.Account;
 import com.iloveyou.entity.Comment;
+import com.iloveyou.repository.AccountRepository;
 import com.iloveyou.repository.CommentRepository;
+
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("/comments")
 @RestController
 public class CommentController {
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
 
     // GET /api/comments
     @GetMapping()
@@ -51,9 +64,29 @@ public class CommentController {
         }
     }*/
     @PostMapping()
-    public Comment createComment(@RequestBody Comment comment) {
-        comment.setCreatedAt(new Date());
-        return commentRepository.save(comment);
+    public ResponseEntity<?> createComment(HttpServletRequest request) {
+        Claims claims = (Claims) request.getAttribute("claims");
+        Long accountId = Long.valueOf(claims.getId());
+        Account account = accountRepository.findById(accountId).get();
+
+        try {
+            var body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            ObjectMapper mapper = new ObjectMapper();
+            Comment comment = mapper.readValue(body, Comment.class);
+
+            comment.setAuthor(account);
+
+            // Get the current date and time
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+            String formattedDate = simpleDateFormat.format(currentDate);
+            comment.setCreatedAt(formattedDate );
+
+            return ResponseEntity.ok(commentRepository.save(comment));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(400).build();
+        }
     }
 
     // DELETE /api/comments/delete/:id

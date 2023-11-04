@@ -69,22 +69,22 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		// hard coded posts made for test
 		Post p1 =
-			Post.builder().title("This is Title #1").body("This is Body #1").author(u1).build();
+			Post.builder().title("This is Title #1").body("This is Body #1").author(u1).createdAt("6/3/2023").build();
 		Post p2 =
-			Post.builder().title("This is Title #2").body("This is Body #2").author(u2).build();
+			Post.builder().title("This is Title #2").body("This is Body #2").author(u2).createdAt("12/4/2023").build();
 		Post p3 =
-			Post.builder().title("This is test Announcement Title #1").body("This is Announcement Body #1").author(u3).announcement(true).build();
+			Post.builder().title("This is test Announcement Title #1").body("This is Announcement Body #1").author(u3).createdAt("11/5/2023").announcement(true).build();
 
 		List<Post> posts = Arrays.asList(p1, p2, p3);
 		this.postRepository.saveAll(posts);
 
 		// hard coded comments made for test
 		Comment c1 =
-			Comment.builder().postId((long) 1).accountId((long) 193).body("This is a comment for Post #1").build();
+			Comment.builder().postId((long) 1).author(u1).body("This is a comment for Post #1").createdAt("10/8/2023").build();
 		Comment c2 =
-			Comment.builder().postId((long) 2).accountId((long) 192).body("This is a comment for Post #2").build();
+			Comment.builder().postId((long) 2).author(u2).body("This is a comment for Post #2").createdAt("10/9/2023").build();
 		Comment c3 =
-			Comment.builder().postId((long) 3).accountId((long) 193).body("This is a comment for Post #3").build();
+			Comment.builder().postId((long) 3).author(u3).body("This is a comment for Post #3").createdAt("10/11/2023").build();
 
 		List<Comment> comments = Arrays.asList(c1, c2, c3);
 		this.commentRepository.saveAll(comments);
