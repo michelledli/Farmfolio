@@ -1,5 +1,7 @@
 package com.iloveyou.controller;
 
+import com.iloveyou.entity.Animal;
+import com.iloveyou.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +24,7 @@ public class ImageController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getImage(@PathVariable("id") Long id) {
-        byte[] data = imageService.getImage(id);
+        String data = imageService.getImage(id);
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(data);
     }
 

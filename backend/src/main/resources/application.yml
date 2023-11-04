@@ -7,6 +7,10 @@ spring:
     username: user
     password:
   driverClassName: org.h2.Driver
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 jwt:
   secret: farmfolio-secret-jwt-authentication-key
