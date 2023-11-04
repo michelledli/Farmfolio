@@ -38,6 +38,10 @@ public class Account extends Auditable {
     @JsonIgnore
     private List<Post> forumPosts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    @JsonIgnore
+    private List<Comment> forumComments = new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
