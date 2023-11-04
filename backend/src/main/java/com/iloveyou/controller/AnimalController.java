@@ -120,6 +120,9 @@ public class AnimalController {
         temp.setTag(animal.getTag());
         temp.setBreed(animal.getBreed());
         temp.setNotes(animal.getNotes());
+        temp.setImageId(animal.getImageId());
+        temp.setFather(animal.getFather());
+        temp.setMother(animal.getMother());
 
         animalRepository.save(temp);
         // return success 

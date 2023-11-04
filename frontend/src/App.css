@@ -295,6 +295,19 @@ th,td {
   margin-bottom: 20px;
 }
 
+/* Livestock Detail Page */
+.center-detail-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-fields-title {
+  font-weight: bold;
+  padding: 3px; /* Adds padding inside each input */
+}
+
+
 /* Add User/Animal */
 .AddContainer {
   display: flex;             

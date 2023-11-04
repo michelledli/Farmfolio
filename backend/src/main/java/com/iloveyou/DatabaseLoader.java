@@ -62,9 +62,24 @@ public class DatabaseLoader implements CommandLineRunner {
 		Animal a4 = 
 			Animal.builder().name("Jenny").dob(new Date()).weight(120).tag("x").breed("a").build(); 
 		Animal a5 = 
-			Animal.builder().name("Denny").dob(new Date()).weight(135).tag("y").breed("c").build(); 
+			Animal.builder().name("Denny").dob(new Date()).weight(135).tag("y").breed("c").build();
 
-		List<Animal> animals = Arrays.asList(a1, a2, a3, a4, a5);
+		Animal a6 =
+				Animal.builder().name("father").dob(new Date()).weight(150).tag("y").breed(
+						"c").build();
+
+		Animal a7 =
+				Animal.builder().name("mother").dob(new Date()).weight(100).tag("y").breed(
+						"c").build();
+
+		Animal a8 =
+				Animal.builder().name("child").dob(new Date()).weight(70).tag("y").breed(
+						"c").build();
+		a8.setFather(a6);
+		a8.setMother(a7);
+
+		List<Animal> animals = Arrays.asList(a1, a2, a3, a4, a5, a6,
+				a7, a8);
 		this.animalRepository.saveAll(animals);
 
 		// hard coded posts made for test
