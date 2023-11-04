@@ -52,7 +52,7 @@ export function Login() {
   };
 
   return (
-    <div className="center">
+    <div className="center" id="login">
         <div className="login">
           <h1>WELCOME</h1>
           <form onSubmit={sendLogin}>
