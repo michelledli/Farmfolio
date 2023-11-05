@@ -129,6 +129,9 @@ if (sortAttribute) {
                 <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
               )}
             </th>
+            <th>
+              Notes 
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -141,6 +144,7 @@ if (sortAttribute) {
               <td>{goat.weight}</td>
               <td>{goat.tag}</td>
               <td>{goat.breed}</td>
+              <td>{goat.notes}</td>
             </tr>
           ))}
         </tbody>
