@@ -363,6 +363,36 @@ th,td {
   align-items: center;
 }
 
+.AnnouncementCheckbox {
+  font-size: 15px;
+}
+
+.CreatePostButton {
+  background-color: #176a60;
+  margin-top: 10px;
+  padding: 10px 20px;        
+  background-color: #176a60;    
+  color: white;               
+  border: none;              
+  border-radius: 10px;       
+  cursor: pointer;           
+  font-size: 18px;          
+}
+
+.PostBody {
+  display: flex;
+  align-items: center;
+  background-color: #a0c699;
+  margin-top: 10px;
+  height: 100px;
+  width: 400px;
+}
+.PostTitle {
+  display: flex;
+  align-items: center;
+  background-color: #a0c699;
+  width: 400px;
+}
 .PostContainer {
   background-color: #a0c699;
   width: 550px;
