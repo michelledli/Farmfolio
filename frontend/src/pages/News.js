@@ -24,7 +24,7 @@ const News = () => {
       <Announcements posts={posts}/>
       <PostList posts={posts} />
       <Link to="/create">
-        <button>Create Post</button>
+        <button className="ReplyButton">Create Post</button>
       </Link>
     </div>
   );

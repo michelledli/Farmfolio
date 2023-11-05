@@ -13,14 +13,25 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iloveyou.entity.Account;
 import com.iloveyou.entity.Comment;
+import com.iloveyou.repository.AccountRepository;
 import com.iloveyou.repository.CommentRepository;
+
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("/comments")
 @RestController
@@ -40,30 +51,53 @@ public class CommentController {
         return commentRepository.findAll();
     }
 
+    // GET /api/comments/posts/:id
+    @GetMapping("/posts")
+    List<Comment> getCommentByPostId(@RequestParam long id) {
+        return commentRepository.findByPostId(id);
+    }
+
     // GET /api/comments/:id
     @GetMapping("/{id}")
     Optional<Comment> getCommentById(@PathVariable long id) {
         return commentRepository.findById(id);
     }
 
-    /* POST /api/comments/userId/postId
-        body: {
-            body:
+    /*
+     * POST /api/comments/userId/postId
+     * body: {
+     * body:
+     * }
+     * }
+     */
+
+    @PostMapping()
+    public ResponseEntity<?> createComment(HttpServletRequest request) {
+        Claims claims = (Claims) request.getAttribute("claims");
+        Long accountId = Long.valueOf(claims.getId());
+        Account account = accountRepository.findById(accountId).get();
+
+        try {
+            var body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            ObjectMapper mapper = new ObjectMapper();
+            Comment comment = mapper.readValue(body, Comment.class);
+
+            Post post = postRepository.findById(comment.getPostId()).get();
+            comment.setPost(post);
+            post.getComments().add(comment);
+            comment.setAuthor(account);
+
+            // Get the current date and time
+            Date currentDate = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+            String formattedDate = simpleDateFormat.format(currentDate);
+            comment.setCreatedAt(formattedDate);
+
+            return ResponseEntity.ok(commentRepository.save(comment));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(400).build();
         }
-    }*/
-    @PostMapping("/{userId}/{postId}")
-    public Comment createComment(@RequestBody Comment comment,
-                                 @PathVariable long userId,
-                                 @PathVariable long postId) {
-        Account user = accountRepository.findById(userId).get();
-        Post post  = postRepository.findById(postId).get();
-
-        comment.setAuthor(user);
-        comment.setPost(post);
-        post.getComments().add(comment);
-
-        comment.setCreatedAt(new Date());
-        return commentRepository.save(comment);
     }
 
     // DELETE /api/comments/delete/:id
@@ -83,7 +117,7 @@ public class CommentController {
         if (!targetComment.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target comment exists, update the comment
         // first create a Comment type object
         Comment temp = targetComment.get();

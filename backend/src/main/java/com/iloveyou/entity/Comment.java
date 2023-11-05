@@ -3,7 +3,11 @@ package com.iloveyou.entity;
 import java.util.Date;
 import java.util.Objects;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +22,10 @@ public class Comment extends Auditable {
 
     @Id
     @GeneratedValue
-    private Long id;
-    private String body;      // the title text of the post
-    private Date createdAt;    // the date and time the post was made
+    private Long id;            
+    private Long postId;    // the id of the comment that the reply belongs to
+    private String body;      // the body of the comment
+    private String createdAt;    // the date and time the comment was made
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -29,6 +34,7 @@ public class Comment extends Auditable {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
+
 
 
     @Override
@@ -47,14 +53,9 @@ public class Comment extends Auditable {
     public int hashCode() {
         return Objects.hash(id, createdAt, body);
     }
- 
-    @Override
-    public String toString() {
-        return "PostEntity{" +
-                "id='" + id +
-                ", created_at='" + createdAt + '\'' +
-                ", title='" + body + '\'' +
-                '}';
+
+    public String getName() {
+        return author.getFname() + " " + author.getLname();
     }
 }
 
