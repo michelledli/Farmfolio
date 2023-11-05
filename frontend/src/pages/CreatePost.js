@@ -10,14 +10,7 @@ const CreatePost = () => {
 
   const handlePostCreate = (newPost) => {
     axios
-      .post("api/posts/1", {
-        createdBy: "Harry Potter",
-        createdDate: "2023-10-26T01:29:41.916+00:00",
-        modifiedBy: "Harry Potter",
-        modifiedDate: "2023-10-26T01:29:41.916+00:00",
-        accountId: 191,
-        createdAt: null,
-        announcement: false,
+      .post("api/posts", {
         title: newPost.title,
         body: newPost.body,
       })

@@ -52,10 +52,10 @@ public class CommentController {
     }
 
     // GET /api/comments/posts/:id
-    @GetMapping("/posts")
-    List<Comment> getCommentByPostId(@RequestParam long id) {
-        return commentRepository.findByPostId(id);
-    }
+    // @GetMapping("/posts")
+    // List<Comment> getCommentByPostId(@RequestParam long id) {
+    //     return commentRepository.findByPostId(id);
+    // }
 
     // GET /api/comments/:id
     @GetMapping("/{id}")
@@ -82,9 +82,7 @@ public class CommentController {
             ObjectMapper mapper = new ObjectMapper();
             Comment comment = mapper.readValue(body, Comment.class);
 
-            Post post = postRepository.findById(comment.getPostId()).get();
-            comment.setPost(post);
-            post.getComments().add(comment);
+            comment.getPost().getComments().add(comment);
             comment.setAuthor(account);
 
             // Get the current date and time

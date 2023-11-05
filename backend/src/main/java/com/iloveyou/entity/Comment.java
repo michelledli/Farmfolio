@@ -23,7 +23,6 @@ public class Comment extends Auditable {
     @Id
     @GeneratedValue
     private Long id;            
-    private Long postId;    // the id of the comment that the reply belongs to
     private String body;      // the body of the comment
     private String createdAt;    // the date and time the comment was made
 
@@ -34,8 +33,6 @@ public class Comment extends Auditable {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
-
-
 
     @Override
     public boolean equals(Object o) {
