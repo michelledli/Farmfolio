@@ -27,15 +27,21 @@ export function Navigation() {
   if (location.pathname === '/') {
     navContent = (
       <nav>
-        <ul>
-            <li className="dash-link"><Link to="/home">About</Link></li>
-            <li className="dash-link"><Link to="/news">News</Link></li>
-            <li className="dash-link"><Link to="/livestock">Livestock</Link></li>
-            <li className="dash-link"><Link to="/create">Create Post</Link></li>
-        </ul>
-          <input type="text" placeholder="Search.." />
       </nav>
     );
+  }
+  else {
+      navContent = (
+          <nav>
+              <ul>
+                  <li className="dash-link"><Link to="/home">About</Link></li>
+                  <li className="dash-link"><Link to="/news">News</Link></li>
+                  <li className="dash-link"><Link to="/livestock">Livestock</Link></li>
+                  <li className="dash-link"><Link to="/create">Create Post</Link></li>
+
+              </ul>
+          </nav>
+      );
   }
 
   return (

@@ -1,6 +1,7 @@
 package com.iloveyou.service;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -69,10 +70,11 @@ public class ImageService {
 		}
 	}
 
-	public byte[] getImage(Long id) {
+	public String getImage(Long id) {
 		Optional<Image> data = imageRepository.findById(id);
 		byte[] image = decompressImage(data.get().getBytes());
-		return image;
+		String base64Image = Base64.getEncoder().encodeToString(image);
+		return base64Image;
 	}
 
 	private class ImageResponse {

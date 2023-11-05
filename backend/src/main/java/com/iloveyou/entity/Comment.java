@@ -23,7 +23,6 @@ public class Comment extends Auditable {
     @Id
     @GeneratedValue
     private Long id;            
-    private Long postId;    // the id of the comment that the reply belongs to
     private String body;      // the body of the comment
     private String createdAt;    // the date and time the comment was made
 
@@ -31,6 +30,9 @@ public class Comment extends Auditable {
     @JoinColumn(name = "account_id")
     private Account author;
 
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @Override
     public boolean equals(Object o) {
@@ -40,7 +42,6 @@ public class Comment extends Auditable {
         Comment entity = (Comment) o;
 
         return Objects.equals(id, entity.id) &&
-                Objects.equals(postId, entity.postId) &&
                 Objects.equals(createdAt, entity.createdAt) &&
                 Objects.equals(body, entity.body);
     }
@@ -48,16 +49,6 @@ public class Comment extends Auditable {
     @Override
     public int hashCode() {
         return Objects.hash(id, createdAt, body);
-    }
- 
-    @Override
-    public String toString() {
-        return "PostEntity{" +
-                "id='" + id +
-                "post_id='" + postId +
-                ", created_at='" + createdAt + '\'' +
-                ", title='" + body + '\'' +
-                '}';
     }
 
     public String getName() {

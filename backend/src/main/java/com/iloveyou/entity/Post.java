@@ -1,6 +1,12 @@
+
 package com.iloveyou.entity;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +33,10 @@ public class Post extends Auditable {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account author;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

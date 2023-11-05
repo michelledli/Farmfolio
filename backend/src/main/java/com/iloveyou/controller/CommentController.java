@@ -1,5 +1,9 @@
 package com.iloveyou.controller;
 
+import com.iloveyou.entity.Account;
+import com.iloveyou.entity.Post;
+import com.iloveyou.repository.AccountRepository;
+import com.iloveyou.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +40,9 @@ public class CommentController {
     CommentRepository commentRepository;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     AccountRepository accountRepository;
 
     // GET /api/comments
@@ -44,11 +51,11 @@ public class CommentController {
         return commentRepository.findAll();
     }
 
-    // GET /api/comments/posts/:id 
-    @GetMapping("/posts")
-    List<Comment> getCommentByPostId(@RequestParam long id) {
-        return commentRepository.findByPostId(id);
-    }
+    // GET /api/comments/posts/:id
+    // @GetMapping("/posts")
+    // List<Comment> getCommentByPostId(@RequestParam long id) {
+    //     return commentRepository.findByPostId(id);
+    // }
 
     // GET /api/comments/:id
     @GetMapping("/{id}")
@@ -56,13 +63,14 @@ public class CommentController {
         return commentRepository.findById(id);
     }
 
-    /* POST /api/comments
-        body: {
-            postId:
-            accountId:
-            body:
-        }
-    }*/
+    /*
+     * POST /api/comments/userId/postId
+     * body: {
+     * body:
+     * }
+     * }
+     */
+
     @PostMapping()
     public ResponseEntity<?> createComment(HttpServletRequest request) {
         Claims claims = (Claims) request.getAttribute("claims");
@@ -74,13 +82,14 @@ public class CommentController {
             ObjectMapper mapper = new ObjectMapper();
             Comment comment = mapper.readValue(body, Comment.class);
 
+            comment.getPost().getComments().add(comment);
             comment.setAuthor(account);
 
             // Get the current date and time
             Date currentDate = new Date();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
             String formattedDate = simpleDateFormat.format(currentDate);
-            comment.setCreatedAt(formattedDate );
+            comment.setCreatedAt(formattedDate);
 
             return ResponseEntity.ok(commentRepository.save(comment));
         } catch (IOException e) {
@@ -106,7 +115,7 @@ public class CommentController {
         if (!targetComment.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target comment exists, update the comment
         // first create a Comment type object
         Comment temp = targetComment.get();

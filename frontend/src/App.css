@@ -21,7 +21,7 @@ h1{
 }
 
 .App-header {
-  background-color: #f7f7f2;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,23 @@ h1{
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(124, 159, 155);
+  text-align: justify;
+  padding: 20px;
 }
+
+.App-header h1 {
+  border: 3px solid;
+  padding-left: 600px;
+  padding-right: 600px;
+  background: antiquewhite;
+}
+
+.about {
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: center;
+}
+
 
 .App-link {
   color: #61dafb;
@@ -153,61 +169,26 @@ footer p {
   overflow: hidden;
   gap: 20px;
   animation: scrollRight 10s linear infinite;
-
+  padding: 30px;
 }
 .card {
 text-align: left;
 margin-left: 15px;
 }
 
-/* Main Page */
-.splitScreen {
-  height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.topPane {
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #7c9f9b;
-  padding: 50px;
-  box-sizing: border-box;
-}
-
-.bottomPane {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-@media (max-width: 1000px) {
-  .splitScreen {
-    flex-direction: column;
-  }
-  .botttomPane {
-    align-items: center;
-  }
-}
-
 /* Login Side */
-/*
-.login {
-  width: 350px;
-  height: 500px;
-  color: #FFFFFF;
-  background: linear-gradient(to top,rgb(124, 159, 155)50%,rgb(124, 159, 155)50%);
-  border-radius: 10px;
-  padding: 40px 25px;
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-*/
+
+#login {
+  background-image: url(farm-test.jpeg);
+  background-position: center;
+  background-size: cover;
+}
 
 .login {
   width: 80%;
@@ -217,7 +198,6 @@ margin-left: 15px;
   border-radius: 10px;
   color: #FFFFFF;
   background: linear-gradient(to top,rgb(124, 159, 155)50%,rgb(124, 159, 155)50%);
-  text-align: center; 
 }
 
 
@@ -225,7 +205,6 @@ margin-left: 15px;
   width: 100%;
   height: 35px;
   padding-top: 10px;
-  margin-bottom: 15px;
   background: transparent;
   border-bottom: 1px solid #FFFFFF;
   border-top: none;border-left: none;border-right: none;
@@ -235,12 +214,26 @@ margin-left: 15px;
   outline: none;
 }
 
+#email {
+  margin-bottom: 15px;
+}
+
 .login input:focus {
   outline: none;
 }
 
 ::placeholder {
   color: #FFFFFF;
+}
+
+.forgot {
+  font-size: 15px;
+  margin-top: 3px;
+
+}
+
+.forgot:hover {
+  font-weight: bold;
 }
 
 
@@ -295,35 +288,39 @@ th,td {
   margin-bottom: 20px;
 }
 
+/* Livestock Detail Page */
+.center-detail-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-fields-title {
+  font-weight: bold;
+  padding: 3px; /* Adds padding inside each input */
+}
+
 
 /* Add User/Animal */
-.AddContainer {
-  display: flex;             
-  flex-direction: column;   
-  justify-content: center;   
-  align-items: center;          
-  width: 28%;
+.AddContainer {        
   margin-top: 50px;
   margin-bottom: 20px;
   background: #7c9f9b;
   mix-blend-mode: normal;
   border-radius: 10px;
-  padding: 30px;              
-  position: relative;
-  cursor: pointer;  
+  padding: 40px 100px;
+  color: #FFFFFF;            
 }
-.Add {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.input {
+
+ .AddContainer input {
   width: 100%;                 
   margin-bottom: 20px;        
-  display: flex;              
-  flex-direction: column;     
-  align-items: center;    
-  justify-content: center;
+}
+
+#animal {
+  background-image: url(animals.jpeg);
+  background-position: center;
+  background-size: cover;
 }
 
 .inputField {
@@ -459,13 +456,23 @@ th,td {
   border: none;              
   border-radius: 10px;       
   cursor: pointer;           
-  font-size: 18px;           
-  align-items: right;
+  font-size: 18px;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 145px;
 }
 
-.label {
-  margin-right: auto;
+.AddContainer label {
   margin-left: 5px;
-  margin-bottom: 2px;
-  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.AddContainer textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
 }
