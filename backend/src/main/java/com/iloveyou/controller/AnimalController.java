@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iloveyou.entity.Animal;
 import com.iloveyou.repository.AnimalRepository;
 import com.iloveyou.service.AnimalService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -120,7 +122,6 @@ public class AnimalController {
         temp.setTag(animal.getTag());
         temp.setBreed(animal.getBreed());
         temp.setNotes(animal.getNotes());
-        temp.setImageId(animal.getImageId());
         temp.setFather(animal.getFather());
         temp.setMother(animal.getMother());
 
