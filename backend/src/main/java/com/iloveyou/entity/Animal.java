@@ -23,7 +23,7 @@ public class Animal extends AbstractEntity {
     private String tag;
     private String breed;
     private String notes;
-    private String imageId;
+    private Long imageId;
 
     //parents
     @ManyToOne

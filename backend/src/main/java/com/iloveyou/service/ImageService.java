@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import com.iloveyou.entity.Animal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -56,17 +57,16 @@ public class ImageService {
 		return outputStream.toByteArray();
 	}
 
-	public ResponseEntity<String> setImage(MultipartFile file) {
+	public Long setImage(MultipartFile file) {
 		try {
 			Image image = imageRepository.save(Image.builder()
 					.name(file.getOriginalFilename())
 					// .type(file.getContentType())
 					.bytes(compressImage(file.getBytes())).build());
 
-			ObjectMapper mapper = new ObjectMapper();
-			return ResponseEntity.ok(mapper.writeValueAsString(new ImageResponse(image.getId())));
+			return image.getId();
 		} catch (Exception e) {
-			return ResponseEntity.status(400).build();
+			return null;
 		}
 	}
 
