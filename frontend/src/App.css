@@ -84,7 +84,8 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
+  height: 25px;
+  top: 0;
   padding: 20px;
   position: fixed;
   width: 100%;
@@ -303,7 +304,7 @@ th,td {
 
 /* Add User/Animal */
 .AddContainer {        
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 20px;
   background: #7c9f9b;
   mix-blend-mode: normal;
@@ -321,16 +322,40 @@ th,td {
   background-image: url(animals.jpeg);
   background-position: center;
   background-size: cover;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
-.inputField {
-  width: 95%;                
+.inputField {              
   padding: 13px;             
   border-radius: 12px;
   border: 1px solid #8f8787;     
   font-size: 16px;     
   text-align: left;
 }
+
+.idcontainer {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#side-label {
+  display: inline-block;
+}
+
+#idrow {
+  display: flex;
+}
+
+#idgroup {
+  width: 50%;
+}
+
+#side {
+  width: 80%;
+}
+
 
 .CommentContainer {
   flex: 1;
@@ -459,13 +484,12 @@ th,td {
   font-size: 18px;
   align-items: center;
   margin-top: 10px;
-  margin-left: 145px;
+  margin-left: 225px;
 }
 
 .AddContainer label {
   margin-left: 5px;
   margin-bottom: 2px;
-  text-decoration: underline;
 }
 
 .AddContainer textarea {
