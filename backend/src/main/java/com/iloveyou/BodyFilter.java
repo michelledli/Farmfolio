@@ -60,18 +60,22 @@ public class BodyFilter extends OncePerRequestFilter {
 				return;
 
 			Claims claims = (Claims) request.getAttribute("claims");
-			Long requestId = 0L;
+			Long auditId = 0L;
 			if (claims != null)
-				requestId = Long.valueOf(claims.getId());
+				auditId = Long.valueOf(claims.getId());
 
 			String contentType = request.getHeader("Content-Type");
+
+			System.out.println(auditId);
 
 			if (contentType.contains("application/json")) {
 				ObjectMapper json = new ObjectMapper();
 				JsonNode node = json.readTree(this.cachedBody);
-				((ObjectNode) node).put("auditId", requestId);
+				((ObjectNode) node).put("auditId", auditId);
 				this.cachedBody = json.writeValueAsBytes(node);
 			}
+
+			System.out.println(new String(this.cachedBody));
 		}
 
 		@Override

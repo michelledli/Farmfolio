@@ -36,6 +36,10 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
+
+		Account adminEntity = Account.builder().fname("fname").lname("lname").email("admin").password("a")
+				.isAdmin(true)
+				.build();
 		// hard coded users made for testing
 		Account u1 = Account.builder().fname("Matt").lname("Tai").email("mt9123@gmail.com").password("password")
 				.build();
@@ -44,9 +48,6 @@ public class DatabaseLoader implements CommandLineRunner {
 				.build();
 
 		Account userEntity = Account.builder().fname("fname").lname("lname").email("user").password("a").isAdmin(false)
-				.build();
-
-		Account adminEntity = Account.builder().fname("fname").lname("lname").email("admin").password("a").isAdmin(true)
 				.build();
 
 		List<Account> accounts = Arrays.asList(u1, u2, u3, adminEntity, userEntity);
@@ -87,7 +88,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		// hard coded comments made for test
 		Comment c1 = Comment.builder().post(p1).author(u1).body("This is a comment for Post #1")
-						.createdAt("10/8/2023").build();
+				.createdAt("10/8/2023").build();
 		Comment c2 = Comment.builder().post(p2).author(u2).body("This is a comment for Post #2")
 				.createdAt("10/9/2023").build();
 		Comment c3 = Comment.builder().post(p3).author(u3).body("This is a comment for Post #3")

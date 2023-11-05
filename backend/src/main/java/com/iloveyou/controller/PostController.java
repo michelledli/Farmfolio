@@ -51,57 +51,50 @@ public class PostController {
         return postRepository.findById(id);
     }
 
-    /* POST /api/posts
-        {
-            body:
-            title:
-        }
-    }
-    @PostMapping("/{accountId}")
-    public Post createPost(@RequestBody Post post, @PathVariable Long accountId) {
- 
-        Account account = accountRepository.findById(accountId).get();
-        post.setAuthor(account);
- 
+    /*
+     * POST /api/posts
+     * {
+     * body:
+     * title:
+     * }
+     * }
+     * 
+     * @PostMapping("/{accountId}")
+     * public Post createPost(@RequestBody Post post, @PathVariable Long accountId)
+     * {
+     * 
+     * Account account = accountRepository.findById(accountId).get();
+     * post.setAuthor(account);
+     * 
+     * // Get the current date and time
+     * Date currentDate = new Date();
+     * SimpleDateFormat simpleDateFormat = new
+     * SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+     * String formattedDate = simpleDateFormat.format(currentDate);
+     * post.setCreatedAt(formattedDate );
+     * 
+     * return postRepository.save(post);
+     * }
+     */
+
+    /*
+     * POST /api/posts
+     * {
+     * body:
+     * title:
+     * }
+     */
+    @PostMapping()
+    public ResponseEntity<?> createPost(@RequestBody Post post) {
+        Account account = accountRepository.findById(post.getAuditId()).get();
+
         // Get the current date and time
         Date currentDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
         String formattedDate = simpleDateFormat.format(currentDate);
-        post.setCreatedAt(formattedDate );
-        
-        return postRepository.save(post);
-    }
-    */
+        post.setCreatedAt(formattedDate);
 
-    /* POST /api/posts
-    {
-        body:
-        title:
-    }*/
-    @PostMapping()
-    public ResponseEntity<?> createPost(HttpServletRequest request) {
-        Claims claims = (Claims) request.getAttribute("claims");
-        Long accountId = Long.valueOf(claims.getId());
-        Account account = accountRepository.findById(accountId).get();
-
-        try {
-            var body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            ObjectMapper mapper = new ObjectMapper();
-            Post post = mapper.readValue(body, Post.class);
-
-            post.setAuthor(account);
-
-            // Get the current date and time
-            Date currentDate = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
-            String formattedDate = simpleDateFormat.format(currentDate);
-            post.setCreatedAt(formattedDate );
-
-            return ResponseEntity.ok(postRepository.save(post));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
-        }
+        return ResponseEntity.ok(postRepository.save(post));
     }
 
     // DELETE /api/posts/:id
@@ -120,13 +113,13 @@ public class PostController {
         if (!targetPost.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target post exists, update the comment
         // first create a Post type object
         Post temp = targetPost.get();
         temp.setTitle(post.getTitle());
         temp.setBody(post.getBody());
-        
+
         postRepository.save(post);
         return ResponseEntity.ok().build();
     }
@@ -143,26 +136,28 @@ public class PostController {
         post.setAnnouncement(true);
         return postRepository.save(post);
     }
-    
-    /* 
-    // PUT /api/posts/announcements/id
-    @PatchMapping("/announcements/{id}")
-    public ResponseEntity<Object> updateAnnouncement(@RequestBody Post post, @PathVariable("id") Long id) {
-        // find the target post using the path variable id
-        Optional<Post> targetPost = postRepository.findById(id);
 
-        // check if the post is empty or not
-        if (!targetPost.isPresent())
-            // if empty, respond with not found
-            return ResponseEntity.notFound().build();
-        
-        // the target post exists, update the comment
-        // first create a Post type object
-        Post temp = targetPost.get();
-        temp.setTitle(post.getTitle());
-        
-        postRepository.save(post);
-        return ResponseEntity.noContent().build();
-    }
-    */    
+    /*
+     * // PUT /api/posts/announcements/id
+     * 
+     * @PatchMapping("/announcements/{id}")
+     * public ResponseEntity<Object> updateAnnouncement(@RequestBody Post
+     * post, @PathVariable("id") Long id) {
+     * // find the target post using the path variable id
+     * Optional<Post> targetPost = postRepository.findById(id);
+     * 
+     * // check if the post is empty or not
+     * if (!targetPost.isPresent())
+     * // if empty, respond with not found
+     * return ResponseEntity.notFound().build();
+     * 
+     * // the target post exists, update the comment
+     * // first create a Post type object
+     * Post temp = targetPost.get();
+     * temp.setTitle(post.getTitle());
+     * 
+     * postRepository.save(post);
+     * return ResponseEntity.noContent().build();
+     * }
+     */
 }
