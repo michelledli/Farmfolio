@@ -75,6 +75,7 @@ public class ImageService {
 		return image;
 	}
 
+	@SuppressWarnings("unused")
 	private class ImageResponse {
 		final Long id;
 

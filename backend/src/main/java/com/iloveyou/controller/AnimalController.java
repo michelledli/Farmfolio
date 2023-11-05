@@ -23,14 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @RequestMapping("/animals")
 @RestController
 public class AnimalController {
-
-    boolean DEBUG = true;
-
     @Autowired
     AnimalRepository animalRepository;
 
@@ -64,10 +59,6 @@ public class AnimalController {
     @ResponseBody
     public String getAnimalByNameOrTag(@RequestParam String query) {
         List<Animal> animals = animalRepository.searchByNameOrTag(query);
-
-        if (DEBUG) {
-            System.out.println(query);
-        }
 
         if (animals.size() == 0) {
             return "No animals found with a name or tag matching: " + query;
@@ -107,7 +98,7 @@ public class AnimalController {
         if (!targetAnimal.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target animal exists, update the comment
         // first create an Animal type object
         Animal temp = targetAnimal.get();
@@ -122,19 +113,8 @@ public class AnimalController {
         temp.setNotes(animal.getNotes());
 
         animalRepository.save(temp);
-        // return success 
+        // return success
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Animal>> getAllAnimals(
-            @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "tag") String sortBy)
-    {
-        List<Animal> list = animalService.getAllAnimals(pageNo, pageSize, sortBy);
-
-        return new ResponseEntity<List<Animal>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
 }

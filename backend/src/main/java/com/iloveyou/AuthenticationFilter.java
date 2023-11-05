@@ -56,7 +56,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        if (RootConfiguration.USE_AUTH) {
+        if (ServerConfiguration.USE_AUTH) {
             try {
                 String token = Arrays.stream(request.getCookies())
                         .filter((cookie) -> {
@@ -81,6 +81,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 }
 
                 request.setAttribute("claims", claims);
+
                 chain.doFilter(request, response);
 
             } catch (Exception e) {

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
 import com.iloveyou.entity.Comment;
 import com.iloveyou.repository.CommentRepository;
@@ -24,11 +23,12 @@ public class CommentController {
     @Autowired
     CommentRepository commentRepository;
 
-    // GET /api/comments
-    @GetMapping()
-    List<Comment> getAllComments() {
-        return commentRepository.findAll();
-    }
+    // // GET /api/comments
+    // @GetMapping()
+    // @ResponseBody
+    // List<Comment> getAllComments() {
+    //     return commentRepository.findAll();
+    // }
 
     // GET /api/comments/:id
     @GetMapping("/{id}")
@@ -43,7 +43,7 @@ public class CommentController {
             body:
         }
     }*/
-    @PostMapping()
+    @PostMapping
     public Comment createComment(@RequestBody Comment comment) {
         comment.setCreatedAt(new Date());
         return commentRepository.save(comment);

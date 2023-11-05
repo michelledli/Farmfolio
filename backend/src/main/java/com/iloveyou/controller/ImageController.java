@@ -27,7 +27,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<?> setImage(@RequestParam("image") MultipartFile image) {
-        return imageService.setImage(image);
+    public ResponseEntity<?> setImage(@RequestParam("file") MultipartFile file) {
+        return imageService.setImage(file);
     }
 }

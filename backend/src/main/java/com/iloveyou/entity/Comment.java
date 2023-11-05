@@ -3,24 +3,19 @@ package com.iloveyou.entity;
 import java.util.Date;
 import java.util.Objects;
 
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Data //generates setters and getters upon build
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class Comment extends Auditable {
-
-    @Id
-    @GeneratedValue
-    private Long id;            
+public class Comment extends AbstractEntity {        
     private Long postId;    // the id of the post that the reply belongs to
     private Long accountId;    // the id of the account that made the post
     private String body;      // the title text of the post
@@ -46,16 +41,10 @@ public class Comment extends Auditable {
     public int hashCode() {
         return Objects.hash(id, accountId, createdAt, body);
     }
- 
+
     @Override
     public String toString() {
-        return "PostEntity{" +
-                "id='" + id +
-                "post_id='" + postId +
-                ", user_id='" + accountId + '\'' +
-                ", created_at='" + createdAt + '\'' +
-                ", title='" + body + '\'' +
-                '}';
+        return super.toString();
     }
 }
 
