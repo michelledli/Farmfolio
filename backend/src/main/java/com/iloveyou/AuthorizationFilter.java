@@ -52,7 +52,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        if (RootConfiguration.USE_AUTH) {
+        if (ServerConfiguration.USE_AUTH) {
             try {
                 Claims claims = (Claims) request.getAttribute("claims");
                 Long id = Long.valueOf(claims.getId());

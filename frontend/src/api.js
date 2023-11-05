@@ -449,14 +449,14 @@ export const FrontendAPI = {
 
   deletePost: async function (id) {
     const response = await api.request({
-      url: `http://localhost:8080/api/posts/${id}`,
+      url: `/api/posts/${id}`,
       method: "DELETE",
     });
   },
 
   deleteComment: async function (id) {
     const response = await api.request({
-      url: `http://localhost:8080/api/comments/${id}`,
+      url: `/api/comments/${id}`,
       method: "DELETE",
     });
   }

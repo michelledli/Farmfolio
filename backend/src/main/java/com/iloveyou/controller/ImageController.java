@@ -30,10 +30,8 @@ public class ImageController {
 
     // api/images/animalId
     @PostMapping("/{animalId}")
-    public ResponseEntity<?> uploadImage(@PathVariable Long animalId, @RequestPart(
-            "image") MultipartFile image) {
-        Animal animal =
-                animalRepository.findById(animalId).get();
+    public ResponseEntity<?> uploadImage(@PathVariable Long animalId, @RequestPart("image") MultipartFile image) {
+        Animal animal = animalRepository.findById(animalId).get();
         Long imageId = imageService.setImage(image);
         animal.setImageId(imageId);
 

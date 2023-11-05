@@ -150,7 +150,6 @@ public class AuthenticationController {
 		return ResponseEntity.status(200).body("admin");
 	}
 
-	@SuppressWarnings("unused")
 	static class RegisterRequest {
 		public String email;
 		public String password;
@@ -166,11 +165,6 @@ public class AuthenticationController {
 
 		public ChangePasswordRequest() {
 		}
-
-		@Override
-		public String toString() {
-			return this.email + " " + this.password;
-		}
 	}
 
 	@SuppressWarnings("unused")
@@ -178,8 +172,7 @@ public class AuthenticationController {
 		public String email;
 		public String password;
 
-		public AuthenticationRequest() {
-		}
+		public AuthenticationRequest() {}
 	}
 
 	@SuppressWarnings("unused")

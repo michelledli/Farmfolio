@@ -6,26 +6,18 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Data //generates setters and getters upon build
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class Account extends Auditable {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Account extends AbstractEntity {
     private String fname;
     private String lname;
     @Column(unique=true)
@@ -56,30 +48,13 @@ public class Account extends Auditable {
                 Objects.equals(password, entity.password);
     }
 
-    // public List<String> getRoles() {
-    //     List<String> roles = new ArrayList<>();
-    //     roles.add("user");
-
-    //     if(isAdmin) {
-    //         roles.add("admin");
-    //     }
-
-    //     return roles;
-    // }
-
     @Override
     public int hashCode() {
         return Objects.hash(fname, lname, email, password);
     }
 
     @Override
-    public java.lang.String toString() {
-        return "AccountEntity{" +
-                "id=" + id +
-                ", fname='" + fname + '\'' +
-                ", lname='" + lname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public String toString() {
+        return super.toString();
     }
 }
