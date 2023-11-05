@@ -3,22 +3,19 @@ package com.iloveyou.entity;
 import java.util.Date;
 import java.util.Objects;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Data //generates setters and getters upon build
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class Animal extends Auditable {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Animal extends AbstractEntity {
     private String name;
     private String sex;
     private Date dob;
@@ -27,7 +24,6 @@ public class Animal extends Auditable {
     private String breed;
     private String notes;
     private String imageId;
-
 
     //parents
     @ManyToOne
@@ -59,15 +55,6 @@ public class Animal extends Auditable {
 
     @Override
     public String toString() {
-        return "AnimalEntity{" +
-                "id='" + id +
-                ", name='" + name + '\'' +
-                ", birthdate='" + dob + '\'' +
-                ", weight='" + weight + '\'' +
-                ", tag='" + tag + '\'' +
-                ", breed='" + breed + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
-    } 
-
+        return super.toString();
+    }
 }

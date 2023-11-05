@@ -9,21 +9,17 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Builder.Default;
+import lombok.experimental.SuperBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data //generates setters and getters upon build
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class Post extends Auditable {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Post extends AbstractEntity {
     private String title;      // the title text of the post
     private String body;
     private String createdAt;    // the date and time the post was made
@@ -56,16 +52,10 @@ public class Post extends Auditable {
     public int hashCode() {
         return Objects.hash(id, createdAt, title, body, announcement);
     }
- 
+    
     @Override
     public String toString() {
-        return "PostEntity{" +
-                "id='" + id +
-                ", created_at='" + createdAt + '\'' +
-                ", title='" + title + '\'' +
-                ", title='" + body + '\'' +
-                ", title='" + announcement + '\'' +
-                '}';
+        return super.toString();
     }
 
     public String getName() {

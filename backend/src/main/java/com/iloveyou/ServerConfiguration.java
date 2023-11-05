@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 
 @Configuration
-public class RootConfiguration implements WebMvcConfigurer {
+public class ServerConfiguration implements WebMvcConfigurer {
 	@Value("${spring.data.rest.base-path}")
 	private String path;
 
-	public static final boolean USE_AUTH = false;
+	public static final boolean USE_AUTH = true;
 
 	@Autowired
 	AuthenticationFilter authenticationFilter;
@@ -24,14 +24,17 @@ public class RootConfiguration implements WebMvcConfigurer {
 	@Autowired
 	AuthorizationFilter authorizationFilter;
 
+	@Autowired
+	BodyFilter entityFilter;
+
 	@Bean
 	public FilterRegistrationBean<AuthenticationFilter> registerAuthenticationFilter() {
-			final FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
-			registrationBean.setFilter(authenticationFilter);
-			registrationBean.setOrder(1);
-			registrationBean.addUrlPatterns("/*");
+		final FilterRegistrationBean<AuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(authenticationFilter);
+		registrationBean.setOrder(1);
+		registrationBean.addUrlPatterns("/*");
 
-			return registrationBean;
+		return registrationBean;
 	}
 
 	@Bean
@@ -39,6 +42,16 @@ public class RootConfiguration implements WebMvcConfigurer {
 		final FilterRegistrationBean<AuthorizationFilter> registrationBean = new FilterRegistrationBean<>();
 		registrationBean.setFilter(authorizationFilter);
 		registrationBean.setOrder(2);
+		registrationBean.addUrlPatterns("/api/*");
+
+		return registrationBean;
+	}
+
+	@Bean
+	public FilterRegistrationBean<BodyFilter> registerBodyFilter() {
+		final FilterRegistrationBean<BodyFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(entityFilter);
+		registrationBean.setOrder(3);
 		registrationBean.addUrlPatterns("/api/*");
 
 		return registrationBean;

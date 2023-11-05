@@ -12,6 +12,7 @@ import { Linkpage } from "../pages/Linkpage";
 import AddAnimal from "../pages/AddAnimal";
 import AddUser from "../pages/AddUser";
 import LivestockDetail from "./LivestockDetail.js";
+import Test from "../pages/Test.js";
 
 
 export function Navigation() {
@@ -59,6 +60,7 @@ export function Navigation() {
         <Route path="/post/:title" element={<PostPage />} />
         <Route path="/create" element= {<CreatePost onPostCreate={handlePostCreate} />} />
         <Route path="/linkpage" element={<Linkpage />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/user-add" element={<AddUser />} />
         <Route path="/animal-add" element={<AddAnimal />} />
         <Route path="/livestock/:id" element={<LivestockDetail />} />

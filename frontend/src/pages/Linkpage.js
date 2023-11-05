@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import AuditLog from "../components/AuditLog";
 
 export function Linkpage() {
     return (
@@ -11,6 +12,7 @@ export function Linkpage() {
                 <li><Link to="/user-add">Add User</Link></li>
                 <li><Link to="/animal-add">Add Animal</Link></li>
                 <li><Link to="/create">Post Create</Link></li>
+                <li><Link to="/test">Test</Link></li>
             </ul>
         </div>
     );

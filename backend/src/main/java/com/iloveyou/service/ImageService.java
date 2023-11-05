@@ -77,6 +77,7 @@ public class ImageService {
 		return base64Image;
 	}
 
+	@SuppressWarnings("unused")
 	private class ImageResponse {
 		final Long id;
 
