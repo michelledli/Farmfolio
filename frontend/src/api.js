@@ -52,8 +52,32 @@ export const FrontendAPI = {
             method: "GET",
         })
         return response.data
-    },*/
+    },*/ 
 
+    
+  getSearchByNameOrTag: async function (query) {
+    const response = await api.request({
+      url: `/api/animals/search?query=${query}`,
+      method: "GET",
+    });
+    return response.data;
+  },  
+
+  getAnimalById: async function (id) {
+    const response = await api.request({
+      url: `/api/animals/${id}`,
+      method: "GET",
+    });
+    return response.data;
+  },
+  
+  getAnimal: async function () {
+    const response = await api.request({
+      url: `/api/animals`,
+      method: "GET",
+    });
+    return response.data;
+  },
   
   getProfile: async function () {
     const response = await api.request({

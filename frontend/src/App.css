@@ -265,27 +265,82 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
   width: 80%;
-
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  
+} 
+.link-no-underline {
+  text-decoration: none; 
+  color: black; 
 }
 th,td {
   border: 1px solid #ccc;
   padding: 5px;
 }
-.editButton {
-  padding: 30px;
+
+.addButton {
   align-items: center;
   justify-content: center;
   display: flex;
-  font-size: 20px;
+  font-size: 12px;
+  font-weight: bold;
   color: #7c9f9b;
   height: 40px;
-  width: 70px;
-  margin-bottom: 20px;
-  align-self: flex-end;
+  width: 60px;
+  margin-right: 5%;
   margin-left: auto;
+} 
+
+.instructionalText {
+  font-size: 12px;
+  color: #333;
+  margin-top: 10px;
 }
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  margin-right: 8px;
+}
+
+.searchInputContainer {
+  display: flex;
+  align-items: center;
+}
+
+input {
+  flex: 1; 
+  padding: 8px;
+}
+
+.searchButton {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  color: #7c9f9b; 
+  height: 30px;
+  width: 60px;
+  margin-left: 5%;
+} 
+
 .moreInfo {
   margin-bottom: 20px;
+} 
+.searchInputContainer {
+  display: flex;
+  align-items: center;
+} 
+
+.searchContainer {
+  display: flex;
+  align-items: center;
 }
 
 /* Livestock Detail Page */
@@ -297,7 +352,7 @@ th,td {
 
 .detail-fields-title {
   font-weight: bold;
-  padding: 3px; /* Adds padding inside each input */
+  padding: 3px; 
 }
 
 
