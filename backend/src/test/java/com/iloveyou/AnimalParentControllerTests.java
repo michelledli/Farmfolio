@@ -3,10 +3,7 @@ package com.iloveyou;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-import java.util.Date;
-
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.Assert;
 
 import com.iloveyou.controller.AnimalParentController;
-import com.iloveyou.entity.Animal;
 import com.iloveyou.repository.AnimalRepository;
 
 @SpringBootTest
@@ -91,41 +87,5 @@ public class AnimalParentControllerTests {
         ).andReturn();
 
         Assert.isTrue(result.getResponse().getStatus() == 200, "POST request /add was not fulfilled. Status Code: " + result.getResponse().getStatus());
-    }
-
-    @Test
-    @Disabled
-    void addNewParentsToExistingChildTest() throws Exception {
-        Animal ani = Animal.builder().name("Test").dob(new Date()).id((long) 1234567).weight(80).tag("x").breed("a").build();
-        animalRepo.save(ani);
-        MvcResult result = this.mvc.perform(
-            put("/parents/update/1234567")
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .accept(MediaType.APPLICATION_JSON_VALUE)
-            .content(
-                "{\r\n" +
-                        "  \"father\": {\r\n" +
-                        "    \"name\": \"Max\",\r\n" +
-                        "    \"sex\": \"Male\",\r\n" +
-                        "    \"dob\": \"2018-05-10\",\r\n" +
-                        "    \"weight\": 30,\r\n" +
-                        "    \"tag\": \"5678\",\r\n" +
-                        "    \"breed\": \"Goat\",\r\n" +
-                        "    \"notes\": \"father\"\r\n" +
-                        "  },\r\n" +
-                        "  \"mother\": {\r\n" +
-                        "    \"name\": \"Lucy\",\r\n" +
-                        "    \"sex\": \"Female\",\r\n" +
-                        "    \"dob\": \"2019-07-20\",\r\n" +
-                        "    \"weight\": 28,\r\n" +
-                        "    \"tag\": \"9876\",\r\n" +
-                        "    \"breed\": \"Labrador\",\r\n" +
-                        "    \"notes\": \"mother\"\r\n" +
-                        "  }\r\n" +
-                        "}"
-            )
-        ).andReturn();
-
-        Assert.isTrue(result.getResponse().getStatus() == 200, "POST request /update/{id} was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 }
