@@ -1,25 +1,10 @@
 import React from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import { FrontendAPI } from "../api";
 
 const sendAddAnimal = (values) => {
-  // Remove the comment marks and fix the Axios request
-
-  axios.post("api/animals", { 
-    id: values.ID, 
-    name: values.name,
-    dob: values.birthDate,
-    weight: values.weight,
-    tag: values.tag,
-    breed: values.breed,
-  })
-  .then(response => {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+  FrontendAPI.postAnimal(values);
 };
 
 const AddAnimal = () => {
@@ -82,7 +67,7 @@ const AddAnimal = () => {
             </div>
             <div>
               <label>Notes</label>
-              <textarea rows="5" cols="35"></textarea>
+              <textarea name="notes" rows="5" cols="35"></textarea>
             </div>
           <button type="submit" className="submit">Submit</button>
           </form>

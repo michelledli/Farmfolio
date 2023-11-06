@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { FrontendAPI } from '../api';
 
 function LivestockDetail() {
   const { id } = useParams();
@@ -14,14 +15,13 @@ function LivestockDetail() {
   const formattedDate = `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
 
   useEffect(() => {
-    axios.get(`/api/animals/${id}`)
-      .then(response => {
-        setLivestock(response.data);
-        setEditedData(response.data);
-      })
-      .catch(error => {
-        console.error('API Request Error:', error);
-      });
+    async function fetchData() {
+      let response = await FrontendAPI.getAnimalById(id);
+      setLivestock(response);
+      setEditedData(response);
+    }
+  
+    fetchData();
   }, [id]);
 
   const handleEdit = () => {

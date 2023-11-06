@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FrontendAPI } from "../api";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -9,25 +10,15 @@ const CreatePost = () => {
   const [announcement, setAnnouncement] = useState(false);
 
   const handlePostCreate = (newPost) => {
-    axios
-      .post("api/posts", {
-        title: newPost.title,
-        body: newPost.body,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      navigate("/news");
-      // window.location.reload();
+    FrontendAPI.postPost(newPost);
+    navigate("/news");
+    window.location.reload();
   };
 
   const handleCreatePost = () => {
     if (title.trim() !== "" && body.trim() !== "") {
-      console.log(title, body);
-      const newPost = { title, body };
+      let a = announcement
+      const newPost = { title, body, a};
       handlePostCreate(newPost);
     }
   };

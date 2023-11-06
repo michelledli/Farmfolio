@@ -155,6 +155,9 @@ return (
                   <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
                 )}
               </th>
+              <th>
+                Notes 
+              </th>
             </tr> }
           </thead>
           <tbody>
@@ -167,6 +170,7 @@ return (
               <td style={{ color: "black", fontSize: "17px" }}>{goat.weight} lbs</td>
               <td style={{ color: "black", fontSize: "17px" }}>{goat.tag}</td>
               <td style={{ color: "black", fontSize: "17px"}}>{goat.breed}</td>
+              <td style={{ color: "black", fontSize: "17px"}}>{goat.notes}</td>
             </tr>
             ))}
           </tbody>

@@ -60,14 +60,12 @@ public class CommentController {
         return commentRepository.findById(id);
     }
 
-    /*
-     * POST /api/comments/userId/postId
-     * body: {
-     * body:
-     * }
-     * }
-     */
 
+    // POST /api/comments
+    // data: {
+    //     postId:
+    //     body:
+    // }
     @PostMapping()
     public ResponseEntity<?> createComment(@RequestBody Comment comment) {
         Account account = accountRepository.findById(comment.getAuditId()).get();
@@ -80,7 +78,6 @@ public class CommentController {
         comment.setCreatedAt(formattedDate);
 
         return ResponseEntity.ok(commentRepository.save(comment));
-
     }
 
     // DELETE /api/comments/delete/:id

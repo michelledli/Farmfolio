@@ -7,7 +7,6 @@ const Post = ({post, onPress}) => {
   const [Body, setBody] = useState("");
 
   const onClick = () => {
-      //onPress();
       createComment();
       setPostReply(!PostReply);
     };
@@ -18,7 +17,7 @@ const Post = ({post, onPress}) => {
   }
 
   const createComment = () => {
-    FrontendAPI.postPost(post.id, Body);
+    FrontendAPI.postComment(post.id, Body);
   }
 
   return (

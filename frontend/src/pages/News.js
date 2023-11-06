@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 import Posts from "../components/Posts";
 import axios from "axios";
 import Announcements from "../components/Announcements";
+import { FrontendAPI } from "../api";
 
 const News = () => {
   const [posts, setPosts] = useState([]);
-  
+
   useEffect(() => {
-    axios.get("/api/posts")
-    .then(response => {
-      console.log(response.data)
-      setPosts(response.data)
-    }).catch(function (error) {
-      console.log(error)
-    });
+    async function fetchData() {
+      let response = await FrontendAPI.getPosts();
+      setPosts(response)
+    }
+
+  fetchData();  
+
   },[] );
 
-  console.log("Posts in ForumPage:", posts);
   return (
     <div className="App-header">
       <h1>Forum</h1>
