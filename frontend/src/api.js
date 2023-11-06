@@ -10,6 +10,7 @@ const api = axios.create({
     "Content-Type": "application/json",
     // Authorization: "Bearer ".concat(cookies.get("access_token")),
   },
+  //baseURL: `http://localhost:${PORT}`
 });
 
 // define an error handler for the axios client
@@ -209,6 +210,17 @@ export const FrontendAPI = {
       url: `/api/login`,
       method: "POST",
       data: body,
+    });
+
+    return response;
+  },
+
+  postPost: async function (post_id, body) {
+    const response = await api.request({
+      url: `/api/comments`,
+      method: "POST",
+      data: {body: body, 
+            postId: post_id,}
     });
 
     return response;

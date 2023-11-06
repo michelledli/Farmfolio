@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import PostList from "../components/PostList";
+import Posts from "../components/Posts";
 import axios from "axios";
 import Announcements from "../components/Announcements";
 
@@ -8,7 +8,7 @@ const News = () => {
   const [posts, setPosts] = useState([]);
   
   useEffect(() => {
-    axios.get("api/posts")
+    axios.get("/api/posts")
     .then(response => {
       console.log(response.data)
       setPosts(response.data)
@@ -22,7 +22,7 @@ const News = () => {
     <div className="App-header">
       <h1>Forum</h1>
       <Announcements posts={posts}/>
-      <PostList posts={posts} />
+      <Posts posts={posts} />
       <Link to="/create">
         <button className="ReplyButton">Create Post</button>
       </Link>

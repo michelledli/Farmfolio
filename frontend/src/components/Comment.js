@@ -1,25 +1,26 @@
 import React from "react";
 import { FrontendAPI } from "../api.js";
 
-const Comment = ({reply}) => {
+const Comment = ({comment}) => {
 
   // delete a post
-    const deleteComment = (id) => {
+  const deleteComment = (id) => {
     FrontendAPI.deleteComment(id);
   };
 
   return (
+
     <div className='CommentContainer'>
       <div className="replyHeader">
-      {reply.createdBy}
+      {comment?.author.fname}
       </div>
 
       <div className='Comment'>
-        {reply.body}</div> 
+        {comment?.body}</div> 
       <div className='CommentTime'>
-        <div className='DateTime'>{reply.CreatedAt}</div>
+        <div className='DateTime'>{comment?.createdAt}</div>
       </div>
-      <button className="deleteButton" onClick={() => deleteComment(reply.id)}>Delete</button>
+      <button className="deleteButton" onClick={() => deleteComment(comment.id)}>Delete</button>
     </div>
   )
 }

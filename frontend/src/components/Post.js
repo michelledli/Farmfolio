@@ -2,18 +2,24 @@ import Comment from './Comment';
 import React, { useState } from 'react';
 import { FrontendAPI } from "../api.js";
 
-const Post = ({post, replies, onPress}) => {
+const Post = ({post, onPress}) => {
   const [PostReply, setPostReply] = useState(false);
+  const [Body, setBody] = useState("");
 
   const onClick = () => {
-      onPress();
+      //onPress();
+      createComment();
       setPostReply(!PostReply);
     };
 
    // delete a post
   const deletePost = (id) => {
     FrontendAPI.deletePost(id);
-  };
+  }
+
+  const createComment = () => {
+    FrontendAPI.postPost(post.id, Body);
+  }
 
   return (
     <div className="PostContainer">
@@ -35,15 +41,14 @@ const Post = ({post, replies, onPress}) => {
       <div className="ReplyContainer">
         {PostReply && (
           <>
-            <textarea className="ReplyBox" placeholder="Comment..." rows={5} />
+            <textarea onChange={(e) => setBody(e.target.value)} className="ReplyBox" placeholder="Comment..." rows={5} />
             <button onClick={onClick} className="ReplyButton">
               Submit
             </button>
           </>
         )}
       </div>
-        {replies?.map((reply) => <Comment reply={reply}/>)}
-
+        {post.comments?.map((reply) => <Comment comment={reply}/>)}
     </div>
   )
 }
