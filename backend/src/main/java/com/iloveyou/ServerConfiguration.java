@@ -16,7 +16,7 @@ public class ServerConfiguration implements WebMvcConfigurer {
 	@Value("${spring.data.rest.base-path}")
 	private String path;
 
-	public static final boolean USE_AUTH = true;
+	public static final boolean USE_AUTH = false;
 
 	@Autowired
 	AuthenticationFilter authenticationFilter;

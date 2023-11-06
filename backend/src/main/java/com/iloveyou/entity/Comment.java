@@ -19,16 +19,13 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 public class Comment extends AbstractEntity {
+    private Long postId;
     private String body; // the title text of the post
     private String createdAt; // the date and time the post was made
 
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account author;
-
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
 
     @Override
     public boolean equals(Object o) {
