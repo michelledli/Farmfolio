@@ -11,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iloveyou.service.ImageService;
 
-import java.io.IOException;
-
 @RequestMapping("/images")
 @RestController
 public class ImageController {

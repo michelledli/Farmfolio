@@ -6,13 +6,10 @@ import java.util.Optional;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-import com.iloveyou.entity.Animal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iloveyou.entity.Image;
 import com.iloveyou.repository.ImageRepository;
 
