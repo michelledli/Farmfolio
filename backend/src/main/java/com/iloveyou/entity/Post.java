@@ -6,7 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder.Default;
@@ -30,9 +33,21 @@ public class Post extends AbstractEntity {
     @JoinColumn(name = "account_id")
     private Account author;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
+    // @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Transient
     private List<Comment> comments = new ArrayList<>();
+    // @OneToMany(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "post_id", referencedColumnName = "id")
+    // private List<Comment> comments;
+
+    @JsonGetter
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+    @JsonIgnore
+    public void setComments(List<Comment> list) {
+        this.comments = list;
+    }
 
     @Override
     public boolean equals(Object o) {

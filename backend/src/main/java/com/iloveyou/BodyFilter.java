@@ -60,7 +60,7 @@ public class BodyFilter extends OncePerRequestFilter {
 				return;
 
 			Claims claims = (Claims) request.getAttribute("claims");
-			Long auditId = 0L;
+			Long auditId = 1L;
 			if (claims != null)
 				auditId = Long.valueOf(claims.getId());
 

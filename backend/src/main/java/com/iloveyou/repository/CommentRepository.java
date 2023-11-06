@@ -8,10 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.iloveyou.entity.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> { 
-    // // Fetch comments by post id
-    // @Query(
-    //     "SELECT c FROM Comment c " +
-    //     "WHERE c.postId = ?1"
-    // )
-    // List<Comment> findByPostId(long id);
+    // Fetch comments by post id
+    List<Comment> findByPostId(Long id);
 }

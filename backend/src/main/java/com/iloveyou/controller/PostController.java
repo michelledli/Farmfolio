@@ -1,6 +1,9 @@
 package com.iloveyou.controller;
 
 import com.iloveyou.repository.AccountRepository;
+import com.iloveyou.repository.CommentRepository;
+import com.iloveyou.repository.PostRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iloveyou.entity.Account;
+import com.iloveyou.entity.Comment;
 
 import java.util.List;
 
 import com.iloveyou.entity.Post;
-import com.iloveyou.repository.PostRepository;
+
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,14 +39,26 @@ import java.util.stream.Collectors;
 public class PostController {
     @Autowired
     PostRepository postRepository;
-
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    CommentRepository commentRepository;
+
+    private List<Post> getComments(List<Post> posts) {
+        posts.forEach((post) -> {
+            post.setComments(commentRepository.findByPostId((Long) post.getId()));
+        });
+
+        return posts;
+    }
 
     // GET /api/posts
     @GetMapping()
     List<Post> getAllPosts() {
-        return postRepository.findAll();
+        List<Post> posts = postRepository.findAll();
+        posts = getComments(posts);
+
+        return posts;
     }
 
     // GET /api/posts/:id
@@ -88,6 +104,8 @@ public class PostController {
     public ResponseEntity<?> createPost(@RequestBody Post post) {
         Account account = accountRepository.findById(post.getAuditId()).get();
 
+        post.setAuthor(account);
+
         // Get the current date and time
         Date currentDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
@@ -130,12 +148,12 @@ public class PostController {
         return postRepository.findAllAnnouncements();
     }
 
-    // POST /api/posts/announcements
-    @PostMapping("/announcements")
-    public Post createAnnouncement(@RequestBody Post post) {
-        post.setAnnouncement(true);
-        return postRepository.save(post);
-    }
+    // // POST /api/posts/announcements
+    // @PostMapping("/announcements")
+    // public Post createAnnouncement(@RequestBody Post post) {
+    //     post.setAnnouncement(true);
+    //     return postRepository.save(post);
+    // }
 
     /*
      * // PUT /api/posts/announcements/id

@@ -87,11 +87,11 @@ public class DatabaseLoader implements CommandLineRunner {
 		this.postRepository.saveAll(posts);
 
 		// hard coded comments made for test
-		Comment c1 = Comment.builder().post(p1).author(u1).body("This is a comment for Post #1")
+		Comment c1 = Comment.builder().author(u1).postId( 1L).body("This is a comment for Post #1")
 				.createdAt("10/8/2023").build();
-		Comment c2 = Comment.builder().post(p2).author(u2).body("This is a comment for Post #2")
+		Comment c2 = Comment.builder().author(u2).postId(1L).body("This is a comment for Post #2")
 				.createdAt("10/9/2023").build();
-		Comment c3 = Comment.builder().post(p3).author(u3).body("This is a comment for Post #3")
+		Comment c3 = Comment.builder().author(u3).postId(1L).body("This is a comment for Post #3")
 				.createdAt("10/11/2023").build();
 
 		List<Comment> comments = Arrays.asList(c1, c2, c3);
