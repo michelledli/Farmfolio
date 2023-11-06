@@ -36,7 +36,7 @@ public class AnimalController {
     // Partial search of Animals based on the given field
     @GetMapping("/search/{field}")
     @ResponseBody
-    public String getAccountBySearch(@PathVariable String field, @RequestParam String query) {
+    public ResponseEntity<?> getAnimalBySearch(@PathVariable String field, @RequestParam String query) {
         List<Animal> animals = new ArrayList<Animal>();
 
         // Execute SQL code in the repository depending on what field was given
@@ -44,28 +44,30 @@ public class AnimalController {
             // search by name
             animals = animalRepository.searchByName(query);
         } else if (field.equals("tag")) {
-            // search by email
+            // search by tag
             animals = animalRepository.searchByTag(query);
         }
 
-        if (animals.size() == 0) {
-            return "No accounts found matching search: " + query;
+        if (animals.isEmpty()) {
+            return ResponseEntity.notFound().build();
+            //error 404 
         }
 
-        return animals.toString();
+        return ResponseEntity.ok().body(animals);
     }
 
     // Partial search of Animal names or Animal tags
     @GetMapping("/search")
     @ResponseBody
-    public String getAnimalByNameOrTag(@RequestParam String query) {
+    public ResponseEntity<?> getAnimalByNameOrTag(@RequestParam String query) {
         List<Animal> animals = animalRepository.searchByNameOrTag(query);
 
-        if (animals.size() == 0) {
-            return "No animals found with a name or tag matching: " + query;
+       if (animals.isEmpty()) {
+            return ResponseEntity.notFound().build();
+            //error 404 
         }
 
-        return animals.toString();
+        return ResponseEntity.ok().body(animals);
     }
 
     @GetMapping("/{id}")
