@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function AuditEntry(entry, key) {
-  // console.log(entry);
-
+  console.log(entry);
   let type = entry?.type;
   let before = JSON.parse(entry.before);
   let after = JSON.parse(entry.after);

@@ -20,8 +20,8 @@ const CreatePost = () => {
       .catch(function (error) {
         console.log(error);
       });
-      navigate("/news");
-      // window.location.reload();
+    navigate("/news");
+    // window.location.reload();
   };
 
   const handleCreatePost = () => {
@@ -34,11 +34,11 @@ const CreatePost = () => {
 
   const handleChange = () => {
     setAnnouncement(!announcement);
-  }
+  };
 
   return (
-    <div className="App-header">
-      <h2>Create a Post</h2>
+    <>
+      <div className="page__header">Create a Post</div>
       <input
         className="PostTitle"
         type="text"
@@ -55,13 +55,17 @@ const CreatePost = () => {
         onChange={(e) => setBody(e.target.value)}
       ></textarea>
       <label className="AnnouncementCheckbox">
-      <input type="checkbox"
-      announcement={announcement}
-      onChange={handleChange}/>
+        <input
+          type="checkbox"
+          announcement={announcement}
+          onChange={handleChange}
+        />
         Announcement?
       </label>
-      <button className="CreatePostButton" onClick={handleCreatePost}>Create Post</button>
-    </div>
+      <button className="CreatePostButton" onClick={handleCreatePost}>
+        Create Post
+      </button>
+    </>
   );
 };
 

@@ -4,7 +4,6 @@ import Register from "./Register";
 export function Test() {
   return (
     <>
-
       <AuditLog />
     </>
   );

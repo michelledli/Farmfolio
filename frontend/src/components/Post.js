@@ -1,38 +1,39 @@
-import Comment from './Comment';
-import React, { useState } from 'react';
+import Comment from "./Comment";
+import React, { useState } from "react";
 import { FrontendAPI } from "../api.js";
 
-const Post = ({post, replies, onPress}) => {
+const Post = ({ post, replies, onPress }) => {
   const [PostReply, setPostReply] = useState(false);
 
   const onClick = () => {
-      onPress();
-      setPostReply(!PostReply);
-    };
+    onPress();
+    setPostReply(!PostReply);
+  };
 
-   // delete a post
+  // delete a post
   const deletePost = (id) => {
     FrontendAPI.deletePost(id);
   };
 
   return (
-    <div className="PostContainer">
-      <div className="PostTitle">
+    <div className="post">
+      <div className="post__header">
         {post.title}
-        <button className="deleteButton" onClick={() => deletePost(post.id)}>Delete</button>
+        <button className="poost__delete" onClick={() => deletePost(post.id)}>
+          Delete
+        </button>
       </div>
-      <div className="PostBody">
-        {post.body}
-      </div>
-      <div className="DateTime">
+      <hr></hr>
+      <div className="post__body">{post.body}</div>
+      <div className="post__time">
         {post.name} {post.createdAt}{" "}
         {!PostReply && (
-          <button onClick={() => setPostReply(true)} className="ReplyButton">
+          <button onClick={() => setPostReply(true)} className="post__reply">
             Reply
           </button>
         )}
       </div>
-      <div className="ReplyContainer">
+      <div className="post__reply`">
         {PostReply && (
           <>
             <textarea className="ReplyBox" placeholder="Comment..." rows={5} />
@@ -42,10 +43,11 @@ const Post = ({post, replies, onPress}) => {
           </>
         )}
       </div>
-        {replies?.map((reply) => <Comment reply={reply}/>)}
-
+      {replies?.map((reply) => (
+        <Comment reply={reply} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;

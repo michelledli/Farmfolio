@@ -42,4 +42,9 @@ public class Comment extends AbstractEntity {
     public int hashCode() {
         return Objects.hash(id, createdAt, body);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -32,14 +32,14 @@ const PostList = ({posts}) => {
 
     
   return (
-    <div className="App-header">
+    <>
       <h2>Posts</h2>
       <ul>
         {posts.map((post, index) => (
         post.announcement == false && <Post post={post} replies={getComments(post.id)} key={post.id}/>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

@@ -16,23 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iloveyou.entity.Account;
-import com.iloveyou.entity.Comment;
-
 import java.util.List;
 
 import com.iloveyou.entity.Post;
 
 
-import io.jsonwebtoken.Claims;
-import jakarta.servlet.http.HttpServletRequest;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequestMapping("/posts")
 @RestController

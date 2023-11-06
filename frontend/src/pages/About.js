@@ -2,7 +2,7 @@ import sawyer_goat_1 from "./sawyer_goat_1.jpg";
 import { useState } from "react";
 import Cards from "../components/Cards";
 
-export function Home() {
+function About() {
   const Images = [
     sawyer_goat_1,
     sawyer_goat_1,
@@ -15,10 +15,9 @@ export function Home() {
   const SCROLL_SPEED = 0.3;
 
   return (
-    <div className="App-header">
-      <br></br>
-      <h1>About</h1>
-      <div className="about">
+    <>
+      <div className="page__header">About</div>
+      <p>
         Explore Sawyer's Farm Goat Catalog at Bret Harte High School!
         <br></br>
         <br></br>
@@ -32,13 +31,14 @@ export function Home() {
         <br></br>
         Join our school community in fostering a love for sustainable farming
         with Sawyer's Farm!
-      </div>
-      <div className="scroll-container">
+      </p>
+      {/* <div className="scroll-container">
         {Images.map((image) => (
           <Cards image={image} name="sawyer" age="2" gender="Male" />
         ))}
-      </div>
-      <div></div>
-    </div>
+      </div> */}
+    </>
   );
 }
+
+export default About;

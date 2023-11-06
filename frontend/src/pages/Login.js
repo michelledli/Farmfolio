@@ -2,13 +2,20 @@ import { FrontendAPI } from "../api";
 import Cookies from "universal-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import sawyer_goat_1 from './sawyer_goat_1.jpg';
-import { Link } from "react-router-dom";
+import sawyer_goat_1 from "./sawyer_goat_1.jpg";
 const cookies = new Cookies();
 const api = FrontendAPI;
 
 export function Login() {
-  const Images = [sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1, sawyer_goat_1,]
+  const Images = [
+    sawyer_goat_1,
+    sawyer_goat_1,
+    sawyer_goat_1,
+    sawyer_goat_1,
+    sawyer_goat_1,
+    sawyer_goat_1,
+    sawyer_goat_1,
+  ];
   const SCROLL_SPEED = 0.3;
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -17,7 +24,7 @@ export function Login() {
   });
 
   const { email, password } = data;
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showError, setShowError] = useState(false);
 
   // hey Javi
   // send user login credentials to the API to be verified
@@ -28,8 +35,7 @@ export function Login() {
     // axios request
     const response = await api.postLogin(data).catch(function (error) {
       if (error.response.status === 401) {
-        console.log("Invalid login.");
-        setErrorMessage("Invalid login information.");
+        setShowError(true);
       }
     });
 
@@ -49,45 +55,45 @@ export function Login() {
   // hello Javi
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    setShowError(false);
   };
 
   return (
-    <div className="center" id="login">
-        <div className="login">
-          <h1>WELCOME</h1>
-          <form onSubmit={sendLogin}>
-          <div>
-            <input
-              type="text"
-              placeholder="Email"
-              name="email"
-              id="email"
-              value={email}
-              onChange={onChange}
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              id="password"
-              value={password}
-              onChange={onChange}
-              required
-            />
-          </div>
-          <div className="forgot">
+    <>
+      <div className="login">
+        <div className="login__title">Login</div>
+        <form onSubmit={sendLogin}>
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={onChange}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={onChange}
+            required
+          />
+          {/* <div className="forgot">
             <Link to="/forgot">Forgot Password</Link>
-          </div>
-          <div className="btn-container">
-            <button className="btn" type="submit" onSubmit={sendLogin}>LOGIN</button>
-            {errorMessage ? errorMessage : null}
-          </div>
+          </div> */}
+          <button className="btn" type="submit">
+            LOGIN
+          </button>
+          {showError ? (
+            <div className="login__error">Invalid Login.</div>
+          ) : null}
         </form>
-        </div>
       </div>
+      <div className="center login__background"></div>
+    </>
   );
 }
 

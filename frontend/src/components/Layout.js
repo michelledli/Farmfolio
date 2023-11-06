@@ -1,13 +1,13 @@
-import Header from './Header'
+import Navigation from './Navigation'
 import Footer from './Footer'
 
 const Layout = ({ children }) => {
   return (
-    <>
-      <Header />
-      <main>{children}</main>
+    <div className="page">
+      <Navigation />
+      {children ? <main>{children}</main> : null}
       <Footer />
-    </>
+    </div>
   )
 }
 

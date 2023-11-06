@@ -2,7 +2,7 @@ const Footer = () => {
     return (
       <div>
         <footer>
-          <p>&copy; 2023 Farmfolio</p>
+          &copy; 2023 Farmfolio
         </footer>
       </div>
     )

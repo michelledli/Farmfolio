@@ -3,7 +3,7 @@ import AuditLog from "../components/AuditLog";
 
 export function Linkpage() {
     return (
-        <div className="App-header">
+        <div className="page__header">
             <h1>Link Page</h1>
             <ul>
                 <li><Link to="/news">News</Link></li>

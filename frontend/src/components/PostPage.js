@@ -8,9 +8,9 @@ const PostPage = ({ match }) => {
   };
 
   return (
-    <div className="App-header">
+    <div className="page__header">
       <h1>{post.title}</h1>
-      <p>{post.body}</p>
+      {post.body}
     </div>
   );
 };

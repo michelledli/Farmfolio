@@ -1,27 +1,28 @@
 import React from "react";
-import axios from 'axios'
-
+import axios from "axios";
 
 const sendAddUser = (values) => {
-  axios.post("api/accounts", { 
-    fname: values.firstName, 
-    lname: values.lastName,
-    email: values.email,
-    password: values.password,
-  })
-  .then(response => {
-    console.log(response)
-  }).catch(function (error) {
-    console.log(error)
-  });
+  axios
+    .post("api/accounts", {
+      fname: values.firstName,
+      lname: values.lastName,
+      email: values.email,
+      password: values.password,
+    })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 const AddUser = () => {
   return (
-    <div className="App-Header">
+    <>
+      <div className="page__header">Add User</div>
       <div className="Add">
         <div className="AddContainer">
-          <h1>Add User</h1>
           <form style={{ width: "100%" }} onSubmit={sendAddUser}>
             <div className="input">
               <label className="label">First Name</label>
@@ -45,7 +46,7 @@ const AddUser = () => {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
