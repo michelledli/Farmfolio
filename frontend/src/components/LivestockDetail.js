@@ -8,7 +8,7 @@ function LivestockDetail() {
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imageUri, setImageUri] = useState(null);
+  const [imageData, setImageData] = useState(null);
 
   const date = new Date(editedData.dob);
   const formattedDate = `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
@@ -76,21 +76,19 @@ function LivestockDetail() {
     const formData = new FormData();
     formData.append("image", selectedFile);
 
-    axios.post("/api/images", formData).then((response) => {
-      // Assuming response.data contains the new imageId
-      const newImageId = response.data.id;
-      // First, update editedData with the new imageId
-      setEditedData(prevEditedData => ({
-        ...prevEditedData,
-        imageId: newImageId,
-      }));
-    });
+    axios.post(`/api/images/${id}`, formData)
+        .then((response) => {
+          console.log('Image uploaded successfully!');
+        })
+        .catch((error) => {
+          console.error('Image upload failed:', error);
+        });
   };
 
   useEffect(() => {
     if (editedData.imageId) {
       axios.get(`/api/images/${editedData.imageId}`).then((response) => {
-        setImageUri(response.data)
+        setImageData(response.data)
       });
     }
   }, [editedData.imageId]);
@@ -103,23 +101,28 @@ function LivestockDetail() {
     <div>
       <h1>{editedData.name}</h1>
       <div className="center-detail-image">
-        {imageUri && (
+        {imageData ? (
             <img
-                src={`data:image/png;base64,${imageUri}`}
+                src={`data:image/png;base64,${imageData}`}
                 alt="Uploaded Image"
             />
+        ) : (
+            <span>No image available</span>
         )}
       </div >
-        <div >
+      <div>
         <div>
           {isEditing ? (
-              <div>
-                <span className="detail-fields-title">Image Upload: </span>
-                <input type="file" onChange={handleFileChange} />
-              </div>  )
+                  <div>
+                    <span className="detail-fields-title">Image Upload: </span>
+                    <input type="file" onChange={handleFileChange} />
+                  </div>)
               : <span> </span>}
 
         </div>
+      </div>
+        <div >
+
         <div>
           <span className="detail-fields-title">ID:</span> {editedData.id}
         </div>

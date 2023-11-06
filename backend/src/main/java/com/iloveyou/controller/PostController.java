@@ -1,6 +1,9 @@
 package com.iloveyou.controller;
 
 import com.iloveyou.repository.AccountRepository;
+import com.iloveyou.repository.CommentRepository;
+import com.iloveyou.repository.PostRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iloveyou.entity.Account;
+import com.iloveyou.entity.Comment;
 
 import java.util.List;
 
 import com.iloveyou.entity.Post;
-import com.iloveyou.repository.PostRepository;
+
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,14 +39,26 @@ import java.util.stream.Collectors;
 public class PostController {
     @Autowired
     PostRepository postRepository;
-
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    CommentRepository commentRepository;
+
+    private List<Post> getComments(List<Post> posts) {
+        posts.forEach((post) -> {
+            post.setComments(commentRepository.findByPostId((Long) post.getId()));
+        });
+
+        return posts;
+    }
 
     // GET /api/posts
     @GetMapping()
     List<Post> getAllPosts() {
-        return postRepository.findAll();
+        List<Post> posts = postRepository.findAll();
+        posts = getComments(posts);
+
+        return posts;
     }
 
     // GET /api/posts/:id
@@ -51,57 +67,52 @@ public class PostController {
         return postRepository.findById(id);
     }
 
-    /* POST /api/posts
-        {
-            body:
-            title:
-        }
-    }
-    @PostMapping("/{accountId}")
-    public Post createPost(@RequestBody Post post, @PathVariable Long accountId) {
- 
-        Account account = accountRepository.findById(accountId).get();
+    /*
+     * POST /api/posts
+     * {
+     * body:
+     * title:
+     * }
+     * }
+     * 
+     * @PostMapping("/{accountId}")
+     * public Post createPost(@RequestBody Post post, @PathVariable Long accountId)
+     * {
+     * 
+     * Account account = accountRepository.findById(accountId).get();
+     * post.setAuthor(account);
+     * 
+     * // Get the current date and time
+     * Date currentDate = new Date();
+     * SimpleDateFormat simpleDateFormat = new
+     * SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+     * String formattedDate = simpleDateFormat.format(currentDate);
+     * post.setCreatedAt(formattedDate );
+     * 
+     * return postRepository.save(post);
+     * }
+     */
+
+    /*
+     * POST /api/posts
+     * {
+     * body:
+     * title:
+     * }
+     */
+    @PostMapping()
+    public ResponseEntity<?> createPost(@RequestBody Post post) {
+        Account account = accountRepository.findById(post.getAuditId()).get();
+
         post.setAuthor(account);
- 
+
         // Get the current date and time
         Date currentDate = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
         String formattedDate = simpleDateFormat.format(currentDate);
-        post.setCreatedAt(formattedDate );
-        
-        return postRepository.save(post);
-    }
-    */
+        post.setCreatedAt(formattedDate);
 
-    /* POST /api/posts
-    {
-        body:
-        title:
-    }*/
-    @PostMapping()
-    public ResponseEntity<?> createPost(HttpServletRequest request) {
-        Claims claims = (Claims) request.getAttribute("claims");
-        Long accountId = Long.valueOf(claims.getId());
-        Account account = accountRepository.findById(accountId).get();
-
-        try {
-            var body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            ObjectMapper mapper = new ObjectMapper();
-            Post post = mapper.readValue(body, Post.class);
-
-            post.setAuthor(account);
-
-            // Get the current date and time
-            Date currentDate = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
-            String formattedDate = simpleDateFormat.format(currentDate);
-            post.setCreatedAt(formattedDate );
-
-            return ResponseEntity.ok(postRepository.save(post));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(400).build();
-        }
+        return ResponseEntity.ok(postRepository.save(post));
     }
 
     // DELETE /api/posts/:id
@@ -120,13 +131,13 @@ public class PostController {
         if (!targetPost.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target post exists, update the comment
         // first create a Post type object
         Post temp = targetPost.get();
         temp.setTitle(post.getTitle());
         temp.setBody(post.getBody());
-        
+
         postRepository.save(post);
         return ResponseEntity.ok().build();
     }
@@ -137,32 +148,34 @@ public class PostController {
         return postRepository.findAllAnnouncements();
     }
 
-    // POST /api/posts/announcements
-    @PostMapping("/announcements")
-    public Post createAnnouncement(@RequestBody Post post) {
-        post.setAnnouncement(true);
-        return postRepository.save(post);
-    }
-    
-    /* 
-    // PUT /api/posts/announcements/id
-    @PatchMapping("/announcements/{id}")
-    public ResponseEntity<Object> updateAnnouncement(@RequestBody Post post, @PathVariable("id") Long id) {
-        // find the target post using the path variable id
-        Optional<Post> targetPost = postRepository.findById(id);
+    // // POST /api/posts/announcements
+    // @PostMapping("/announcements")
+    // public Post createAnnouncement(@RequestBody Post post) {
+    //     post.setAnnouncement(true);
+    //     return postRepository.save(post);
+    // }
 
-        // check if the post is empty or not
-        if (!targetPost.isPresent())
-            // if empty, respond with not found
-            return ResponseEntity.notFound().build();
-        
-        // the target post exists, update the comment
-        // first create a Post type object
-        Post temp = targetPost.get();
-        temp.setTitle(post.getTitle());
-        
-        postRepository.save(post);
-        return ResponseEntity.noContent().build();
-    }
-    */    
+    /*
+     * // PUT /api/posts/announcements/id
+     * 
+     * @PatchMapping("/announcements/{id}")
+     * public ResponseEntity<Object> updateAnnouncement(@RequestBody Post
+     * post, @PathVariable("id") Long id) {
+     * // find the target post using the path variable id
+     * Optional<Post> targetPost = postRepository.findById(id);
+     * 
+     * // check if the post is empty or not
+     * if (!targetPost.isPresent())
+     * // if empty, respond with not found
+     * return ResponseEntity.notFound().build();
+     * 
+     * // the target post exists, update the comment
+     * // first create a Post type object
+     * Post temp = targetPost.get();
+     * temp.setTitle(post.getTitle());
+     * 
+     * postRepository.save(post);
+     * return ResponseEntity.noContent().build();
+     * }
+     */
 }

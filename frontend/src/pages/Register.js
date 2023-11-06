@@ -11,7 +11,6 @@ export function Register() {
     })
     const {email, password} = data;
 
-    // hey Javi
     // send user register credentials to the API to be saved into the database
     const sendRegister = (e) => {
         // prevent page refresh on click
@@ -26,14 +25,11 @@ export function Register() {
         }
     }
 
-    // hello Javi
     const onChange = (e) => {
         setData({...data,[e.target.name]:[e.target.value]});
     }
 
-
     return (
-        // hi Javi
         <div>
         <form action="" onSubmit={sendRegister}>
           <div className="input-container">

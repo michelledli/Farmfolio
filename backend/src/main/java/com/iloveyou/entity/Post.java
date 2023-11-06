@@ -2,28 +2,26 @@
 package com.iloveyou.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Builder.Default;
+import lombok.experimental.SuperBuilder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data //generates setters and getters upon build
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class Post extends Auditable {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Post extends AbstractEntity {
     private String title;      // the title text of the post
     private String body;
     private String createdAt;    // the date and time the post was made
@@ -34,9 +32,21 @@ public class Post extends Auditable {
     @JoinColumn(name = "account_id")
     private Account author;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
+    // @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Transient
     private List<Comment> comments = new ArrayList<>();
+    // @OneToMany(fetch = FetchType.EAGER)
+    // @JoinColumn(name = "post_id", referencedColumnName = "id")
+    // private List<Comment> comments;
+
+    @JsonGetter
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+    @JsonIgnore
+    public void setComments(List<Comment> list) {
+        this.comments = list;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -56,16 +66,10 @@ public class Post extends Auditable {
     public int hashCode() {
         return Objects.hash(id, createdAt, title, body, announcement);
     }
- 
+    
     @Override
     public String toString() {
-        return "PostEntity{" +
-                "id='" + id +
-                ", created_at='" + createdAt + '\'' +
-                ", title='" + title + '\'' +
-                ", title='" + body + '\'' +
-                ", title='" + announcement + '\'' +
-                '}';
+        return super.toString();
     }
 
     public String getName() {

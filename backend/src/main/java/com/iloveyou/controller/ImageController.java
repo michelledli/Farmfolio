@@ -6,12 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iloveyou.service.ImageService;
@@ -22,14 +17,23 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    AnimalRepository animalRepository;
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getImage(@PathVariable("id") Long id) {
         String data = imageService.getImage(id);
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(data);
     }
 
-    @PostMapping
-    public ResponseEntity<?> setImage(@RequestParam("image") MultipartFile image) {
-        return imageService.setImage(image);
+    // api/images/animalId
+    @PostMapping("/{animalId}")
+    public ResponseEntity<?> uploadImage(@PathVariable Long animalId, @RequestPart("image") MultipartFile image) {
+        Animal animal = animalRepository.findById(animalId).get();
+        Long imageId = imageService.setImage(image);
+        animal.setImageId(imageId);
+
+        animalRepository.save(animal);
+        return ResponseEntity.ok("Image uploaded successfully");
     }
 }

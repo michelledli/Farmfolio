@@ -519,7 +519,8 @@ input {
 
 .AddContainer label {
   margin-left: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
+  text-decoration: underline;
 }
 
 .AddContainer textarea {
@@ -531,3 +532,40 @@ input {
   border-radius: 5px;
   resize: none;
 }
+
+.audit {
+  margin: auto;
+  white-space: nowrap;
+}
+
+.audit > table > tbody > tr:first-child > *{
+  border: none
+}
+
+.audit table {
+  text-align: left;
+  /* width: initial; */
+  margin: 2rem auto 2rem auto;
+  border: none;
+}
+
+.audit table table {
+  width: initial;
+  margin: auto;
+}
+
+.audit th,
+.audit td  {  /* width: 50%; */
+  white-space: nowrap;
+  width: 1%;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  width: 100%;
+  background-color: black;;
+}
+
+/* .audit th {
+} */

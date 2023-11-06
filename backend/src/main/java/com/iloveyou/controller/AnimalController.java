@@ -23,13 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @RequestMapping("/animals")
 @RestController
 public class AnimalController {
-
-    boolean DEBUG = true;
 
     @Autowired
     AnimalRepository animalRepository;
@@ -65,10 +61,6 @@ public class AnimalController {
     @ResponseBody
     public ResponseEntity<?> getAnimalByNameOrTag(@RequestParam String query) {
         List<Animal> animals = animalRepository.searchByNameOrTag(query);
-
-        if (DEBUG) {
-            System.out.println(query);
-        }
 
        if (animals.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -109,7 +101,7 @@ public class AnimalController {
         if (!targetAnimal.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target animal exists, update the comment
         // first create an Animal type object
         Animal temp = targetAnimal.get();
@@ -122,24 +114,27 @@ public class AnimalController {
         temp.setTag(animal.getTag());
         temp.setBreed(animal.getBreed());
         temp.setNotes(animal.getNotes());
-        temp.setImageId(animal.getImageId());
         temp.setFather(animal.getFather());
         temp.setMother(animal.getMother());
 
         animalRepository.save(temp);
-        // return success 
+        // return success
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<Animal>> getAllAnimals(
-            @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "tag") String sortBy)
-    {
-        List<Animal> list = animalService.getAllAnimals(pageNo, pageSize, sortBy);
+    // @GetMapping
+    // public ResponseEntity<List<Animal>> getAllAnimals(
+    //         @RequestParam(defaultValue = "0") Integer pageNo,
+    //         @RequestParam(defaultValue = "10") Integer pageSize,
+    //         @RequestParam(defaultValue = "tag") String sortBy) {
+    //     List<Animal> list = animalService.getAllAnimals(pageNo, pageSize, sortBy);
 
-        return new ResponseEntity<List<Animal>>(list, new HttpHeaders(), HttpStatus.OK);
+    //     return new ResponseEntity<List<Animal>>(list, new HttpHeaders(), HttpStatus.OK);
+    // }
+
+    @GetMapping
+    public List<Animal> getAnimals() {
+        return animalRepository.findAll();
     }
 
 }

@@ -7,11 +7,9 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iloveyou.entity.Image;
 import com.iloveyou.repository.ImageRepository;
 
@@ -56,17 +54,16 @@ public class ImageService {
 		return outputStream.toByteArray();
 	}
 
-	public ResponseEntity<String> setImage(MultipartFile file) {
+	public Long setImage(MultipartFile file) {
 		try {
 			Image image = imageRepository.save(Image.builder()
 					.name(file.getOriginalFilename())
 					// .type(file.getContentType())
 					.bytes(compressImage(file.getBytes())).build());
 
-			ObjectMapper mapper = new ObjectMapper();
-			return ResponseEntity.ok(mapper.writeValueAsString(new ImageResponse(image.getId())));
+			return image.getId();
 		} catch (Exception e) {
-			return ResponseEntity.status(400).build();
+			return null;
 		}
 	}
 
@@ -77,6 +74,7 @@ public class ImageService {
 		return base64Image;
 	}
 
+	@SuppressWarnings("unused")
 	private class ImageResponse {
 		final Long id;
 
