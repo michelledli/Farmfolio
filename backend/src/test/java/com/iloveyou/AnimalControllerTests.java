@@ -61,9 +61,9 @@ public class AnimalControllerTests {
     }
 
     @Test
-    public void animalsearchTest() throws Exception {
+    public void nonExistentAnimalSearchTest() throws Exception {
         MvcResult result = this.mvc.perform(get("/animals/search").param("query", "test")).andReturn();
-        Assert.isTrue(result.getResponse().getStatus() == 200, "GET request /animals/search was not fulfilled. Status Code: " + result.getResponse().getStatus());
+        Assert.isTrue(result.getResponse().getStatus() == 404, "GET request /animals/search was not fulfilled. Status Code: " + result.getResponse().getStatus());
     }
 
     @Test
