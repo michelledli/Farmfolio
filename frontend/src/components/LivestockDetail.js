@@ -30,7 +30,7 @@ function LivestockDetail() {
 
   const handleSave = () => {
     // Make an Axios request to update the data on the backend
-    handleImageUpload();
+    if (selectedFile) handleImageUpload();
     axios.put(`/api/animals/${id}`, editedData)
       .then(response => {
         console.log('Data updated:', response.data);
@@ -55,6 +55,10 @@ function LivestockDetail() {
         id: value,
       },
     }));
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   const handleMotherInput = (e) => {
@@ -66,6 +70,10 @@ function LivestockDetail() {
         id: value,
       },
     }));
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   const handleFileChange = (e) => {
@@ -83,6 +91,15 @@ function LivestockDetail() {
         .catch((error) => {
           console.error('Image upload failed:', error);
         });
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    setEditedData(livestock);
+    setIsEditing(false);
   };
 
   useEffect(() => {
@@ -228,7 +245,7 @@ function LivestockDetail() {
           <span className="detail-fields-title">Father: </span>
           {!isEditing ? (
               editedData.father && editedData.father.id !== null ? (
-                  <Link to={`/livestock/${editedData.father.id}`}>Father</Link>
+                  <Link to={`/livestock/${editedData.father.id}`}>{editedData.father.name}</Link>
               ) : (
                   "No father"
               )
@@ -250,7 +267,7 @@ function LivestockDetail() {
           <span className="detail-fields-title">Mother: </span>
           {!isEditing ? (
               editedData.mother && editedData.mother.id !== null ? (
-                  <Link to={`/livestock/${editedData.mother.id}`}>Mother</Link>
+                  <Link to={`/livestock/${editedData.mother.id}`}>{editedData.mother.name}</Link>
               ) : (
                   "No mother"
               )
@@ -270,7 +287,10 @@ function LivestockDetail() {
       </div>
       <div>
         {isEditing ? (
-          <button onClick={handleSave}>Save</button>
+          <div>
+            <button onClick={handleSave}>Save</button>
+            <button onClick={handleCancel}>Cancel</button>
+          </div>
         ) : (
           <button onClick={handleEdit}>Edit</button>
         )}
