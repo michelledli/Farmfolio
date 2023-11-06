@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties.RSocket.Server;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iloveyou.ServerConfiguration;
 import com.iloveyou.entity.Account;
 import com.iloveyou.repository.AccountRepository;
 
@@ -34,10 +36,8 @@ public class AuthenticationController {
 	@Value("${jwt.secret}")
 	private String secret;
 
-	public static final boolean USE_PLAINTEXT = true;
-
 	public static String encode(String password) {
-		if (!USE_PLAINTEXT) {
+		if (!ServerConfiguration.USE_PLAINTEXT) {
 			int strength = 10; // work factor of bcrypt
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
 			password = bCryptPasswordEncoder.encode(password);
@@ -49,7 +49,7 @@ public class AuthenticationController {
 	public static boolean isValid(String password, String encoding) {
 		boolean isValid;
 
-		if (!USE_PLAINTEXT) {
+		if (!ServerConfiguration.USE_PLAINTEXT) {
 			int strength = 10; // work factor of bcrypt
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(strength, new SecureRandom());
 			isValid = bCryptPasswordEncoder.matches(password, encoding);

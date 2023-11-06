@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.iloveyou.repository.AccountRepository;
+
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.iloveyou.entity.Account;
 
 import java.util.ArrayList;
@@ -33,12 +37,20 @@ public class AccountController {
 
         if (a == null)
             return new ResponseEntity<>(
-                "A user with the requested id was not found", 
-                HttpStatus.BAD_REQUEST);
+                    "A user with the requested id was not found",
+                    HttpStatus.BAD_REQUEST);
 
         a.setPassword(null);
 
         return new ResponseEntity<>(a, HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    @ResponseBody
+    public Account getMe(HttpServletRequest request) {
+        Claims claims = (Claims) request.getAttribute("claims");
+        Long id = Long.valueOf(claims.getId());
+        return accountRepository.findById(id).orElse(null);
     }
 
     // Partial search of Accounts based on the given field
@@ -56,7 +68,7 @@ public class AccountController {
         }
 
         if (accounts.size() == 0) {
-            return ResponseEntity.notFound().build() ;
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(accounts);
@@ -94,7 +106,7 @@ public class AccountController {
         if (!targetAccount.isPresent())
             // if empty, respond with not found
             return ResponseEntity.notFound().build();
-        
+
         // the target account exists, update the account
         // first create an Account type object
         Account temp = targetAccount.get();
@@ -105,7 +117,7 @@ public class AccountController {
         temp.setEmail(account.getEmail());
 
         accountRepository.save(temp);
-        // return success 
+        // return success
         return ResponseEntity.ok().build();
     }
 
