@@ -10,6 +10,7 @@ const api = axios.create({
     "Content-Type": "application/json",
     // Authorization: "Bearer ".concat(cookies.get("access_token")),
   },
+  //baseURL: `http://localhost:${PORT}`
 });
 
 // define an error handler for the axios client
@@ -32,7 +33,6 @@ export const FrontendAPI = {
   // @@@@@@@@@@@@
   // GET methods
   // @@@@@@@@@@@@
-
   request: async function (parameters) {
     return api.request(parameters);
   },
@@ -45,15 +45,6 @@ export const FrontendAPI = {
 
     return response.data;
   },
-
-  /*getLogin: async function () {
-        const response = await api.request({
-            url: `/login`,
-            method: "GET",
-        })
-        return response.data
-    },*/ 
-
     
   getSearchByNameOrTag: async function (query) {
     const response = await api.request({
@@ -78,38 +69,6 @@ export const FrontendAPI = {
     });
     return response.data;
   },
-  
-  getProfile: async function () {
-    const response = await api.request({
-      url: `/profile`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getUser: async function () {
-    const response = await api.request({
-      url: `/user`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getUserId: async function (id) {
-    const response = await api.request({
-      url: `/user/${id}`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getDashboard: async function () {
-    const response = await api.request({
-      url: `/dashboard`,
-      method: "GET",
-    });
-    return response.data;
-  },
 
   getAdmin: async function () {
     const response = await api.request({
@@ -118,97 +77,66 @@ export const FrontendAPI = {
     });
     return response.data;
   },
-  
-
-  getEntity: async function () {
-    const response = await api.request({
-      url: `/entity`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getEntityId: async function (id) {
-    const response = await api.request({
-      url: `/entity/${id}`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getEntityIdFeature: async function (id) {
-    const response = await api.request({
-      url: `/entity/${id}/feature`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getEntityIdFeatureKey: async function (id, key) {
-    const response = await api.request({
-      url: `/entity/${id}/feature/${key}`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getEntityFeatureKey: async function (key) {
-    const response = await api.request({
-      url: `/entity/feature/${key}`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getFeature: async function () {
-    const response = await api.request({
-      url: `/feature`,
-      method: "GET",
-    });
-    return response.data;
-  },
-
-  getFeatureKey: async function (key) {
-    const response = await api.request({
-      url: `/feature/${key}`,
-      method: "GET",
-    });
-    return response.data;
-  },
 
   getPosts: async function () {
     const response = await api.request({
-      url: `/posts`,
+      url: `api/posts`,
       method: "GET",
     })
-    return response.data;
-  },
-
-  getSearch: async function (id, key) {
-    const response = await api.request({
-      url: `/search?key=${key}&entity=${id}`,
-      method: "GET",
-    });
     return response.data;
   },
 
   // @@@@@@@@@@@@
   // POST methods
   // @@@@@@@@@@@@
-  postUserId: async function (id, body) {
-    const response = await api.request({
-      url: `/users/${id}`,
-      method: "POST",
-      data: body,
-    });
-    return response.data;
-  },
 
   postLogin: async function (body) {
     const response = await api.request({
       url: `/api/login`,
       method: "POST",
       data: body,
+    });
+
+    return response;
+  },
+
+  postAnimal: async function (animal) {
+    const response = await api.request({
+      url: `/api/animals`,
+      method: "POST",
+      data: {
+        name: animal.name,
+        dob: animal.birthDate,
+        weight: animal.weight,
+        tag: animal.tag,
+        breed: animal.breed,
+        notes: animal.notes
+      },
+    });
+
+    return response;
+  },
+
+  postComment: async function (post_id, body) {
+    const response = await api.request({
+      url: `/api/comments`,
+      method: "POST",
+      data: {
+        body: body, 
+        postId: post_id,
+      }
+    });
+
+    return response;
+  },
+
+  postPost: async function (post) {
+    const response = await api.request({
+      url: `/api/posts`,
+      method: "POST",
+      data: {body: post.body, 
+        title: post.title, 
+        announcement: post.a}
     });
 
     return response;
@@ -222,254 +150,17 @@ export const FrontendAPI = {
     });
   },
 
-  postEntityId: async function (id, body) {
-    const response = await api.request({
-      url: `/entity/${id}`,
-      method: "POST",
-      data: body,
-    });
-  },
-
-  postEntityIdFeature: async function (id, body) {
-    const response = await api.request({
-      url: `/entity/${id}/feature`,
-      method: "POST",
-      data: body,
-    });
-  },
-
-  postEntityIdFeatureKey: async function (id, key, body) {
-    const response = await api.request({
-      url: `/entity/${id}/feature/${key}`,
-      method: "POST",
-      data: body,
-    });
-  },
-
-  postEntityFeatureKey: async function (key, body) {
-    const response = await api.request({
-      url: `/entity/feature/${key}`,
-      method: "POST",
-      data: body,
-    });
-  },
-
-  postFeature: async function (body) {
-    const response = await api.request({
-      url: `/feature`,
-      method: "POST",
-      data: body,
-    });
-  },
-
-  postFeatureID: async function (id, body) {
-    const response = await api.request({
-      url: `/feature/${id}`,
-      method: "POST",
-      data: body,
-    });
-  },
-
-  postSearch: async function (id, key, body) {
-    const response = await api.request({
-      url: `/search?key=${key}&entity=${id}`,
-      method: "POST",
-      data: body,
-    });
-  },
-
   // @@@@@@@@@@@@
   // PUT methods
   // @@@@@@@@@@@@
-  putUserId: async function (id, body) {
-    const response = await api.request({
-      url: `/users/${id}`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putEntityId: async function (id, body) {
-    const response = await api.request({
-      url: `/entity/${id}`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putEntityIdFeature: async function (id, body) {
-    const response = await api.request({
-      url: `/entity/${id}/feature`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putEntityIdFeatureKey: async function (id, key, body) {
-    const response = await api.request({
-      url: `/entity/${id}/feature/${key}`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putEntityFeatureKey: async function (key, body) {
-    const response = await api.request({
-      url: `/entity/feature/${key}`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putFeature: async function (body) {
-    const response = await api.request({
-      url: `/feature`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putFeatureID: async function (id, body) {
-    const response = await api.request({
-      url: `/feature/${id}`,
-      method: "PUT",
-      data: body,
-    });
-  },
-
-  putSearch: async function (id, key, body) {
-    const response = await api.request({
-      url: `/search?key=${key}&entity=${id}`,
-      method: "PUT",
-      data: body,
-    });
-  },
 
   // @@@@@@@@@@@@
   // PATCH methods
   // @@@@@@@@@@@@
-  patchUserId: async function (id, body) {
-    const response = await api.request({
-      url: `/users/${id}`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchEntityId: async function (id, body) {
-    const response = await api.request({
-      url: `/entity/${id}`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchEntityIdFeature: async function (id, body) {
-    const response = await api.request({
-      url: `/entity/${id}/feature`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchEntityIdFeatureKey: async function (id, key, body) {
-    const response = await api.request({
-      url: `/entity/${id}/feature/${key}`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchEntityFeatureKey: async function (key, body) {
-    const response = await api.request({
-      url: `/entity/feature/${key}`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchFeature: async function (body) {
-    const response = await api.request({
-      url: `/feature`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchFeatureID: async function (id, body) {
-    const response = await api.request({
-      url: `/feature/${id}`,
-      method: "PATCH",
-      data: body,
-    });
-  },
-
-  patchSearch: async function (id, key, body) {
-    const response = await api.request({
-      url: `/search?key=${key}&entity=${id}`,
-      method: "PATCH",
-      data: body,
-    });
-  },
 
   // @@@@@@@@@@@@
   // DELETE methods
   // @@@@@@@@@@@@
-  deleteUserId: async function (id) {
-    const response = await api.request({
-      url: `/users/${id}`,
-      method: "DELETE",
-    });
-  },
-
-  deleteEntityId: async function (id) {
-    const response = await api.request({
-      url: `/entity/${id}`,
-      method: "DELETE",
-    });
-  },
-
-  deleteEntityIdFeature: async function (id) {
-    const response = await api.request({
-      url: `/entity/${id}/feature`,
-      method: "DELETE",
-    });
-  },
-
-  deleteEntityIdFeatureKey: async function (id, key) {
-    const response = await api.request({
-      url: `/entity/${id}/feature/${key}`,
-      method: "DELETE",
-    });
-  },
-
-  deleteEntityFeatureKey: async function (key) {
-    const response = await api.request({
-      url: `/entity/feature/${key}`,
-      method: "DELETE",
-    });
-  },
-
-  deleteFeature: async function () {
-    const response = await api.request({
-      url: `/feature`,
-      method: "DELETE",
-    });
-  },
-
-  deleteFeatureID: async function (id) {
-    const response = await api.request({
-      url: `/feature/${id}`,
-      method: "DELETE",
-    });
-  },
-
-  deleteSearch: async function (id, key) {
-    const response = await api.request({
-      url: `/search?key=${key}&entity=${id}`,
-      method: "DELETE",
-    });
-  },
 
   deletePost: async function (id) {
     const response = await api.request({

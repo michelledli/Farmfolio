@@ -23,6 +23,7 @@ import com.iloveyou.entity.Post;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 
@@ -55,8 +56,15 @@ public class PostController {
 
     // GET /api/posts/:id
     @GetMapping("/{id}")
-    Optional<Post> getPostById(@PathVariable long id) {
-        return postRepository.findById(id);
+    List<Post> getPostById(@PathVariable long id) {
+        Optional<Post> post = postRepository.findById(id);
+
+        Post p = post.get();
+        List<Post> posts = Arrays.asList(p);
+
+        posts = getComments(posts);
+
+        return posts;
     }
 
     /*

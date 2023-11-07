@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FrontendAPI } from "../api";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -9,25 +10,15 @@ const CreatePost = () => {
   const [announcement, setAnnouncement] = useState(false);
 
   const handlePostCreate = (newPost) => {
-    axios
-      .post("api/posts", {
-        title: newPost.title,
-        body: newPost.body,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    navigate("/news");
-    // window.location.reload();
+    FrontendAPI.postPost(newPost);
+    navigate("/forum");
+    window.location.reload();
   };
 
   const handleCreatePost = () => {
     if (title.trim() !== "" && body.trim() !== "") {
-      console.log(title, body);
-      const newPost = { title, body };
+      let a = announcement;
+      const newPost = { title, body, a };
       handlePostCreate(newPost);
     }
   };
@@ -38,33 +29,38 @@ const CreatePost = () => {
 
   return (
     <>
-      <div className="page__header">Create a Post</div>
-      <input
-        className="PostTitle"
-        type="text"
-        placeholder="Post Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        className="PostBody"
-        rows="4"
-        cols="50"
-        placeholder="Write your post here"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-      ></textarea>
-      <label className="AnnouncementCheckbox">
-        <input
-          type="checkbox"
-          announcement={announcement}
-          onChange={handleChange}
-        />
-        Announcement?
-      </label>
-      <button className="CreatePostButton" onClick={handleCreatePost}>
-        Create Post
-      </button>
+      <div className="page__header">Create Post</div>
+      <div className="create">
+        <div>
+          <input
+            className="create__title"
+            type="text"
+            placeholder="Title"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div>
+          <textarea
+            className="create__body"
+            placeholder="Body"
+            onChange={(e) => setBody(e.target.value)}
+          ></textarea>
+        </div>
+        <div>
+          <label>
+            Announcement:
+            <input
+              type="checkbox"
+              onChange={handleChange}
+            />
+          </label>
+        </div>
+        <div>
+          <button onClick={handleCreatePost}>
+            Create Post
+          </button>
+        </div>
+      </div>
     </>
   );
 };

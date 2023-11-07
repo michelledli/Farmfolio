@@ -30,14 +30,10 @@ export function Livestock() {
     return age;
   }
 
-  const fetchData = () => {
+  useEffect(() => {
     api.getAnimal().then((data) => {
       setGoats(data);
     });
-  };
-
-  useEffect(() => {
-    fetchData();
   }, []);
 
   const handleSearch = () => {
@@ -89,14 +85,18 @@ export function Livestock() {
     });
   }
 
+  const sorter = (key) => {
+    return (
+      <span className={!(sortAttribute === key) ? " invisible" : null}>
+        {sortOrder === "asc" ? "▲" : "▼"}
+      </span>
+    );
+  };
+
   return (
     <>
       <div className="page__header">Livestock Catalog</div>
-      <div className="searchContainer">
-        <button onClick={() => Navigate("/animal-add")} className="addButton">
-          Add Animal
-        </button>
-        <label>Search:</label>
+      <div className="livestock__header">
         <div className="searchInputContainer">
           <input
             type="text"
@@ -107,107 +107,65 @@ export function Livestock() {
             Enter Search
           </button>
         </div>
-      </div>
-
-      {/* <div className="instructionalText">
-        <p>
-          Filter by:
-          <ul>
-            <li>
-              Click on table headers to sort by name, age, weight, tag, or
-              breed.
-            </li>
-          </ul>
-        </p>
-        <p>
-          Get filtered results:
-          <ul>
-            <li>
-              Click on the table headers to sort the data in ascending or
-              descending order.
-            </li>
-          </ul>
-        </p>
-        <p>
-          Search by:
-          <ul>
-            <li>
-              Enter a search query in the input field above to find livestock by
-              name or tag.
-            </li>
-          </ul>
-        </p>
-      </div> */}
-
-      {goats.length === 0 || errorMessage ? (
-        <p style={{ color: "red" }}>No matching results.</p>
-      ) : (
-        <div>
-          <table style={{ border: "2px solid #7c9f9b" }}>
-            <thead>
-              {
-                <tr>
-                  <th onClick={() => handleSort("name")}>
-                    Name{" "}
-                    {sortAttribute === "name" && (
-                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-                    )}
-                  </th>
-                  <th onClick={() => handleSort("age")}>
-                    Age{" "}
-                    {sortAttribute === "age" && (
-                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-                    )}
-                  </th>
-                  <th onClick={() => handleSort("weight")}>
-                    Weight{" "}
-                    {sortAttribute === "weight" && (
-                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-                    )}
-                  </th>
-                  <th onClick={() => handleSort("tag")}>
-                    Tag{" "}
-                    {sortAttribute === "tag" && (
-                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-                    )}
-                  </th>
-                  <th onClick={() => handleSort("breed")}>
-                    Breed{" "}
-                    {sortAttribute === "breed" && (
-                      <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
-                    )}
-                  </th>
-                </tr>
-              }
-            </thead>
-            <tbody>
-              {sortedGoats.map((goat) => (
-                <tr key={goat.id}>
-                  <td style={{ color: "black", fontSize: "17px" }}>
-                    <Link
-                      to={`/livestock/${goat.id}`}
-                      className="link-no-underline"
-                    >
-                      {goat.name}
-                    </Link>
-                  </td>
-                  <td style={{ color: "black", fontSize: "17px" }}>
-                    {getAge(goat.dob)}
-                  </td>
-                  <td style={{ color: "black", fontSize: "17px" }}>
-                    {goat.weight} lbs
-                  </td>
-                  <td style={{ color: "black", fontSize: "17px" }}>
-                    {goat.tag}
-                  </td>
-                  <td style={{ color: "black", fontSize: "17px" }}>
-                    {goat.breed}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div onClick={() => Navigate("/animal-add")} className="livestock__add">
+          Add Animal
         </div>
+      </div>
+      {goats.length !== 0 || errorMessage ? (
+        <table className="livestock__table">
+          <thead>
+            <tr>
+              <th onClick={() => handleSort("name")}>
+                <div>
+                  Name
+                  <div className="livestock__sort">{sorter("name")}</div>
+                </div>
+              </th>
+              <th onClick={() => handleSort("age")}>
+                <div>
+                  Age
+                  <div className="livestock__sort">{sorter("age")}</div>
+                </div>
+              </th>
+              <th onClick={() => handleSort("weight")}>
+                <div>
+                  Weight
+                  <div className="livestock__sort">{sorter("weight")}</div>
+                </div>
+              </th>
+              <th onClick={() => handleSort("tag")}>
+                <div>
+                  Tag
+                  <div className="livestock__sort">{sorter("tag")}</div>
+                </div>
+              </th>
+              <th onClick={() => handleSort("breed")}>
+                <div>
+                  Breed
+                  <div className="livestock__sort">{sorter("breed")}</div>
+                </div>
+              </th>
+              {/* <th>Notes</th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {sortedGoats.map((goat) => (
+              <tr
+                onClick={(e) => (window.location = `/livestock/${goat.id}`)}
+                key={goat.id}
+              >
+                <td>{goat.name}</td>
+                <td>{getAge(goat.dob)}</td>
+                <td>{goat.weight} lbs</td>
+                <td>{goat.tag}</td>
+                <td>{goat.breed}</td>
+                {/* <td>{goat.notes}</td> */}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No matching results.</p>
       )}
     </>
   );

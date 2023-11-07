@@ -1,27 +1,27 @@
 import React from "react";
 import { FrontendAPI } from "../api.js";
 
-const Comment = ({reply}) => {
-
+const Comment = ({ comment }) => {
   // delete a post
-    const deleteComment = (id) => {
+  const deleteComment = (id) => {
     FrontendAPI.deleteComment(id);
   };
 
   return (
-    <div className='CommentContainer'>
-      <div className="replyHeader">
-      {reply.createdBy}
+    <div className="comment">
+      <div className="comment__header">
+        <div className="comment__title">{comment?.author.fname} {comment?.author.lname}</div>
+        {comment?.createdAt}
+        <button
+          className="comment__button button--delete"
+          onClick={() => deleteComment(comment.id)}
+        >
+          Delete
+        </button>
       </div>
-
-      <div className='Comment'>
-        {reply.body}</div> 
-      <div className='CommentTime'>
-        <div className='DateTime'>{reply.CreatedAt}</div>
-      </div>
-      <button className="deleteButton" onClick={() => deleteComment(reply.id)}>Delete</button>
+      <div className="comment__body">{comment?.body}</div>
     </div>
-  )
-}
+  );
+};
 
-export default Comment
+export default Comment;

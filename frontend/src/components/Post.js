@@ -2,11 +2,12 @@ import Comment from "./Comment";
 import React, { useState } from "react";
 import { FrontendAPI } from "../api.js";
 
-const Post = ({ post, replies, onPress }) => {
+const Post = ({ post, className }) => {
   const [PostReply, setPostReply] = useState(false);
+  const [Body, setBody] = useState("");
 
   const onClick = () => {
-    onPress();
+    createComment();
     setPostReply(!PostReply);
   };
 
@@ -15,20 +16,24 @@ const Post = ({ post, replies, onPress }) => {
     FrontendAPI.deletePost(id);
   };
 
+  const createComment = () => {
+    FrontendAPI.postComment(post.id, Body);
+  };
+
   return (
-    <div className="post">
+    <div className={"post " + className}>
       <div className="post__header">
-        {post.title}
-        <button className="poost__delete" onClick={() => deletePost(post.id)}>
+        <div className="post__title"> {post.title}</div>
+        <div>{post.name + " - " + post.createdAt}</div>
+        <button className="post__button button--delete" onClick={() => deletePost(post.id)}>
           Delete
         </button>
       </div>
       <hr></hr>
-      <div className="post__body">{post.body}</div>
-      <div className="post__time">
-        {post.name} {post.createdAt}{" "}
+      <div className="post__body">
+        {post.body}
         {!PostReply && (
-          <button onClick={() => setPostReply(true)} className="post__reply">
+          <button onClick={() => setPostReply(true)} className="post__button">
             Reply
           </button>
         )}
@@ -36,15 +41,20 @@ const Post = ({ post, replies, onPress }) => {
       <div className="post__reply`">
         {PostReply && (
           <>
-            <textarea className="ReplyBox" placeholder="Comment..." rows={5} />
-            <button onClick={onClick} className="ReplyButton">
+            <textarea
+              onChange={(e) => setBody(e.target.value)}
+              className="ReplyBox"
+              placeholder="Comment..."
+              rows={5}
+            />
+            <button onClick={onClick} className="post__button">
               Submit
             </button>
           </>
         )}
       </div>
-      {replies?.map((reply) => (
-        <Comment reply={reply} />
+      {post.comments?.map((reply) => (
+        <Comment comment={reply} />
       ))}
     </div>
   );

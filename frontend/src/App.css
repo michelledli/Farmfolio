@@ -3,32 +3,26 @@
  *******************************************************************/
 
 :root {
-  --color-blue: rgb(0, 0, 255);
-  --color-green: rgb(0, 255, 0);
-  --color-red: rgb(255, 0, 0);
-  --color-yellow: rgb(255, 255, 0);
-  --color-white: rgb(255, 255, 255);
-  --color-gray: rgb(127, 127, 127);
-  --color-black: rgb(0, 0, 0);
+  --color-blue: rgb(143, 190, 204);
+  --color-green: rgb(145, 201, 128);
+  --color-red: rgb(228, 100, 100);
+  --color-orange: rgb(243, 233, 170);
+  --color-white: rgb(247, 247, 247);
+  --color-gray: rgb(218, 218, 218);
+  --color-black: rgb(49, 49, 49);
+  --color-shadow: rgba(166, 166, 166, 0.25);
 }
 
 html {
   font-size: 10pt;
   color: var(--color-black);
+  background-color: var(--color-white);
 }
 
 * {
   padding: 0;
   margin: 0;
-}
-
-p {
   font-size: 1.5rem;
-  margin: 1rem;
-}
-
-main {
-  padding: 1rem;
 }
 
 .App-logo {
@@ -45,8 +39,14 @@ main {
   }
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .page {
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .page__header {
@@ -55,8 +55,15 @@ main {
   color: var(--color-white);
   text-align: center;
   background: var(--color-blue);
-  padding: 3rem;
-  /* margin-bottom: 2rem; */
+  padding: 4rem;
+  /* margin: 1.5rem; */
+  margin: 3rem 0;
+  border-radius: 0.5rem;
+}
+
+main {
+  flex: 1;
+  margin: 0 1.5rem;
 }
 
 .center {
@@ -64,6 +71,12 @@ main {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: var(--color-black);
 }
 
 /********************************************************************
@@ -103,11 +116,11 @@ main {
  *******************************************************************/
 
 nav {
+  position: sticky;
+  top: 0;
   color: var(--color-white);
   background-color: var(--color-green);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  box-shadow: 0px 0px 0.5rem 0.5rem var(--color-shadow);
 }
 
 nav ul {
@@ -118,8 +131,8 @@ nav ul {
 nav a {
   color: inherit;
   text-decoration: none;
-  font-size: 20px;
   font-weight: bold;
+  font-size: 1.5rem;
 }
 
 nav li {
@@ -164,7 +177,9 @@ footer {
   color: var(--color-white);
   background-color: var(--color-green);
   text-align: center;
-  padding: 1rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 /********************************************************************
@@ -232,16 +247,7 @@ footer {
   color: var(--color-white);
 }
 
-/* .forgot {
-  font-size: 15px;
-  margin-top: 3px;
-}
-
-.forgot:hover {
-  font-weight: bold;
-} */
-
-.login_button {
+.login__button {
   font-size: 18px;
   padding: 10px 15px;
   background: transparent;
@@ -256,287 +262,157 @@ footer {
 }
 
 /********************************************************************
- * Post.js
+ * Post.js / Comment.js
  *******************************************************************/
 
-.post {
-  background-color: var(--color-green);
-  padding: 0.25rem;
-  margin: 1rem;
-  padding: 1rem;
+.announcement {
+  background-color: var(--color-orange) !important;
 }
 
-.post__header {
-  font-size: 2rem;
+.post {
+  background-color: var(--color-gray);
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.post__header,
+.comment__header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  /* font-size: 1.25rem; */
+  font-weight: bold;
+}
+
+.post__title,
+.comment__title {
+  flex: 1;
+}
+
+.post__title {
+  font-size: 1.75rem;
+}
+
+.comment__title {
+  font-size: 1.25rem;
 }
 
 .post__body {
   display: flex;
   align-items: center;
+  margin: 1rem 0;
+  justify-content: space-between;
+  font-size: 1.5rem;
 }
 
-/* .CommentContainer {
-  flex: 1;
-  border-radius: 5px;
-  background-color: #dde6ed;
-  margin-top: 5px;
-  padding: 5px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 13px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  position: relative;
-  z-index: 2;
-} */
+.post__button,
+.comment__button {
+  display: block;
+  border: none;
+  padding: 0.5em;
+  margin-left: 1rem;
+  color: var(--color-white);
+  background-color: var(--color-black);
+  font-weight: bold;
+  border-radius: 0.5rem;
+}
 
-.deleteButton {
-  margin-right: 4px;
+.post__create {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.button--delete {
   background-color: var(--color-red);
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  font-family: "verdana";
 }
 
-.DateTime {
-  font-size: 10px;
-  font-weight: 300;
-  display: flex;
-  margin-right: auto;
-  align-items: center;
-}
-
-.AnnouncementCheckbox {
-  font-size: 15px;
-}
-
-.CreatePostButton {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #176a60;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.ReplyButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-right: 5px;
-  background-color: #176a60;
-  color: white;
-  border: none;
-  box-shadow: none;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 5px;
-  height: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 2px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-}
-
-.ReplyBox {
-  flex: 1;
-  border-radius: 5px;
-  background-color: #dde6ed;
-  margin-right: 10px;
-  margin-top: 5px;
-  box-sizing: border-box;
-  border: 2px solid #0000;
-  resize: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+.comment {
+  background-color: var(--color-white);
+  margin: 1rem 0;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
 }
 
 /********************************************************************
- * Post.js
+ * Livestock.js
  *******************************************************************/
 
-table {
-  border: 1px solid black;
-  border-spacing: 0;
+.livestock__table {
   border-collapse: collapse;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: auto;
+  min-width: 100%;
+  font-size: 1.25rem;
 }
 
-.link-no-underline {
-  text-decoration: none;
-  color: black;
-}
-
-th,
-td {
-  border: 1px solid #ccc;
-  padding: 5px;
-}
-
-.addButton {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  font-size: 12px;
-  font-weight: bold;
-  color: #7c9f9b;
-  height: 40px;
-  width: 60px;
-  margin-right: 5%;
-  margin-left: auto;
-}
-
-.instructionalText {
-  font-size: 12px;
-  color: #333;
-  margin-top: 10px;
-}
-
-.searchContainer {
-  display: flex;
-  align-items: center;
-}
-
-label {
-  margin-right: 8px;
-}
-
-.searchInputContainer {
-  display: flex;
-  align-items: center;
-}
-
-input {
-  flex: 1;
-  padding: 8px;
-}
-
-.searchButton {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  font-size: 12px;
-  font-weight: bold;
-  color: #7c9f9b;
-  height: 30px;
-  width: 60px;
-  margin-left: 5%;
-}
-
-.moreInfo {
-  margin-bottom: 20px;
-}
-.searchInputContainer {
-  display: flex;
-  align-items: center;
-}
-
-.searchContainer {
-  display: flex;
-  align-items: center;
-}
-
-/* Livestock Detail Page */
-.center-detail-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.detail-fields-title {
-  font-weight: bold;
-  padding: 3px;
-}
-
-/* Add User/Animal */
-.AddContainer {
-  margin-top: 30px;
-  margin-bottom: 20px;
-  background: #7c9f9b;
-  mix-blend-mode: normal;
-  border-radius: 10px;
-  padding: 40px 100px;
-  color: #ffffff;
-}
-
-.AddContainer input {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-#animal {
-  background-image: url(animals.jpeg);
-  background-position: center;
-  background-size: cover;
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
-
-.inputField {
-  padding: 13px;
-  border-radius: 12px;
-  border: 1px solid #8f8787;
-  font-size: 16px;
+.livestock__table th {
+  border-bottom: 2px solid var(--color-black);
   text-align: left;
 }
 
-.idcontainer {
-  margin-bottom: 10px;
+.livestock__table th > div {
   display: flex;
-  align-items: center;
 }
 
-#side-label {
+.livestock__table th:hover {
+  background-color: var(--color-gray);
+}
+
+.livestock__sort {
   display: inline-block;
+  margin-left: auto;
+  font-size: 0.75rem;
+  vertical-align: middle;
 }
 
-#idrow {
+.livestock tr {
+}
+
+.livestock__table tbody tr:hover {
+  background-color: var(--color-gray);
+}
+
+.livestock__table td,
+.livestock__table th {
+  padding: 1rem;
+  border: 2px solid var(--color-gray);
+}
+
+.livestock__add {
+  justify-content: center;
   display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-black);
+  background-color: var(--color-orange);
 }
 
-#idgroup {
-  width: 50%;
+/********************************************************************
+ * CreatePost.js
+ *******************************************************************/
+
+.create {
+  display: flex;
+  flex-direction: column;
 }
 
-#side {
-  width: 80%;
+.create > div {
+  text-align: center;
+  margin: 1.5rem;
 }
 
-.submit {
-  bottom: 30px;
-  padding: 10px 20px;
-  background-color: #176a60;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  align-items: center;
-  margin-top: 10px;
-  margin-left: 225px;
-}
-
-.AddContainer label {
-  margin-left: 5px;
-  margin-bottom: 2px;
-}
-
-.AddContainer textarea {
+.create input,
+.create textarea {
+  background-color: var(--color-white);
   width: 100%;
-  height: 100px;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
+  max-width: 100%;
+}
+
+.create__title {
+  background-color: var(--color-white);
 }
 
 .audit {
@@ -565,13 +441,6 @@ input {
   /* width: 50%; */
   white-space: nowrap;
   width: 1%;
-}
-
-hr {
-  border: none;
-  height: 2px;
-  width: 100%;
-  background-color: black;
 }
 
 /* .audit th {

@@ -2,17 +2,16 @@ import React from "react";
 import Post from "./Post";
 
 const Announcements = ({posts}) => {
-    console.log("Posts in PostList:", posts);
-  return (
+  const announcements = [];
+  posts.forEach((post) => post.announcement ? announcements.push(<Post post={post} className="announcement"/>) : null);
+
+  return announcements.length != 0 ? (
     <>
-      <h2>Announcements</h2>
       <ul>
-        {posts.map((post, index) => (
-          post.announcement && <Post post={post}/>
-        ))}
+        {announcements}
       </ul>
     </>
-  );
+  ) : null;
 };
 
 export default Announcements;
