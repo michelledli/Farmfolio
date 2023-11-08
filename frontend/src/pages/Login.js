@@ -52,7 +52,6 @@ export function Login() {
     }
   };
 
-  // hello Javi
   const onChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
     setShowError(false);
@@ -81,10 +80,7 @@ export function Login() {
             onChange={onChange}
             required
           />
-          {/* <div className="forgot">
-            <Link to="/forgot">Forgot Password</Link>
-          </div> */}
-          <button className="btn" type="submit">
+          <button className="login__button" type="submit">
             LOGIN
           </button>
           {showError ? (
@@ -92,7 +88,7 @@ export function Login() {
           ) : null}
         </form>
       </div>
-      <div className="center login__background"></div>
+      {/* <div className="center login__background"></div> */}
     </>
   );
 }

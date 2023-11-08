@@ -2,6 +2,9 @@ package com.iloveyou.entity;
 
 import java.util.Objects;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,6 +25,7 @@ public class Comment extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Account author;
 
     @Override

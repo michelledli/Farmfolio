@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -20,27 +23,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Post extends AbstractEntity {
-    private String title;      // the title text of the post
+    private String title; // the title text of the post
     private String body;
-    private String createdAt;    // the date and time the post was made
+    private String createdAt; // the date and time the post was made
     @Default
     private boolean announcement = false; // whether or not the Post is an Announcement
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Account author;
 
-    // @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Transient
     private List<Comment> comments = new ArrayList<>();
-    // @OneToMany(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "post_id", referencedColumnName = "id")
-    // private List<Comment> comments;
 
     @JsonGetter
     public List<Comment> getComments() {
         return this.comments;
     }
+
     @JsonIgnore
     public void setComments(List<Comment> list) {
         this.comments = list;
@@ -48,8 +49,10 @@ public class Post extends AbstractEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Post entity = (Post) o;
 
@@ -64,7 +67,7 @@ public class Post extends AbstractEntity {
     public int hashCode() {
         return Objects.hash(id, createdAt, title, body, announcement);
     }
-    
+
     @Override
     public String toString() {
         return super.toString();

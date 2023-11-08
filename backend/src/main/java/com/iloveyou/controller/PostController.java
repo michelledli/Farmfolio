@@ -100,8 +100,8 @@ public class PostController {
      * title:
      * }
      */
-    @PostMapping()
-    public ResponseEntity<?> createPost(@RequestBody Post post) {
+    @PostMapping
+    public Post createPost(@RequestBody Post post) {
         Account account = accountRepository.findById(post.getAuditId()).get();
 
         post.setAuthor(account);
@@ -112,7 +112,7 @@ public class PostController {
         String formattedDate = simpleDateFormat.format(currentDate);
         post.setCreatedAt(formattedDate);
 
-        return ResponseEntity.ok(postRepository.save(post));
+        return postRepository.save(post);
     }
 
     // DELETE /api/posts/:id

@@ -21,26 +21,32 @@ const AddUser = () => {
   return (
     <>
       <div className="page__header">Add User</div>
-      <div className="Add">
-        <div className="AddContainer">
-          <form style={{ width: "100%" }} onSubmit={sendAddUser}>
-            <div className="input">
+      <div>
+        <div>
+          <form className="user" onSubmit={sendAddUser}>
+            <div>
               <label className="label">First Name</label>
-              <input type="text" name="firstName" className="inputField" />
+              <input type="text" name="firstName" />
             </div>
-            <div className="input">
-              <label className="label">Last Name</label>
-              <input type="text" name="lastName" className="inputField" />
+            <div>
+              <label>Last Name</label>
+              <input type="text" name="lastName" />
             </div>
             <div className="input">
               <label className="label">Email</label>
-              <input type="text" name="email" className="inputField" />
+              <input type="text" name="email" />
             </div>
             <div className="input">
               <label className="label">Password</label>
-              <input type="password" name="password" className="inputField" />
+              <input type="password" name="password" />
             </div>
-            <button type="submit" className="submit">
+            <div>
+              <label>
+                <input type="checkbox" name="admin"></input>
+                &nbsp;Admin
+              </label>
+            </div>
+            <button className="user__button" type="submit">
               Submit
             </button>
           </form>

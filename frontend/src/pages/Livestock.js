@@ -97,18 +97,19 @@ export function Livestock() {
     <>
       <div className="page__header">Livestock Catalog</div>
       <div className="livestock__header">
-        <div className="searchInputContainer">
+      <div onClick={() => Navigate("/animal-add")} className="livestock__add">
+          +
+        </div>
+        <div className="livestock__search">
           <input
             type="text"
             value={search}
+            placeholder="Name or Tag"
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button onClick={handleSearch} className="searchButton">
-            Enter Search
+          <button onClick={handleSearch}>
+            Search
           </button>
-        </div>
-        <div onClick={() => Navigate("/animal-add")} className="livestock__add">
-          Add Animal
         </div>
       </div>
       {goats.length !== 0 || errorMessage ? (

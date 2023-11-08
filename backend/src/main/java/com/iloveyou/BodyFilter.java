@@ -66,16 +66,12 @@ public class BodyFilter extends OncePerRequestFilter {
 
 			String contentType = request.getHeader("Content-Type");
 
-			System.out.println(auditId);
-
 			if (contentType.contains("application/json")) {
 				ObjectMapper json = new ObjectMapper();
 				JsonNode node = json.readTree(this.cachedBody);
 				((ObjectNode) node).put("auditId", auditId);
 				this.cachedBody = json.writeValueAsBytes(node);
 			}
-
-			System.out.println(new String(this.cachedBody));
 		}
 
 		@Override

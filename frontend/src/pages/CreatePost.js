@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FrontendAPI } from "../api";
 
-const CreatePost = () => {
+const CreatePost = (isAdmin) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const navigate = useNavigate();
   const [announcement, setAnnouncement] = useState(false);
 
-  const handlePostCreate = (newPost) => {
-    FrontendAPI.postPost(newPost);
+  const handlePostCreate = async (newPost) => {
+    await FrontendAPI.postPost(newPost);
     navigate("/forum");
     window.location.reload();
   };
@@ -28,40 +28,42 @@ const CreatePost = () => {
   };
 
   return (
-    <>
+    <div className="create">
       <div className="page__header">Create Post</div>
-      <div className="create">
-        <div>
-          <input
-            className="create__title"
-            type="text"
-            placeholder="Title"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <textarea
-            className="create__body"
-            placeholder="Body"
-            onChange={(e) => setBody(e.target.value)}
-          ></textarea>
-        </div>
-        <div>
-          <label>
-            Announcement:
+      <div className="create__row">
+        <div className="create__label">Title</div>
+        <div
+          contentEditable
+          className="create__title"
+          onInput={(e) => setTitle(e.target.innerText)}
+        />
+      </div>
+      <div className="create__row">
+        <div className="create__label">Body</div>
+        <div
+          contentEditable
+          className="create__body"
+          onInput={(e) => {
+            setBody(e.target.innerText);
+          }}
+        ></div>
+      </div>
+      <div className="create__row create__buttons">
+        {isAdmin ? (
+          <label className="create__label">
             <input
+              id="isAnnouncement"
               type="checkbox"
               onChange={handleChange}
             />
+            &nbsp;Announcement
           </label>
-        </div>
-        <div>
-          <button onClick={handleCreatePost}>
-            Create Post
-          </button>
-        </div>
+        ) : null}
+        <button className="create__button" onClick={handleCreatePost}>
+          Create Post
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

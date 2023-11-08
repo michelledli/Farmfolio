@@ -4,7 +4,7 @@ import { FrontendAPI } from "../api.js";
 
 const Post = ({ post, className }) => {
   const [PostReply, setPostReply] = useState(false);
-  const [Body, setBody] = useState("");
+  const [text, setText] = useState("");
 
   const onClick = () => {
     createComment();
@@ -12,20 +12,25 @@ const Post = ({ post, className }) => {
   };
 
   // delete a post
-  const deletePost = (id) => {
-    FrontendAPI.deletePost(id);
+  const deletePost = async (id) => {
+    await FrontendAPI.deletePost(id);
+    window.location.reload();
   };
 
-  const createComment = () => {
-    FrontendAPI.postComment(post.id, Body);
+  const createComment = async () => {
+    await FrontendAPI.postComment(post.id, text);
+    window.location.reload();
   };
 
   return (
     <div className={"post " + className}>
       <div className="post__header">
         <div className="post__title"> {post.title}</div>
-        <div>{post.name + " - " + post.createdAt}</div>
-        <button className="post__button button--delete" onClick={() => deletePost(post.id)}>
+        <div className="post__stamp">{post.name + " - " + post.createdAt}</div>
+        <button
+          className="post__button button--delete"
+          onClick={() => deletePost(post.id)}
+        >
           Delete
         </button>
       </div>
@@ -41,11 +46,10 @@ const Post = ({ post, className }) => {
       <div className="post__reply`">
         {PostReply && (
           <>
-            <textarea
-              onChange={(e) => setBody(e.target.value)}
-              className="ReplyBox"
-              placeholder="Comment..."
-              rows={5}
+            <div
+              contentEditable
+              onInput={(e) => setText(e.target.innerText)}
+              className="post__comment"
             />
             <button onClick={onClick} className="post__button">
               Submit

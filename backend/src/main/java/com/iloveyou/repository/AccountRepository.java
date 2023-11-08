@@ -1,5 +1,6 @@
 package com.iloveyou.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.repository.CrudRepository;
@@ -12,7 +13,7 @@ import com.iloveyou.entity.Account;
 /**
  * User repository interface that includes default CRUD operations.
  */
-public interface AccountRepository extends CrudRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 	// Search for an Account by name or email
 	@Query("SELECT a FROM Account a WHERE "
 			+ "LOWER(a.fname) LIKE CONCAT('%', LOWER(?1),'%') OR "

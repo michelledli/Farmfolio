@@ -45,14 +45,33 @@ export const FrontendAPI = {
 
     return response.data;
   },
-    
+
+  getAccounts: async function() {
+    const response = await api.request({
+      url: "/api/accounts",
+      method: "GET"
+    })
+
+    return response.data;
+  },
+
+  getAccountsMe: async function() {
+    const response = await api.request({
+      url: "/api/accounts/me",
+      method: "GET"
+    })
+
+    return response.data;
+  },
+
   getSearchByNameOrTag: async function (query) {
     const response = await api.request({
       url: `/api/animals/search?query=${query}`,
       method: "GET",
     });
+
     return response.data;
-  },  
+  },
 
   getAnimalById: async function (id) {
     const response = await api.request({
@@ -61,7 +80,7 @@ export const FrontendAPI = {
     });
     return response.data;
   },
-  
+
   getAnimal: async function () {
     const response = await api.request({
       url: `/api/animals`,
@@ -70,11 +89,20 @@ export const FrontendAPI = {
     return response.data;
   },
 
-  getAdmin: async function () {
+  // getAdmin: async function () {
+  //   const response = await api.request({
+  //     url: `/admin`,
+  //     method: "GET",
+  //   });
+  //   return response.data;
+  // },
+
+  getAudit: async function () {
     const response = await api.request({
-      url: `/admin`,
-      method: "GET",
-    });
+      url: "/api/audit",
+      method: "GET"
+    })
+    
     return response.data;
   },
 
@@ -82,7 +110,7 @@ export const FrontendAPI = {
     const response = await api.request({
       url: `api/posts`,
       method: "GET",
-    })
+    });
     return response.data;
   },
 
@@ -110,7 +138,7 @@ export const FrontendAPI = {
         weight: animal.weight,
         tag: animal.tag,
         breed: animal.breed,
-        notes: animal.notes
+        notes: animal.notes,
       },
     });
 
@@ -122,9 +150,9 @@ export const FrontendAPI = {
       url: `/api/comments`,
       method: "POST",
       data: {
-        body: body, 
+        body: body,
         postId: post_id,
-      }
+      },
     });
 
     return response;
@@ -134,9 +162,7 @@ export const FrontendAPI = {
     const response = await api.request({
       url: `/api/posts`,
       method: "POST",
-      data: {body: post.body, 
-        title: post.title, 
-        announcement: post.a}
+      data: { body: post.body, title: post.title, announcement: post.a },
     });
 
     return response;
@@ -174,5 +200,12 @@ export const FrontendAPI = {
       url: `/api/comments/${id}`,
       method: "DELETE",
     });
-  }
+  },
+
+  deleteAccount: async function (id) {
+    const response = await api.request({
+      url: `/api/accounts/${id}`,
+      method: "DELETE"
+    })
+  },
 };

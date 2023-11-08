@@ -31,6 +31,18 @@ public class AccountController {
     @Autowired
     AccountRepository accountRepository;
 
+    @GetMapping
+    public ResponseEntity<?> getAccounts() {
+        Iterable<Account> a = accountRepository.findAll();
+
+        // if (a == null)
+        //     return new ResponseEntity<>(
+        //             "A user with the requested id was not found",
+        //             HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getAccount(@PathVariable Long id) {
         Account a = accountRepository.findById(id).orElse(null);
@@ -93,8 +105,11 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteAccount(@PathVariable("id") Long id) {
-        accountRepository.deleteById(id);
+    public ResponseEntity<?> deleteAccount(@PathVariable Long id) {
+        System.out.println(id);
+        accountRepository.delete(accountRepository.findById(id).orElse(null));
+
+        return ResponseEntity.ok("");
     }
 
     @PutMapping("/{id}")
@@ -120,5 +135,4 @@ public class AccountController {
         // return success
         return ResponseEntity.ok().build();
     }
-
 }

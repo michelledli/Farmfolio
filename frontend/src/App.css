@@ -19,6 +19,10 @@ html {
   background-color: var(--color-white);
 }
 
+body {
+  background-color: var(--color-white);
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -118,6 +122,7 @@ hr {
 nav {
   position: sticky;
   top: 0;
+  left: 0;
   color: var(--color-white);
   background-color: var(--color-green);
   box-shadow: 0px 0px 0.5rem 0.5rem var(--color-shadow);
@@ -243,10 +248,6 @@ footer {
   outline: none;
 }
 
-::placeholder {
-  color: var(--color-white);
-}
-
 .login__button {
   font-size: 18px;
   padding: 10px 15px;
@@ -295,10 +296,6 @@ footer {
   font-size: 1.75rem;
 }
 
-.comment__title {
-  font-size: 1.25rem;
-}
-
 .post__body {
   display: flex;
   align-items: center;
@@ -308,18 +305,21 @@ footer {
 }
 
 .post__button,
-.comment__button {
+.comment__button,
+.create__button,
+.detail__button,
+.user__button {
   display: block;
   border: none;
   padding: 0.5em;
-  margin-left: 1rem;
   color: var(--color-white);
   background-color: var(--color-black);
   font-weight: bold;
   border-radius: 0.5rem;
 }
 
-.post__create {
+.post__create,
+.livestock__add {
   display: block;
   font-size: 2rem;
   font-weight: bold;
@@ -328,6 +328,20 @@ footer {
 
 .button--delete {
   background-color: var(--color-red);
+}
+
+.post__stamp,
+.comment__stamp {
+  margin-right: 2rem;
+}
+
+.post__comment {
+  overflow-wrap: break-word;
+  outline: 2px solid var(--color-black);
+  background-color: var(--color-white);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
 }
 
 .comment {
@@ -342,6 +356,8 @@ footer {
  *******************************************************************/
 
 .livestock__table {
+  /* border: 1px solid var(--color-black); */
+  border-radius: 0.5rem;
   border-collapse: collapse;
   margin: auto;
   min-width: 100%;
@@ -349,7 +365,7 @@ footer {
 }
 
 .livestock__table th {
-  border-bottom: 2px solid var(--color-black);
+  /* border-bottom: 2px solid var(--color-black); */
   text-align: left;
 }
 
@@ -368,9 +384,6 @@ footer {
   vertical-align: middle;
 }
 
-.livestock tr {
-}
-
 .livestock__table tbody tr:hover {
   background-color: var(--color-gray);
 }
@@ -378,16 +391,41 @@ footer {
 .livestock__table td,
 .livestock__table th {
   padding: 1rem;
-  border: 2px solid var(--color-gray);
+  border-bottom: 2px solid var(--color-gray);
 }
 
 .livestock__add {
-  justify-content: center;
+  margin: 3rem 0;
+  padding: 1rem;
+  background-color: var(--color-gray);
+  border-radius: 0.5rem;
+}
+
+.livestock__search {
+  margin: 3rem 0;
   display: flex;
-  font-size: 12px;
-  font-weight: bold;
-  color: var(--color-black);
-  background-color: var(--color-orange);
+}
+
+.livestock__search input {
+  outline: 2px solid var(--color-black);
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--color-white);
+  padding: 1rem;
+  flex: 1;
+}
+
+.livestock__search input:focus-visible {
+  outline-width: 3px;
+}
+
+.livestock__search button {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  color: var(--color-white);
+  background-color: var(--color-black);
+  border: none;
+  border-radius: 0.5rem;
 }
 
 /********************************************************************
@@ -397,38 +435,242 @@ footer {
 .create {
   display: flex;
   flex-direction: column;
+  font-size: 1.75rem;
 }
 
-.create > div {
-  text-align: center;
-  margin: 1.5rem;
-}
-
-.create input,
-.create textarea {
+.create__title,
+.create__body {
+  overflow-wrap: break-word;
+  outline: 2px solid var(--color-black);
   background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.create__title:focus-visible,
+.create__body:focus-visible {
+  outline: 2px solid var(--color-black);
+}
+.create__label {
+  user-select: none;
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.create__row {
+  margin: 1.5rem auto;
   width: 100%;
-  max-width: 100%;
+  max-width: 50em;
 }
 
-.create__title {
+.create input[type="checkbox"],
+.user input[type="checkbox"] {
+  outline: 2px solid var(--color-black);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--color-white);
+  font: inherit;
+  color: currentColor;
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: translateY(-0.125rem);
+  display: inline-grid;
+  place-content: center;
+  margin: 1rem 0.25rem 0 0.5rem;
+  padding: 0;
+  border-radius: 0;
+}
+
+.create input[type="checkbox"]:focus,
+.user input[type="checkbox"]:focus {
+  text-decoration: underline;
+}
+
+.create input[type="checkbox"]::before,
+.user input[type="checkbox"]::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  transform: scale(0);
+  box-shadow: inset 1rem 1rem var(--color-black);
+  /* border-radius: 2px; */
+  transition: all var(--transition-time) ease-in-out;
+}
+
+.create input[type="checkbox"]:checked::before,
+.user input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.create__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/********************************************************************
+ * AddAnimal.js
+ *******************************************************************/
+
+.add {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  margin: 3rem;
+}
+
+.add > * {
+  margin: 0rem auto;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 50em;
+}
+
+.add > div > * {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.add label {
+  /* font-size: 2rem;; */
+  font-weight: bold;
+}
+
+.add input,
+.add textarea {
+  padding: 1rem;
+  outline: 2px solid var(--color-black);
+  border-radius: 0.5rem;
+  border: none;
   background-color: var(--color-white);
 }
+
+.add input:focus-visible {
+  outline-width: 3px;
+}
+
+.add button {
+  display: block;
+  border: none;
+  padding: 0.5em;
+  margin: 1rem auto;
+  color: var(--color-white);
+  background-color: var(--color-black);
+  font-weight: bold;
+  border-radius: 0.5rem;
+}
+
+/********************************************************************
+ * LivestockDetails.js
+ *******************************************************************/
+
+.detail {
+  font-size: 1.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail__table {
+  border-collapse: collapse;
+  /* margin: auto; */
+  /* max-width: 50em; */
+}
+
+.detail__table input {
+  /* overflow-wrap: break-word; */
+  box-sizing: border-box;
+  outline: 2px solid var(--color-black);
+  border: none;
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.detail__table td {
+  padding: 1rem 1rem;
+  border-bottom: 2px solid var(--color-gray);
+}
+
+.detail > * {
+  margin: auto;
+  margin-bottom: 3rem;
+}
+
+.detail__cancel,
+.detail__save {
+  display: inline-block;
+  margin: 1rem 1rem;
+}
+
+/********************************************************************
+ * AddUser.js
+ *******************************************************************/
+
+.user {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+
+.user > * {
+  margin: 0rem auto;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 50em;
+}
+
+.user > div > * {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.user label {
+  /* font-size: 2rem;; */
+  font-weight: bold;
+}
+
+.user input,
+.user textarea {
+  padding: 1rem;
+  outline: 2px solid var(--color-black);
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--color-white);
+}
+
+.user input:focus-visible {
+  outline-width: 3px;
+}
+
+.user__button {
+  margin-top: 1.5rem;
+}
+
+/********************************************************************
+ * AuditLog.js
+ *******************************************************************/
 
 .audit {
   margin: auto;
   white-space: nowrap;
-}
-
-.audit > table > tbody > tr:first-child > * {
-  border: none;
+  max-width: 50em;
 }
 
 .audit table {
   text-align: left;
   /* width: initial; */
-  margin: 2rem auto 2rem auto;
+  margin: 3rem auto;
   border: none;
+  padding: 2rem 0;
+  /* border: 2px solid var(--color-black); */
+  border-collapse: collapse;
 }
 
 .audit table table {
@@ -436,12 +678,76 @@ footer {
   margin: auto;
 }
 
+.audit table table tr:last-child > * {
+  border: none;
+}
+
 .audit th,
 .audit td {
   /* width: 50%; */
+  padding: 0.5rem;
   white-space: nowrap;
   width: 1%;
+  /* border-top: 1px solid var(--color-gray); */
+  border-bottom: 1px solid var(--color-gray);
 }
 
-/* .audit th {
-} */
+.audit thead > * {
+  border-bottom: 2px solid var(--color-black);
+}
+
+/********************************************************************
+ * Users.js
+ *******************************************************************/
+
+.users {
+  margin: auto;
+  white-space: nowrap;
+  max-width: 50em;
+}
+
+.users__user {
+  margin: 4rem 0;
+}
+
+.users table {
+  text-align: left;
+  border: none;
+  padding: 2rem 0;
+  border-collapse: collapse;
+  /* margin: 3rem 0; */
+}
+
+.users table button {
+  display: block;
+  margin-left: auto;
+}
+
+.users table table {
+  width: initial;
+  margin: auto;
+}
+
+.users table table tr:last-child > * {
+  border: none;
+}
+
+.users th,
+.users td {
+  /* width: 50%; */
+  padding: 0.5rem;
+  white-space: nowrap;
+  width: 1%;
+  border-bottom: 1px solid var(--color-gray);
+}
+
+.users__delete {
+  display: block;
+  border: none;
+  padding: 0.5em;
+  margin: 1rem 0 1rem auto;
+  color: var(--color-white);
+  background-color: var(--color-red);
+  font-weight: bold;
+  border-radius: 0.5rem;
+}
