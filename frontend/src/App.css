@@ -601,6 +601,8 @@ footer {
 }
 
 .detail__cancel,
+.detail__edit,
+.detail__delete,
 .detail__save {
   display: inline-block;
   margin: 1rem 1rem;

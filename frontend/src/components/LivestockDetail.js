@@ -106,6 +106,11 @@ function LivestockDetail() {
     setIsEditing(false);
   };
 
+  const handleDelete = () => {
+    FrontendAPI.deleteAnimal(id);
+    window.location.href = "/livestock";
+  };
+
   useEffect(() => {
     if (editedData.imageId) {
       axios.get(`/api/images/${editedData.imageId}`).then((response) => {
@@ -328,10 +333,15 @@ function LivestockDetail() {
             </button>
           </div>
         ) : (
+          <div>
           <button className="detail__button detail__edit" onClick={handleEdit}>
             Edit
           </button>
-        )}
+          <button className="detail__button detail__delete" onClick={() => {if(window.confirm("You are about to permanently delete this animal!")){handleDelete()};}}>
+            Delete
+          </button>
+          </div>
+        ) }
       </div>
     </>
   );

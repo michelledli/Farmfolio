@@ -188,6 +188,13 @@ export const FrontendAPI = {
   // DELETE methods
   // @@@@@@@@@@@@
 
+  deleteAnimal: async function (id) {
+    const response = await api.request({
+      url: `/api/animals/${id}`,
+      method: "DELETE"
+    });
+  },
+  
   deletePost: async function (id) {
     const response = await api.request({
       url: `/api/posts/${id}`,
