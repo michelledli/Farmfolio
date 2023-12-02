@@ -2,11 +2,15 @@
 
 ![](docs/assets/logo.png)
 
-Farmfolio is a web application designed to assist in livestock inventory tracking. The application displays animal profiles, which can hold names, date of birth, vaccination records, and lineage and other user-defined parameters. Users are also able to view the family tree of a given animal, allowing for a quick visual representation of lineage.
+---
 
-![](docs/assets/tree.png)
+Farmfolio is a web application designed to assist in livestock inventory tracking. The application displays animal profiles, which can hold names, date of birth, lineage and various other parameters.
 
-For interested students to participate and for the farm to operate efficiently, their efforts need to be coordinated within one system. The client doesn’t have a system to track student progress,limiting his ability to provide feedback and students develop their skills. This lack of structure and feedback may discourage student participation or lead to unproductive outcomes
+![](docs/assets/livestock.png)
+
+For interested students to participate and for the farm to operate efficiently, their efforts need to be coordinated within one system. In order to aid in this process, the application provides both a forum and an audit system to track changes. Since the client doesn’t currently have a system to track student progress, his ability to provide feedback and students to develop their skills is limited. This lack of structure and feedback may discourage student participation or lead to unproductive outcomes
+
+![](docs/assets/forum.png)
 
 ## Project Mission 
 
@@ -16,21 +20,21 @@ We plan on bringing these farmers a modernized inventory keeping application tha
 
 ## Developer Notes
 
-The application is built using an [ADR](https://github.com/pmjones/adr)  (Action-Domain-Responder) architectural pattern. Similar to an MVC pattern, the application is composed of three primary layers.
+The application is build using Spring and React. The frontend is a simple Single Page Application which targets the API provided the the Spring backend. The API itself was built using an MVC architectural pattern.
 
-The Action, generally implemented as a closure wraps the whole runtime of a given request. Both the Domain and Responder layers will be initiated from a given Action.
-
-The Domain layer of the application is composed of the "business application" section of the code. Any updates to the application itself will occurr within this layer. The Domain layer should not be concerned with the representation of HTTP Requests or Database operations.
-
-The Responder layer should only be concerned with the packaging of a given HTTP response. The results of the business layer code will be passed into a given responder, forming the response sent to the client.
+**Features**
+- JWT Authentication
+- H2 Embedded database
+- Hibernate ORM/JPA
+- 
 
 ### Backend
 ```
-// To compile
-mnv package
-
 // To run
-java -jar target/iloveyou-0.0.1.jar
+./mvnw spring-boot:run
+
+// To test
+./mvnw test
 ```
 ### Frontend
 ```
@@ -41,12 +45,25 @@ npm install
 npm start
 ```
 
-### Timeline 
+### Team
 
-**Sprint 5** - Finalize Backend API and ensure proper with Frontend
-**Sprint 6** - Working, simple implementation of all Frontend functionality. UI styles not required.
-**Sprint 7** - Complete Frontend UI
-**Sprint 8** - Final touches with a created 1.0 release version. Setup application hosting.
+Michelle Li - [michelledli@csus.edu](mailto:michelledli@csus.edu)
+
+Sahil Prasad - [sahilshanaveyprasad@csus.edu](mailto:sahilshanaveyprasad@csus.edu)
+
+Niketa Kosyuk - [nkosyuk@csus.edu](mailto:nkosyuk@csus.edu)
+
+Dat Mai - [datmai@csus.edu](mailto:datmai@csus.edu)
+
+Javier Briseno - [javierbriseno@csus.edu](mailto:javierbriseno@csus.edu)
+
+Jackson Martin - [jacksonmartin@csus.edu](mailto:jacksonmartin@csus.edu)
+
+Linh Dinh - [ldinh@csus.edu](mailto:ldinh@csus.edu)
+
+Ethan Werner - [ewerner@csus.edu](mailto:ewerner@csus.edu)
+
+
 
 
 
